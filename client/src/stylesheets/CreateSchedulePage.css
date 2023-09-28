@@ -1,0 +1,85 @@
+form.new__schedule {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.create-btn {
+    align-self: end;
+    margin-top: .4rem;
+}
+
+.create-btn.unavailable {
+    text-align: center;
+    cursor: default;
+    filter: opacity(0.25);
+    user-select: none;
+}
+
+form.new__schedule select option{
+    background-color: var(--clr-white);
+}
+
+form.new__schedule input, form.new__schedule select{
+    height: 40px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(35, 39, 42, 0.25);
+}
+
+.lessonInput__wrapper {
+    border: 1px solid var(--clr-red);
+    padding: 8px;
+    border-radius: 5px;
+    background-color: var(--clr-red);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lessonInput__title {
+    color: var(--clr-white);
+    padding-left: 12px;
+    padding-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.lessonInput__wrapper svg {
+    width: 20px;
+    transition: transform 0.3s;
+}
+
+.lessonInput__wrapper svg.rotate {
+    transform: rotate(-180deg);
+}
+
+.lessonInput__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.lessonInput__info.hidden {
+    display: none;
+}
+
+.lessonInput__wrapper input, .lessonInput__wrapper select {
+    background-color: rgb(163, 171, 254);
+    color: var(--clr-white);
+    border: none;
+}
+
+.lessonInput__wrapper input::placeholder {
+    color: var(--clr-white);
+    opacity: 1;
+}
+
+.lessonInput__wrapper select option {
+    padding: 20px;
+    color: black;
+}

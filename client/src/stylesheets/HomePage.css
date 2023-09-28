@@ -1,0 +1,377 @@
+/*   #region welcome page   */
+
+main.welcome {
+  background-color: var(--clr-red);
+}
+
+.welcome__page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--size-2xl);
+  margin-top: 5rem;
+}
+
+.welcome__image img {
+  max-width: 100%;
+}
+
+.welcome__text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: var(--size-xxs);
+}
+
+.welcome__line__one {
+  display: flex;
+  gap: var(--size-xxs)
+}
+
+.welcome__page h1 {
+  display: inline-block;
+  color: var(--clr-white);
+  position: relative;
+  white-space: nowrap;
+}
+
+.welcome__page h1:after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: var(--clr-underline-yellow);
+}
+
+.welcome__page h1.underline {
+  display: inline-block;
+  color: var(--clr-white);
+  position: relative;
+}
+
+.welcome__page h1.underline:after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: var(--clr-underline-blue);
+}
+
+.welcome__page h1.blank:after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.btn.begin {
+  border-radius: 50px;
+  margin-top: var(--size-3xl);
+  align-self: center;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-shadow: 0 4px 0 var(--clr-underline-blue);
+}
+
+.btn.begin:active {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0 var(--clr-underline-blue);
+}
+
+/*   #endregion   */
+
+/*   #region schedule   */
+
+.homepage__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-base);
+}
+
+/*   #region filter   */
+
+.filter__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--size-xs);
+}
+
+.btn.filter.chosen {
+  color: var(--clr-white);
+  background-color: var(--clr-red);
+}
+
+.days__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day__filter {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--clr-grey);
+  font-size: var(--size-sm);
+}
+
+.day__filter.chosen {
+  color: black;
+  font-size: var(--size-sm);
+  position: relative;
+}
+
+.day__filter.chosen:after{
+  content: "";
+  position: absolute;
+  width: calc(100% + 4px);
+  bottom: -0.3rem;
+  left: -2px;
+  height: 2.5px;
+  background-color: var(--clr-red);
+}
+
+/*   #endregion   */
+
+/*   #region lessons  */
+
+.lessons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-base);
+  margin-bottom: var(--size-base);
+}
+
+.lesson__wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2xl);
+}
+
+.status__dot {
+  height: 20px; 
+  min-width: 20px;
+  border-radius: 10px;
+  position: relative;
+  border: 4px solid var(--clr-grey);
+  background-color: var(--clr-white);
+}
+
+.status__dot.soon {
+  border: 4px solid var(--clr-yellow);
+}
+
+.status__dot.ongoing {
+  background-color: var(--clr-yellow);
+  border: 4px solid var(--clr-yellow);
+}
+
+.status__dot.finished {
+  background-color: var(--clr-green);
+  border: 4px solid var(--clr-green);
+}
+
+.status__dot:after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 4px;
+  height: 120px;
+  width: 4px;
+  background-color: var(--clr-grey);
+}
+
+.status__dot.finished:after {
+  background-color: var(--clr-green);
+}
+
+.status__dot.last:after {
+  height: 80px;
+  background-color: var(--clr-white);
+}
+
+.status__dot.ongoing.last:after {
+  display: none;
+}
+
+.lesson {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+  background-color: var(--clr-white);
+  box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
+  animation: disappear 0.3s;
+}
+
+.lesson.opened {
+  animation: appear 0.3s;
+}
+
+@keyframes appear {
+  from {
+    height: 80px;
+  }
+  to {
+    height: 100px;
+  }
+}
+@keyframes disappear {
+  from {
+    height: 100px;
+  }
+  to {
+    height: 80px;
+  }
+}
+
+.lesson__preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lesson__inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lesson__inner.hidden {
+  display: none;
+}
+
+.btn.doc__btn {
+  padding: 8px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.lesson__inner svg {
+  width: 25px;
+}
+
+.btn.colored.inactive {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.lesson__preview .name {
+  padding-left: 4px;
+  width: 100%;
+  display: flex;
+  font-weight: 800;
+  border-radius: 10px;
+  color: black;
+  background-color: var(--clr-third);
+}
+
+.lesson__preview .time {
+  text-align: center;
+  font-weight: 800;
+  color: #DEDEDE;
+}
+
+/*   #endregion  */
+
+/*   #endregion   */
+
+/*   #region weekend    */
+
+.weekend__wrapper {
+  height: calc(100vh - 179px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-base);
+}
+
+.weekend {
+  font-size: var(--size-xl);
+  text-align: center;
+  color: black;
+  opacity: 0.25;
+}
+
+.weekend__hw {
+  text-align: center;
+}
+
+/*   #endregion    */
+
+/*   #region queries    */
+
+@media (min-width: 425px) {
+
+}
+
+@media (min-width: 768px) {
+  .welcome__page {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-2xl);
+  }
+  .welcome__image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    order: 2;
+  }
+  .welcome__image img {
+    max-width: none;
+    position: absolute;
+    bottom: -286px;
+    right: -300px;
+    width: 900px;
+  }
+  .btn.begin {
+    align-self: self-start;
+    margin-left: var(--size-7xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .welcome__page {
+    margin-top: 10rem;
+  }
+  .welcome__page h1 {
+    font-size: var(--size-4xl);
+  }
+  .welcome__page h1:after {
+    top: 45px;
+  }  
+  .welcome__page h1.underline:after {
+    top: 45px;
+  }
+  .welcome__page h1.blank:after {
+    top: 45px;
+  }
+}
+
+@media (min-width: 1280px) {
+
+}
+
+@media (min-width: 1440px) {
+
+}
+
+/*   #endregion    */

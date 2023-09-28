@@ -1,0 +1,155 @@
+header.container {
+  position: relative;
+  display: flex;
+  z-index: 1;
+  justify-content: space-between;
+  padding-top: var(--size-2xl);
+  padding-bottom: var(--size-2xl);
+  align-items: center;
+}
+
+header.welcome {
+  background-color: var(--clr-red);
+}
+
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header a.logo{
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--clr-red);
+  font-size: var(--size-3xl);
+}
+
+header a.logo.welcome{
+  color: var(--clr-white);
+}
+
+header nav{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+header .account__nav {
+  position: relative;
+}
+
+.account__nav .account__btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+header .btn.simple {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--size-xxxs);
+  background-color: transparent;
+  color: var(--clr-btn);
+}
+
+header .btn.simple:hover {
+  color: var(--clr-btn);
+  background-color: transparent;
+}
+
+header .btn.simple svg {
+  width: 15px;
+}
+
+.dropdown {
+  top: 48px;
+  width: auto;
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 2.5px 0 5px 0;
+  /* offset-x | offset-y | blur-radius | color */
+  box-shadow: 0px 0px 15px rgb(0,0,0,0.1);
+  background-color: var(--clr-white);
+}
+
+.dropdown.open {
+  right: 0;
+  display: flex;
+  opacity: 1;
+  animation: nav__appear 0.5s;
+}
+
+.dropdown.close {
+  display: none;
+}
+
+@keyframes nav__appear{
+  from {
+      right: -20px;
+      opacity: 0;
+  }
+  to {
+      right: 0;
+      opacity: 1;
+  }
+}
+
+.profilePic {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:cadetblue;
+  border-radius: 20px ;
+}
+
+.profilePic img {
+  width: 40px;
+  border-radius: 20px;
+}
+
+.letter {
+  text-transform: capitalize;
+  color: var(--clr-white);
+}
+
+.account__nav .dropdown .account__btn {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: default;
+  margin: 5px 15px;
+}
+
+.dropdown .profileName {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dropdown .dropdown__anchor {
+  display: flex;
+  gap: var(--size-xl);
+  align-items: center;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 5px 15px 5px 25px;
+}
+
+.dropdown .dropdown__anchor svg {
+  width: 20px;
+}
+
+.dropdown .dropdown__anchor:hover {
+  background-color: rgb(235, 235, 235, 0.6);
+}
+
+.userGroup {
+  font-size: var(--size-xs);
+  line-height: 20px;
+}
