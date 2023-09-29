@@ -15,10 +15,10 @@ form.login, form.register {
     gap: var(--size-xxs);
 }
 
-form.login input, form.register input {
-
+.name__input__wrapper {
+    display: flex;
+    gap: var(--size-xxs);
 }
-
 
 form.password__recovery {
     max-width: 500px;

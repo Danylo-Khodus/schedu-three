@@ -192,13 +192,9 @@ main.welcome {
   background-color: var(--clr-green);
 }
 
-.status__dot.last:after {
+.status__dot.last:after, .status__dot.soon.last:after, .status__dot.ongoing.last:after, .status__dot.finished.last:after{
   height: 80px;
   background-color: var(--clr-white);
-}
-
-.status__dot.ongoing.last:after {
-  display: none;
 }
 
 .lesson {

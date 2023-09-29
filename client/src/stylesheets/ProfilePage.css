@@ -9,6 +9,17 @@
     justify-content: center;
 }
 
+.profileImage__wrapper .letter {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color:cadetblue;
+
+    font-size: var(--size-9xl);
+    text-align: center;
+    padding-top: 70px;
+}
+
 .profileImage {
     width: 200px;
     height: 200px;
@@ -41,8 +52,10 @@
 }
 
 .name__wrapper {
+    height: 55px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
     gap: var(--size-xxs);
 }

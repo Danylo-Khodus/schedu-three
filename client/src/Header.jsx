@@ -1,7 +1,7 @@
 import './stylesheets/Header.css';
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
 export default function Header () {
@@ -9,7 +9,7 @@ export default function Header () {
   const {setUserInfo, userInfo} = useContext(UserContext);
 
   useEffect(() => {
-    fetch('http://localhost:4000/profile',  {credentials: 'include'})
+    fetch('http://localhost:4000/api/profile',  {credentials: 'include'})
     .then(response => {
         response.json().then(profileInfo => {
           setUserInfo(profileInfo);
@@ -18,14 +18,16 @@ export default function Header () {
   }, []);
 
   function logout() {
-    fetch('http://localhost:4000/logout', {
+    fetch('http://localhost:4000/api/logout', {
       credentials: 'include',
       method: 'POST'
     });
     setUserInfo(null);
+    useNavigate('/');
   }
 
   const userFirstName = userInfo?.firstName;
+  const firstLetter = Array.from(`${userFirstName}`)[0];
   const userGroup = userInfo?.group;
 
   const [shown, setShown] = useState(false);
@@ -54,21 +56,13 @@ export default function Header () {
             <div className="account__nav" ref={menuRef}>
               <div className="account__btn" onClick={() => setShown(prev => !prev)}>
                 <div className="profilePic">
-                  {userInfo.image ? 
-                  <img src={'http://localhost:4000/'+ userInfo.image} alt="" /> 
-                  : 
-                  <p className='letter'>Д</p>
-                  }
+                  <p className='letter'>{firstLetter}</p>
                 </div>
               </div>
               <div className= {`dropdown ${shown ? 'open' : 'close'}`}>
                 <div className="account__btn">
                   <div className="profilePic">
-                  {userInfo.image ? 
-                  <img src={'http://localhost:4000/'+ userInfo.image} alt="" /> 
-                  : 
-                  <p className='letter'>Д</p>
-                  }
+                    <p className='letter'>{firstLetter}</p>
                   </div>
                   <div className='profileInfo'>
                     <p className='profileName'>{userFirstName}</p>

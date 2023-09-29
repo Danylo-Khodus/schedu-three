@@ -7,7 +7,7 @@ import { UserContext } from "../UserContext";
 export default function LoginPage() {
 
     const [userData, setUserData] = useState({
-        username: '',
+        email: '',
         password: '',
     });
 
@@ -22,7 +22,7 @@ export default function LoginPage() {
         if (requirements) {
             ev.preventDefault();
 
-            const response = await fetch('http://localhost:4000/login', {
+            const response = await fetch('http://localhost:4000/api/login', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'},
@@ -64,8 +64,8 @@ export default function LoginPage() {
             <h1 className='section__title'>Вхід</h1>
             <div className='login__inputs'>
                 <input type="text" 
-                    placeholder="Ім'я *" 
-                    name='username'
+                    placeholder="Електронна пошта *" 
+                    name='email'
                     onChange={processChange}/>
                 <input type="password" 
                     placeholder="Пароль *" 

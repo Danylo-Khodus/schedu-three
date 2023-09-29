@@ -99,7 +99,6 @@ header .btn.simple svg {
 }
 
 .profilePic {
-  min-width: 40px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -111,6 +110,7 @@ header .btn.simple svg {
 
 .profilePic img {
   width: 40px;
+  height: 40px;
   border-radius: 20px;
 }
 

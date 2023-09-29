@@ -1,43 +1,53 @@
-import {useState} from "react";
-import { Link } from "react-router-dom";
+import {useState, useContext} from "react";
+import {Navigate, Link } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 export default function RegisterPage() {
 
+    const {setUserInfo} = useContext(UserContext);
+
     const [userData, setUserData] = useState({
-        username: '',
+        email: '',
         password: '',
-        firstName: 'новачок',
+        firstName: '',
         lastName: '',
-        group: '--',
-        image: '',
+        group: '',
     });
+
+    const group__options = [
+        {label: "Обрати клас *...",value: "initial",},
+        {label: "3-В",value: "3-В",},
+        {label: "3-Г",value: "3-Г",},
+    ];
+
+    const [redirect, setRedirect] = useState(false);
 
     async function register(ev) {
 
-        const blank = (userData.password == '');
+        const blank = (userData.password === '' || userData.email === '' || userData.firstName === '' || userData.group === '');
 
         if (blank) {
-            alert('Please enter username and password to sign up.');
+            alert('Будь-ласка, вказуйте усю інформацію необхідну для реєстрації.');
         } else {
+            ev.preventDefault();
+            const response = await fetch('http://localhost:4000/api/register', {
+                method: 'POST',
+                body: JSON.stringify(userData),
+                headers: {'Content-Type':'application/json'}
+            });
+            if (response.status === 200) {
 
-            const length = userData.username.length;
-
-            if (length >= 4 && length <= 20) {
-                ev.preventDefault();
-                const response = await fetch('http://localhost:4000/register', {
-                    method: 'POST',
-                    body: JSON.stringify({userData}),
-                    headers: {'Content-Type':'application/json'}
-                });
-                if (response.status === 200) {
-                    alert('Registration successful!');
-                } else {
-                    alert('Registration failed! Username is already occupied.');
-                }
+                alert('Реєстрація пройшла успішно!');
+                setRedirect(true);
+                
             } else {
-                alert('Username should not be less then 4 and more then 20 characters long.');
+                alert('Нaведена електронна пошта вже використовується.');
             }
         }
+    }
+
+    if (redirect) {
+        return <Navigate to={'/login'} />
     }
 
     return(
@@ -45,9 +55,27 @@ export default function RegisterPage() {
         <form className="register" onSubmit={register}>
             <h1 className="section__title">Реєстрація</h1>
             <div className="register__inputs">
+                <div className="name__input__wrapper">
+                    <input type="text" 
+                        placeholder="Ім'я *"
+                        name="firstName"
+                        onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
+                    <input type="text" 
+                        placeholder="Прізвище"
+                        name="lastName"
+                        onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
+                </div>
+                <select name='group'
+                        onChange={(ev)=> setUserData({
+                            ...userData,
+                            [ev.target.name]:ev.target.value,})}>
+                    {group__options.map((option) => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
                 <input type="text" 
-                    placeholder="Ім'я *"
-                    name="username"
+                    placeholder="Електронна пошта *"
+                    name="email"
                     onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
                 <input type="password" 
                     placeholder="Пароль *"

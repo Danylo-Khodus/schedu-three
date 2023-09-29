@@ -1,15 +1,13 @@
-import { lazy } from 'react';
-
 import './stylesheets/styles.css';
 import './stylesheets/utils.css';
 
 import Layout from './Layout';
 import HomePage from './pages/HomePage';
-const LoginPage = lazy(() => import('./pages/LoginPage'));
-const ProfilePage = lazy(() => import('./pages/ProfilePage'));
-const RegisterPage = lazy(() => import('./pages/RegisterPage'));
-const HomeworkPage = lazy(() => import('./pages/HomeworkPage'));
-const CreateArticlePage = lazy(() => import('./pages/CreateSchedulePage'));
+import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
+import RegisterPage from './pages/RegisterPage';
+import HomeworkPage from './pages/HomeworkPage';
+import CreateArticlePage from './pages/CreateSchedulePage';
 
 import {Route, Routes} from "react-router-dom";
 import { UserContextProvider } from './UserContext';

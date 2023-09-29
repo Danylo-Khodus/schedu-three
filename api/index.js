@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const app = express();
 const User = require('./models/User');
 const Homework = require('./models/Homework.js');
@@ -8,35 +9,23 @@ const Schedule = require('./models/Schedule');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const multer = require('multer');
-const uploadMiddleware = multer({ dest: 'uploads/' });
-const fs = require('fs');
-const { scheduler } = require('timers/promises');
 
 const salt = bcrypt.genSaltSync(10);
 const secret = 'ad7as6fa8f7sa8f6sfdsfaa6f796af7d6a9f7da6f9d7a6f9';
 
+dotenv.config();
 app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 app.use(express.json());
 app.use(cookieParser());
-// app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://danylokhodus:LOatJ5bsGiWcMYBj@cluster0.h0hwlgk.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGO_URL);
 
-app.post('/register', async (req,res) => {
-    const {userData} = req.body;
-    const username = userData.username;
-    const password = userData.password;
-    const firstName = userData.firstName;
-    const lastName = userData.lastName;
-    const group = userData.group;
-    const image = userData.image;
-
+app.post('/api/register', async (req,res) => {
+    const {email, password, firstName, lastName, group} = req.body;
     try{
         const userDoc = await User.create({
-            username,
+            email,
             password: bcrypt.hashSync(password,salt),
-            image,
             firstName,
             lastName,
             group,
@@ -47,32 +36,32 @@ app.post('/register', async (req,res) => {
     }
 });
 
-app.post('/login', async (req,res) => {
-    const {username,password} = req.body;
-    const userDoc = await User.findOne({username});
+app.post('/api/login', async (req,res) => {
+    const {email,password} = req.body;
+    const userDoc = await User.findOne({email});
     if (!userDoc) {
-        res.status(400).json('wrong credentials');
+        res.status(400).json('User was not found');
     } else {
         const passOk = bcrypt.compareSync(password, userDoc.password);
         if (passOk) {
-            jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
+            jwt.sign({email,id:userDoc._id}, secret, {}, (err,token) => {
                 if (err) throw err;
                 res.cookie('token', token).json({
                     id:userDoc._id,
-                    username,
+                    email,
                 });
             });
         } else {
-            res.status(400).json('wrong credentials');
+            res.status(400).json('Password issue.');
         }
     }
 });
 
-app.post('/logout', (req,res) => {
+app.post('/api/logout', (req,res) => {
     res.cookie('token', '').json('ok');
 });
 
-app.get('/profile', async (req,res) => {
+app.get('/api/profile', async (req,res) => {
 
     const token = req.cookies?.token;
     if (token) {
@@ -87,15 +76,7 @@ app.get('/profile', async (req,res) => {
     }
 });
 
-app.put('/profile', async (req,res) => {
-    // let newPath = null;
-    // if (req.file) {
-    //     const {originalname, path} =  req.file;
-    //     const parts = originalname.split('.');
-    //     const ext = parts[parts.length - 1];
-    //     newPath = path + '.' + ext;
-    //     fs.renameSync(path, newPath);
-    // }
+app.put('/api/profile', async (req,res) => {
 
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err,info) => {
@@ -106,7 +87,6 @@ app.put('/profile', async (req,res) => {
         const profileDoc = await User.findOne({username});
         
         await profileDoc.updateOne({
-            // image: newPath ? newPath : profileDoc.image,
             firstName,
             lastName,
             group,
@@ -116,7 +96,7 @@ app.put('/profile', async (req,res) => {
     });
 });
 
-app.post('/create-schedule', async (req, res) => {
+app.post('/api/create-schedule', async (req, res) => {
     const {group, date, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix} = req.body;
     const scheduleDoc = await Schedule.create({
         group,
@@ -161,17 +141,17 @@ app.post('/create-schedule', async (req, res) => {
     res.json(scheduleDoc);
 });
 
-app.get('/schedule', async (req, res) => {
+app.get('/api/schedule', async (req, res) => {
     const today = new Date();
     const rawScheduleData = await Schedule.find();
     res.json(rawScheduleData);
 });
 
-app.delete('/schedule', async (req, res)=> {
+app.delete('/api/schedule', async (req, res)=> {
 
 });
 
-app.post('/homework', async (req, res) => {
+app.post('/api/homework', async (req, res) => {
     const {group, subject, homework} = req.body;
     const homeworkDoc = await Homework.create({
         group,
@@ -181,7 +161,7 @@ app.post('/homework', async (req, res) => {
     res.json(homeworkDoc);
 });
 
-app.get('/homework', async (req, res) => {
+app.get('/api/homework', async (req, res) => {
     res.json(await Homework.find());
 });
 

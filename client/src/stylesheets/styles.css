@@ -96,12 +96,12 @@ strong {
     margin-left: var(--size-xxxs);
 }
 
-input {
-    height: 34px;
-    width: 100%;
+input, select {
     display: block;
-    padding: 5px 7px;
     background-color: #fff;
-    border: 2px solid #ddd;
-    border-radius: 10px;
+    height: 40px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(35, 39, 42, 0.25);
 }

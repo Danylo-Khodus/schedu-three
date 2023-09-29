@@ -78,7 +78,7 @@ export default function CreateArticlePage() {
 
     function createNewSchedule(ev) {
        ev.preventDefault();
-       const response = fetch('http://localhost:4000/create-schedule', {
+       const response = fetch('http://localhost:4000/api/create-schedule', {
        method: 'POST',
        body: JSON.stringify(schedule),
        headers: {'Content-Type':'application/json'}
