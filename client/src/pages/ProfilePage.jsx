@@ -28,20 +28,20 @@ export default function ProfilePage() {
         {label: "3-В", value: "3-В",},
     ];
 
-    const  inputRef = useRef();
+    // const  inputRef = useRef();
 
     const [changing, setChanging] = useState(false);
 
-    const [imageChanged, setImageChanged] = useState(false);
+    // const [imageChanged, setImageChanged] = useState(false);
 
-    function handleFileInput(ev) {
-        setImageChanged(true);
-        setUserData({...userData, [ev.target.name]: ev.target.files[0]});
-    }
+    // function handleFileInput(ev) {
+    //     setImageChanged(true);
+    //     setUserData({...userData, [ev.target.name]: ev.target.files[0]});
+    // }
 
     async function Update(ev) {
         const data = new FormData();
-        data.set('image', userData.image);
+        // data.set('image', userData.image);
         data.set('firstName', userData.firstName);
         data.set('lastName', userData.lastName);
         data.set('group', userData.group);
@@ -65,14 +65,14 @@ export default function ProfilePage() {
         <>
             <h1 className='section__h1'>Мій профіль</h1>
             <div className="profile__wrapper">
-                <div className="profileImage__wrapper">
+                {/* <div className="profileImage__wrapper">
                     <img className='profileImage' src={imageChanged ? URL.createObjectURL(userData.image) : 'http://localhost:4000/'+ userData.image} alt="image" onClick={() => {inputRef.current.click(); setChanging(true);}}/>
                     <input type="file"
                            name='image'
                            style={{ display: 'none'}}
                            ref={inputRef} 
                            onChange={handleFileInput}/>
-                </div>
+                </div> */}
                 {changing && (
                         <form className="profileInfo__wrapper" onSubmit={Update}>
                         <div className="nameInfo__wrapper">

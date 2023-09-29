@@ -19,7 +19,7 @@ const secret = 'ad7as6fa8f7sa8f6sfdsfaa6f796af7d6a9f7da6f9d7a6f9';
 app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads', express.static(__dirname + '/uploads'));
+// app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://danylokhodus:LOatJ5bsGiWcMYBj@cluster0.h0hwlgk.mongodb.net/?retryWrites=true&w=majority');
 
@@ -87,15 +87,15 @@ app.get('/profile', async (req,res) => {
     }
 });
 
-app.put('/profile', uploadMiddleware.single('image'), async (req,res) => {
-    let newPath = null;
-    if (req.file) {
-        const {originalname, path} =  req.file;
-        const parts = originalname.split('.');
-        const ext = parts[parts.length - 1];
-        newPath = path + '.' + ext;
-        fs.renameSync(path, newPath);
-    }
+app.put('/profile', async (req,res) => {
+    // let newPath = null;
+    // if (req.file) {
+    //     const {originalname, path} =  req.file;
+    //     const parts = originalname.split('.');
+    //     const ext = parts[parts.length - 1];
+    //     newPath = path + '.' + ext;
+    //     fs.renameSync(path, newPath);
+    // }
 
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err,info) => {
@@ -106,13 +106,13 @@ app.put('/profile', uploadMiddleware.single('image'), async (req,res) => {
         const profileDoc = await User.findOne({username});
         
         await profileDoc.updateOne({
-            image: newPath ? newPath : profileDoc.image,
+            // image: newPath ? newPath : profileDoc.image,
             firstName,
             lastName,
             group,
         });
 
-        res.json(profileDoc.image);
+        res.json(profileDoc);
     });
 });
 
