@@ -58,7 +58,7 @@ export default function Schedule ({group, date, lessonOne, lessonTwo, lessonThre
 
         function postHomework() {
             if (lesson.homework !== '') {
-                fetch('https://schedu-two.vercel.app/api/homework', {
+                fetch('https://schedu-three.vercel.app/api/homework', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {'Content-Type':'application/json'}

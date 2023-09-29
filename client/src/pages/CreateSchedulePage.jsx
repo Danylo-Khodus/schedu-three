@@ -78,7 +78,7 @@ export default function CreateArticlePage() {
 
     function createNewSchedule(ev) {
        ev.preventDefault();
-       const response = fetch('https://schedu-two.vercel.app/api/create-schedule', {
+       const response = fetch('https://schedu-three.vercel.app/api/create-schedule', {
        method: 'POST',
        body: JSON.stringify(schedule),
        headers: {'Content-Type':'application/json'}
