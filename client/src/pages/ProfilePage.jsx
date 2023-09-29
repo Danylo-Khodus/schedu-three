@@ -14,7 +14,7 @@ export default function ProfilePage() {
     const firstLetter = Array.from(`${userData.firstName}`)[0];
 
     useEffect(() => {
-      fetch('http://localhost:4000/api/profile',  {credentials: 'include'})
+      fetch('https://schedu-two.vercel.app/api/profile',  {credentials: 'include'})
       .then(response => {
           response.json().then(profileInfo => {
             setUserData(profileInfo);
@@ -34,7 +34,7 @@ export default function ProfilePage() {
     async function Update(ev) {
 
         ev.preventDefault();
-        const response = await fetch('http://localhost:4000/api/profile', {
+        const response = await fetch('https://schedu-two.vercel.app/api/profile', {
             method: 'PUT',
             body: JSON.stringify(userData),
             headers: {'Content-Type':'application/json'},

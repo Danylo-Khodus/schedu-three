@@ -9,7 +9,7 @@ export default function Header () {
   const {setUserInfo, userInfo} = useContext(UserContext);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/profile',  {credentials: 'include'})
+    fetch('https://schedu-two.vercel.app/api/profile',  {credentials: 'include'})
     .then(response => {
         response.json().then(profileInfo => {
           setUserInfo(profileInfo);
@@ -18,7 +18,7 @@ export default function Header () {
   }, []);
 
   function logout() {
-    fetch('http://localhost:4000/api/logout', {
+    fetch('https://schedu-two.vercel.app/api/logout', {
       credentials: 'include',
       method: 'POST'
     });

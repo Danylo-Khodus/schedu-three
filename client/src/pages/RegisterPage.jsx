@@ -30,7 +30,7 @@ export default function RegisterPage() {
             alert('Будь-ласка, вказуйте усю інформацію необхідну для реєстрації.');
         } else {
             ev.preventDefault();
-            const response = await fetch('http://localhost:4000/api/register', {
+            const response = await fetch('https://schedu-two.vercel.app/api/register', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'}
