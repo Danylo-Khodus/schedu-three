@@ -29,7 +29,7 @@ export default function RegisterPage() {
             alert('Будь-ласка, вказуйте усю інформацію необхідну для реєстрації.');
         } else {
             ev.preventDefault();
-            const response = await fetch(URL + '/register', {
+            const response = await fetch('https://schedu-three.vercel.app/' + '/register', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'}

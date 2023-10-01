@@ -17,7 +17,7 @@ export default function HomePage() {
     const userGroup = userInfo?.group;
 
     useEffect(() => {
-        fetch(URL + '/schedule').then(response => {
+        fetch('https://schedu-three.vercel.app/' + '/schedule').then(response => {
             response.json().then(schedule => {
                 setSchedule(schedule);
             });
