@@ -7,6 +7,7 @@ const UserSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: String,
     group: {type: String, required: true},
+    perm: String,
 });
 
 const UserModel = model('User', UserSchema);

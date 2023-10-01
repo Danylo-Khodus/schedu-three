@@ -1,5 +1,6 @@
 import '../stylesheets/LoginPage.css';
 
+import URL from '../URL';
 import { useState, useContext } from "react";
 import {Navigate, Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
@@ -22,7 +23,7 @@ export default function LoginPage() {
         if (requirements) {
             ev.preventDefault();
 
-            const response = await fetch('https://schedu-three.vercel.app/api/login', {
+            const response = await fetch(URL + '/login', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'},
@@ -39,11 +40,11 @@ export default function LoginPage() {
                 });
 
             } else {
-                alert('Wrong username or password. Try again later.');
+                alert('Невірна поштова адреса або пароль. Будь-ласка, спробуйте знову.');
             }
 
         } else {
-            alert('Please enter your username and password to log in.');
+            alert('Будь-ласка, вкажіть свою поштову адресу та пароль для входу.');
         }
     }
 

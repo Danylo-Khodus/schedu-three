@@ -1,8 +1,12 @@
 form.new__schedule {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     margin-bottom: 10px;
+    gap: var(--size-base);
+}
+
+form.new__schedule .section__h1 {
+    margin: 0;
 }
 
 .create-btn {
@@ -29,6 +33,22 @@ form.new__schedule input, form.new__schedule select{
     border: 1px solid rgb(35, 39, 42, 0.25);
 }
 
+.generalInputs__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-base);
+}
+
+.blank {
+    display: none;
+}
+
+.lessonInputs__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-base);
+}
+
 .lessonInput__wrapper {
     border: 1px solid var(--clr-red);
     padding: 8px;
@@ -40,7 +60,7 @@ form.new__schedule input, form.new__schedule select{
 }
 
 .lessonInput__title {
-    color: var(--clr-white);
+    color: var(--clr-bg);
     padding-left: 12px;
     padding-right: 12px;
     display: flex;
@@ -49,37 +69,52 @@ form.new__schedule input, form.new__schedule select{
     cursor: pointer;
 }
 
-.lessonInput__wrapper svg {
-    width: 20px;
-    transition: transform 0.3s;
-}
-
-.lessonInput__wrapper svg.rotate {
-    transform: rotate(-180deg);
-}
-
 .lessonInput__info {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.lessonInput__info.hidden {
-    display: none;
-}
-
 .lessonInput__wrapper input, .lessonInput__wrapper select {
-    background-color: rgb(163, 171, 254);
+    background-color: var(--clr-blue-light);
     color: var(--clr-white);
     border: none;
 }
 
 .lessonInput__wrapper input::placeholder {
-    color: var(--clr-white);
+    color: rgb(122, 122, 188);
     opacity: 1;
 }
 
 .lessonInput__wrapper select option {
     padding: 20px;
     color: black;
+}
+
+@media (min-width:425px) {
+    
+}
+
+@media (min-width:768px) {
+    .generalInputs__wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .blank {
+        display: none;
+    }
+    .lessonInputs__wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width:1024px) {
+    
+}
+
+@media (min-width:1280px) {
+
+}
+
+@media (min-width:1440px) {
+    
 }

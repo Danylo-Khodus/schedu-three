@@ -1,5 +1,6 @@
 import '../stylesheets/HomePage.css';
 
+import URL from '../URL';
 import {format} from 'date-fns';
 import Schedule from "../Schedule";
 import Filter from '../Filter';
@@ -16,7 +17,7 @@ export default function HomePage() {
     const userGroup = userInfo?.group;
 
     useEffect(() => {
-        fetch(`https://schedu-three.vercel.app/api/schedule`).then(response => {
+        fetch(URL + '/schedule').then(response => {
             response.json().then(schedule => {
                 setSchedule(schedule);
             });

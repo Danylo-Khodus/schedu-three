@@ -94,7 +94,7 @@ main.welcome {
 .homepage__wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--size-base);
+  gap: 30px;
 }
 
 /*   #region filter   */
@@ -199,12 +199,12 @@ main.welcome {
 
 .lesson {
   width: 100%;
-  min-height: 80px;
+  min-height: 85px;
   padding: 10px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 10px;
+  gap: 0px;
   border-radius: 10px;
   background-color: var(--clr-white);
   box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
@@ -212,23 +212,40 @@ main.welcome {
 }
 
 .lesson.opened {
+  height: 110px;
+  gap: 10px;
   animation: appear 0.3s;
+}
+
+.lesson__inner {
+  display: none;
+}
+
+.lesson__inner.shown {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @keyframes appear {
   from {
     height: 80px;
+    gap: 0px;
   }
   to {
-    height: 100px;
+    height: 110px;
+    gap: 10px;
   }
 }
 @keyframes disappear {
   from {
-    height: 100px;
+    height: 110px;
+    gap: 10px;
   }
   to {
     height: 80px;
+    gap: 0px;
   }
 }
 
@@ -240,25 +257,6 @@ main.welcome {
   -webkit-tap-highlight-color: transparent;
 }
 
-.lesson__inner {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lesson__inner.hidden {
-  display: none;
-}
-
-.btn.doc__btn {
-  padding: 8px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
 .lesson__inner svg {
   width: 25px;
 }
@@ -266,6 +264,10 @@ main.welcome {
 .btn.colored.inactive {
   opacity: 0.25;
   pointer-events: none;
+}
+
+.btn.colored svg {
+  height: 20px;
 }
 
 .lesson__preview .name {

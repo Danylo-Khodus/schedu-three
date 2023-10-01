@@ -29,6 +29,7 @@ app.post('/api/register', async (req,res) => {
             firstName,
             lastName,
             group,
+            perm,
         });
         res.json(userDoc);
     } catch(e) {
@@ -67,8 +68,8 @@ app.get('/api/profile', async (req,res) => {
     if (token) {
         jwt.verify(token, secret, {}, async (err,info) => {
             if (err) throw err;
-            const username = info.username;
-            const userDoc = await User.findOne({username});
+            const email = info.email;
+            const userDoc = await User.findOne({email});
             res.json(userDoc);
         });
     } else {
@@ -82,9 +83,9 @@ app.put('/api/profile', async (req,res) => {
     jwt.verify(token, secret, {}, async (err,info) => {
         if (err) throw err;
 
-        const username = info.username;
+        const email = info.email;
         const {firstName, lastName, group} = req.body;
-        const profileDoc = await User.findOne({username});
+        const profileDoc = await User.findOne({email});
         
         await profileDoc.updateOne({
             firstName,
@@ -142,13 +143,8 @@ app.post('/api/create-schedule', async (req, res) => {
 });
 
 app.get('/api/schedule', async (req, res) => {
-    const today = new Date();
-    const rawScheduleData = await Schedule.find();
-    res.json(rawScheduleData);
-});
-
-app.delete('/api/schedule', async (req, res)=> {
-
+    const scheduleData = await Schedule.find();
+    res.json(scheduleData);
 });
 
 app.post('/api/homework', async (req, res) => {

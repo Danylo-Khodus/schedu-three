@@ -1,10 +1,8 @@
-import {useState, useContext} from "react";
+import URL from '../URL';
+import {useState} from "react";
 import {Navigate, Link } from "react-router-dom";
-import { UserContext } from "../UserContext";
 
 export default function RegisterPage() {
-
-    const {setUserInfo} = useContext(UserContext);
 
     const [userData, setUserData] = useState({
         email: '',
@@ -12,6 +10,7 @@ export default function RegisterPage() {
         firstName: '',
         lastName: '',
         group: '',
+        perm: '',
     });
 
     const group__options = [
@@ -30,7 +29,7 @@ export default function RegisterPage() {
             alert('Будь-ласка, вказуйте усю інформацію необхідну для реєстрації.');
         } else {
             ev.preventDefault();
-            const response = await fetch('https://schedu-three.vercel.app/api/register', {
+            const response = await fetch(URL + '/register', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'}

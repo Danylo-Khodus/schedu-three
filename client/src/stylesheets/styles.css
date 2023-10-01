@@ -2,7 +2,9 @@
     --clr-bg: #F6F6F6;
     --clr-white: #ffffff;
     --clr-red: rgb(88, 101, 242);
+    --clr-blue-light: rgb(163, 171, 254);
     --clr-grey: #DEDEDE;
+    --clr-border: rgb(35, 39, 42, 0.25);
     --clr-green: #4BCC73;
     --clr-yellow: #F8C42B;
     --clr-underline-yellow: #FEB546;
@@ -104,4 +106,5 @@ input, select {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid rgb(35, 39, 42, 0.25);
+    cursor: pointer;
 }

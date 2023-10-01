@@ -1,7 +1,7 @@
 import '../stylesheets/ProfilePage.css';
 
-import { useEffect, useState, useRef } from "react";
-import { UserContext } from "../UserContext";
+import URL from '../URL';
+import { useEffect, useState} from "react";
 
 export default function ProfilePage() {
 
@@ -14,7 +14,7 @@ export default function ProfilePage() {
     const firstLetter = Array.from(`${userData.firstName}`)[0];
 
     useEffect(() => {
-      fetch('https://schedu-three.vercel.app/api/profile',  {credentials: 'include'})
+      fetch(URL + '/profile',  {credentials: 'include'})
       .then(response => {
           response.json().then(profileInfo => {
             setUserData(profileInfo);
@@ -34,7 +34,7 @@ export default function ProfilePage() {
     async function Update(ev) {
 
         ev.preventDefault();
-        const response = await fetch('https://schedu-three.vercel.app/api/profile', {
+        const response = await fetch(URL + '/profile', {
             method: 'PUT',
             body: JSON.stringify(userData),
             headers: {'Content-Type':'application/json'},
