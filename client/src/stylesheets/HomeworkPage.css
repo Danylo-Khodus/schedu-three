@@ -19,7 +19,6 @@
     padding-left: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .subject {
@@ -33,4 +32,13 @@
     font-weight: 700;
     font-size: var(--size-lg);
     padding-left: 20px;
+}
+
+@media (min-width:768px) {
+    .task__info {
+        padding-left: 25px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
 }
