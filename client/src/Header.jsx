@@ -2,7 +2,7 @@ import './stylesheets/Header.css';
 
 import URL from './URL';
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { UserContext } from "./UserContext";
 
 export default function Header () {
@@ -10,7 +10,7 @@ export default function Header () {
   const {setUserInfo, userInfo} = useContext(UserContext);
 
   useEffect(() => {
-    fetch('https://schedu-three.vercel.app/' + '/profile',  {credentials: 'include'})
+    fetch('https://schedu-three.vercel.app/api' + '/profile',  {credentials: 'include'})
     .then(response => {
         response.json().then(profileInfo => {
           setUserInfo(profileInfo);
@@ -18,13 +18,18 @@ export default function Header () {
     });
   }, []);
 
+  const [redirect, setRedirect] = useState(false);
+
   function logout() {
-    fetch('https://schedu-three.vercel.app/' + '/logout', {
+    fetch('https://schedu-three.vercel.app/api' + '/logout', {
       credentials: 'include',
       method: 'POST'
     });
     setUserInfo(null);
-    useNavigate('/');
+    setRedirect(true);
+    setTimeout(() => {
+      window.location.reload();
+  }, 10);
   }
 
   const [shown, setShown] = useState(false);
@@ -43,6 +48,10 @@ export default function Header () {
 
     return () => document.body.removeEventListener('click', closeDropdown);
   });
+
+  if (redirect) {
+    return <Navigate to={'/login'} />
+  }
 
   return (
     <header className={`container padding ${!userInfo ? 'welcome' : ''}`}>

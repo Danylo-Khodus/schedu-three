@@ -21,7 +21,7 @@ app.use(cookieParser());
 mongoose.connect(process.env.MONGO_URL);
 
 app.post('/api/register', async (req,res) => {
-    const {email, password, firstName, lastName, group} = req.body;
+    const {email, password, firstName, lastName, group, perm} = req.body;
     try{
         const userDoc = await User.create({
             email,
@@ -33,7 +33,7 @@ app.post('/api/register', async (req,res) => {
         });
         res.json(userDoc);
     } catch(e) {
-        res.status(400).json(e);
+        res.status(400).json("User wasn't created.");
     }
 });
 

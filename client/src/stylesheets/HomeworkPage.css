@@ -19,13 +19,12 @@
     padding-left: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .subject {
     top: -20px;
     font-weight: 700;
-    font-size: var(--size-base);
+    font-size: var(--size-lg);
     color: var(--clr-red);
 }
 
@@ -33,4 +32,13 @@
     font-weight: 700;
     font-size: var(--size-lg);
     padding-left: 20px;
+}
+
+@media (min-width:768px) {
+    .task__info {
+        padding-left: 25px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
 }

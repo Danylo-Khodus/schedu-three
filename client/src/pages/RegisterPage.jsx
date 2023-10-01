@@ -29,16 +29,14 @@ export default function RegisterPage() {
             alert('Будь-ласка, вказуйте усю інформацію необхідну для реєстрації.');
         } else {
             ev.preventDefault();
-            const response = await fetch('https://schedu-three.vercel.app/' + '/register', {
+            const response = await fetch('https://schedu-three.vercel.app/api' + '/register', {
                 method: 'POST',
                 body: JSON.stringify(userData),
-                headers: {'Content-Type':'application/json'}
+                headers: {'Content-Type':'application/json'},
             });
             if (response.status === 200) {
-
                 alert('Реєстрація пройшла успішно!');
                 setRedirect(true);
-                
             } else {
                 alert('Нaведена електронна пошта вже використовується.');
             }

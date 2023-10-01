@@ -22,6 +22,7 @@
     width: auto;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 3px;
     cursor: pointer;
     background-color: var(--clr-white);
