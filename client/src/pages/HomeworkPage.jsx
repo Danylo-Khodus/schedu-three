@@ -8,7 +8,7 @@ export default function HomeworkPage () {
     const [homework, setHomework] = useState([]);
 
     useEffect(() => {
-        fetch('https://schedu-three.vercel.app/' + '/homework',  {credentials: 'include'})
+        fetch('https://schedu-three.vercel.app/api' + '/homework',  {credentials: 'include'})
         .then(response => {
             response.json().then(homework => {
               setHomework(homework);
