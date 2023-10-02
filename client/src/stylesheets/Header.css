@@ -1,4 +1,5 @@
 header.container {
+  height: 86px;
   position: relative;
   display: flex;
   z-index: 1;
@@ -17,19 +18,25 @@ header a {
   color: inherit;
 }
 
-header a.logo{
-  font-family: 'Inter', sans-serif;
+header a.logo {
+  display: flex;
+  gap: var(--size-xxxs);
+  font-family: 'Outfit', sans-serif;
   font-weight: 900;
   letter-spacing: -1px;
   color: var(--clr-red);
-  font-size: var(--size-3xl);
+  font-size: 1.8rem;
 }
 
-header a.logo.welcome{
+header a.logo svg {
+  width: 32px;
+}
+
+header a.logo.welcome {
   color: var(--clr-white);
 }
 
-header nav{
+header nav {
   display: flex;
   gap: 10px;
   align-items: center;

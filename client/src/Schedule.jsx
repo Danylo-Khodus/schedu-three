@@ -2,7 +2,7 @@ import URL from './URL';
 import {format} from 'date-fns';
 import { useEffect, useState } from "react";
 
-export default function Schedule ({group, date, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix}) {
+export default function Schedule ({user, group, date, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix}) {
 
     const lessons = [
         {
@@ -43,7 +43,7 @@ export default function Schedule ({group, date, lessonOne, lessonTwo, lessonThre
         },
     ];
 
-    function Lesson ({group, lesson, nextLesson, beginTime, endTime}) {
+    function Lesson ({user, group, lesson, nextLesson, beginTime, endTime}) {
 
         // LESSON VARIABLES
 
@@ -52,6 +52,8 @@ export default function Schedule ({group, date, lessonOne, lessonTwo, lessonThre
         // HOMEWORK ASSIGNMENT  
 
         const [data, setData] = useState({
+            status: 'assigned',
+            user,
             group,
             subject: lesson.subject,
             homework: lesson.homework,
@@ -93,10 +95,12 @@ export default function Schedule ({group, date, lessonOne, lessonTwo, lessonThre
             } else if (currentTime === format(new Date(beginTime), 'dd.MM.yyyy HH:mm:ss'))  {
                 window.location.reload();
             } else if (currentTime === format(new Date(endTime), 'dd.MM.yyyy HH:mm:ss')) {
-                postHomework();
+                setTimeout(()=>{
+                    postHomework();
+                },100);
                 setTimeout(()=>{
                     window.location.reload();
-                },100);
+                },200);
             }
 
         },1000);
@@ -143,7 +147,8 @@ export default function Schedule ({group, date, lessonOne, lessonTwo, lessonThre
         <div className="lessons">
             {lessons.length > 0 && lessons.map((lesson) => 
             <Lesson key={lesson.beginTime} 
-                    group={group} 
+                    group={group}
+                    user={user} 
                     {...lesson}/>)}
         </div>
     );

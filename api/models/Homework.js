@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
 const HomeworkSchema = new Schema({
+    status: String,
+    user: String,
     group: String,
     subject: String,
     homework: String,

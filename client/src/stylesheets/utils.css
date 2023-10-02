@@ -18,6 +18,8 @@
     background-color: grey;
 }
 
+/* BUTTON STYLES */
+
 .btn {
     width: auto;
     display: flex;
@@ -41,6 +43,25 @@
 .btn.colored {
     color: var(--clr-white);
     background-color: var(--clr-red);
+}
+
+.btn.colored.inactive {
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.btn.done {
+    color: var(--clr-white);
+    background-color: var(--clr-green);
+}
+
+.btn.done.inactive {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.btn svg {
+height: 20px;
 }
 
 .padding {

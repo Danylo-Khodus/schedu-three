@@ -261,15 +261,6 @@ main.welcome {
   width: 25px;
 }
 
-.btn.colored.inactive {
-  opacity: 0.25;
-  pointer-events: none;
-}
-
-.btn.colored svg {
-  height: 20px;
-}
-
 .lesson__preview .name {
   padding-left: 4px;
   width: 100%;

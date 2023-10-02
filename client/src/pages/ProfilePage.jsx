@@ -44,7 +44,7 @@ export default function ProfilePage() {
             setChanging(prev => !prev);
             window.location.reload();
         } else {
-            alert('Change has failed! Try again later.');
+            alert('Не вдалося зімінити інформацію Вашого профілю. Спробуйте пізніше.');
         }
 
     }

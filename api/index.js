@@ -79,22 +79,26 @@ app.get('/api/profile', async (req,res) => {
 
 app.put('/api/profile', async (req,res) => {
 
-    const {token} = req.cookies;
-    jwt.verify(token, secret, {}, async (err,info) => {
-        if (err) throw err;
+    const token = req.cookies?.token;
+    if (token) {
+        jwt.verify(token, secret, {}, async (err,info) => {
+            if (err) throw err;
 
-        const email = info.email;
-        const {firstName, lastName, group} = req.body;
-        const profileDoc = await User.findOne({email});
-        
-        await profileDoc.updateOne({
-            firstName,
-            lastName,
-            group,
+            const email = info.email;
+            const {firstName, lastName, group} = req.body;
+            const profileDoc = await User.findOne({email});
+            
+            await profileDoc.updateOne({
+                firstName,
+                lastName,
+                group,
+            });
+
+            res.json(profileDoc);
         });
-
-        res.json(profileDoc);
-    });
+    } else {
+        res.status(401).json(null);
+    }
 });
 
 app.post('/api/create-schedule', async (req, res) => {
@@ -148,8 +152,10 @@ app.get('/api/schedule', async (req, res) => {
 });
 
 app.post('/api/homework', async (req, res) => {
-    const {group, subject, homework} = req.body;
+    const {status, user, group, subject, homework} = req.body;
     const homeworkDoc = await Homework.create({
+        status,
+        user,
         group,
         subject,
         homework,
@@ -158,7 +164,34 @@ app.post('/api/homework', async (req, res) => {
 });
 
 app.get('/api/homework', async (req, res) => {
-    res.json(await Homework.find());
+    const token = req.cookies?.token;
+    if (token) {
+        jwt.verify(token, secret, {}, async (err,info) => {
+            if (err) throw err;
+            const user = info.email;
+            const homeworkList = await Homework.find({user});
+            res.json(homeworkList);
+        });
+    } else {
+        res.status(401).json(null);
+    }
+});
+
+app.put('/api/homework', async (req, res) => {
+
+    const { _id, stat, user, group, subject, homework } = req.body;
+    const homeworkDoc = await Homework.findOne({_id});
+    
+    await homeworkDoc.updateOne({
+        status: stat,
+        user,
+        group,
+        subject,
+        homework,
+    });
+
+    res.json(homeworkDoc);
+
 });
 
 app.listen(4000);

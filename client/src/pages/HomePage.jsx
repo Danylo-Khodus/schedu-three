@@ -16,6 +16,8 @@ export default function HomePage() {
 
     const userGroup = userInfo?.group;
 
+    const userEmail = userInfo?.email;
+
     useEffect(() => {
         fetch('https://schedu-three.vercel.app/api' + '/schedule').then(response => {
             response.json().then(schedule => {
@@ -37,7 +39,7 @@ export default function HomePage() {
                     <Filter handleCallback={(ev) => setSelectedPeriod(ev)} selected={selectedPeriod}/>
                     {filteredSchedule.length > 0 
                         ? 
-                        filteredSchedule.map(post => <Schedule key={post._id} {...post} />)
+                        filteredSchedule.map(post => <Schedule key={post._id} user={userEmail} {...post} />)
                         :
                         <div className='weekend__wrapper'>
                             <h1 className='weekend'>На сьогодні, запланованих занять - немає.</h1>

@@ -17,8 +17,13 @@
 
 .task__info {
     padding-left: 25px;
+    padding-right: 25px;
     display: flex;
     flex-direction: column;
+}
+
+.task__info.done *{
+    opacity: 0.4;
 }
 
 .subject {
