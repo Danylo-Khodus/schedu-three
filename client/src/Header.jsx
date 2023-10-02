@@ -10,7 +10,7 @@ export default function Header () {
   const {setUserInfo, userInfo} = useContext(UserContext);
 
   useEffect(() => {
-    fetch(URL + '/profile',  {credentials: 'include'})
+    fetch('https://schedu-three.vercel.app/api' + '/profile',  {credentials: 'include'})
     .then(response => {
         response.json().then(profileInfo => {
           setUserInfo(profileInfo);
