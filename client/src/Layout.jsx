@@ -10,11 +10,11 @@ export default function Layout() {
 
     return(
         <div className={`body ${!userInfo ? 'no-info' : 'info'}`}>
-        <Header/>
-        <main className={`container padding ${!userInfo ? 'welcome' : ''}`}>
-            <Outlet/>
-        </main>
-        <Footer/>
+            <Header/>
+            <main className={`container padding ${!userInfo ? 'welcome' : ''}`}>
+                <Outlet/>
+            </main>
+            <Footer/>
         </div>
     );
 }

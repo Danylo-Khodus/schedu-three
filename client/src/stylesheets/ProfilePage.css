@@ -5,19 +5,17 @@
 }
 
 .profileImage__wrapper {
-    display: flex;
-    justify-content: center;
-}
-
-.profileImage__wrapper .letter {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     background-color:cadetblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.profileImage__wrapper .letter {
     font-size: var(--size-9xl);
-    text-align: center;
-    padding-top: 70px;
 }
 
 .profileImage {

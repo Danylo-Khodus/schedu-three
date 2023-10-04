@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const app = express();
 const User = require('./models/User');
 const Homework = require('./models/Homework.js');
-const Schedule = require('./models/Schedule');
+const Lesson = require('./models/Lesson');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
@@ -45,11 +45,14 @@ app.post('/api/login', async (req,res) => {
     } else {
         const passOk = bcrypt.compareSync(password, userDoc.password);
         if (passOk) {
-            jwt.sign({email,id:userDoc._id}, secret, {}, (err,token) => {
+            jwt.sign({id:userDoc._id}, secret, {}, (err,token) => {
                 if (err) throw err;
                 res.cookie('token', token).json({
-                    id:userDoc._id,
-                    email,
+                    id: userDoc._id,
+                    firstName: userDoc.firstName,
+                    lastName: userDoc.lastName,
+                    group: userDoc.group,
+                    perm: userDoc.perm,
                 });
             });
         } else {
@@ -68,8 +71,8 @@ app.get('/api/profile', async (req,res) => {
     if (token) {
         jwt.verify(token, secret, {}, async (err,info) => {
             if (err) throw err;
-            const email = info.email;
-            const userDoc = await User.findOne({email});
+            const _id = info.id;
+            const userDoc = await User.findOne({_id});
             res.json(userDoc);
         });
     } else {
@@ -84,9 +87,9 @@ app.put('/api/profile', async (req,res) => {
         jwt.verify(token, secret, {}, async (err,info) => {
             if (err) throw err;
 
-            const email = info.email;
+            const _id = info.id;
             const {firstName, lastName, group} = req.body;
-            const profileDoc = await User.findOne({email});
+            const profileDoc = await User.findOne({_id});
             
             await profileDoc.updateOne({
                 firstName,
@@ -102,60 +105,98 @@ app.put('/api/profile', async (req,res) => {
 });
 
 app.post('/api/create-schedule', async (req, res) => {
-    const {group, date, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix} = req.body;
-    const scheduleDoc = await Schedule.create({
-        group,
+    const {date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix} = req.body;
+    const firstDoc = await Lesson.create({
         date,
-        lessonOne: {
-            subject: lessonOne.subject,
-            presentation: lessonOne.presentation,
-            link: lessonOne.link,
-            homework: lessonOne.homework,
-        },
-        lessonTwo: {
-            subject: lessonTwo.subject,
-            presentation: lessonTwo.presentation,
-            link: lessonTwo.link,
-            homework: lessonTwo.homework,
-        },
-        lessonThree: {
-            subject: lessonThree.subject,
-            presentation: lessonThree.presentation,
-            link: lessonThree.link,
-            homework: lessonThree.homework,
-        },
-        lessonFour: {
-            subject: lessonFour.subject,
-            presentation: lessonFour.presentation,
-            link: lessonFour.link,
-            homework: lessonFour.homework,
-        },
-        lessonFive: {
-            subject: lessonFive.subject,
-            presentation: lessonFive.presentation,
-            link: lessonFive.link,
-            homework: lessonFive.homework,
-        },
-        lessonSix: {
-            subject: lessonSix.subject,
-            presentation: lessonSix.presentation,
-            link: lessonSix.link,
-            homework: lessonSix.homework,
-        },
+        group,
+        beginTime: `${date}T06:00:00.388Z`,
+        endTime: `${date}T06:40:00.388Z`,
+        teacher: lessonOne.teacher,
+        subject: lessonOne.subject,
+        theme: lessonOne.theme,
+        presentation: lessonOne.presentation,
+        additional: lessonOne.additional,
+        link: lessonOne.link,
+        homework: lessonOne.homework,
     });
-    res.json(scheduleDoc);
+    const secondDoc = await Lesson.create({
+        date,
+        group,
+        beginTime: `${date}T06:50:00.388Z`,
+        endTime: `${date}T07:30:00.388Z`,
+        teacher: lessonTwo.teacher,
+        subject: lessonTwo.subject,
+        theme: lessonTwo.theme,
+        presentation: lessonTwo.presentation,
+        additional: lessonTwo.additional,
+        link: lessonTwo.link,
+        homework: lessonTwo.homework,
+    });
+    const thirdDoc = await Lesson.create({
+        date,
+        group,
+        beginTime: `${date}T07:40:00.388Z`,
+        endTime: `${date}T08:20:00.388Z`,
+        teacher: lessonThree.teacher,
+        subject: lessonThree.subject,
+        theme: lessonThree.theme,
+        presentation: lessonThree.presentation,
+        additional: lessonThree.additional,
+        link: lessonThree.link,
+        homework: lessonThree.homework,
+    });
+    const fourthDoc = await Lesson.create({
+        date,
+        group,
+        beginTime: `${date}T08:30:00.388Z`,
+        endTime: `${date}T09:10:00.388Z`,
+        teacher: lessonFour.teacher,
+        subject: lessonFour.subject,
+        theme: lessonFour.theme,
+        presentation: lessonFour.presentation,
+        additional: lessonFour.additional,
+        link: lessonFour.link,
+        homework: lessonFour.homework,
+    });
+    const fifthDoc = await Lesson.create({
+        date,
+        group,
+        beginTime: `${date}T09:20:00.388Z`,
+        endTime: `${date}T10:00:00.388Z`,
+        teacher: lessonFive.teacher,
+        subject: lessonFive.subject,
+        theme: lessonFive.theme,
+        presentation: lessonFive.presentation,
+        additional: lessonFive.additional,
+        link: lessonFive.link,
+        homework: lessonFive.homework,
+    });
+    const sixthDoc = await Lesson.create({
+        date,
+        group,
+        beginTime: `${date}T10:10:00.388Z`,
+        endTime: `${date}T10:50:00.388Z`,
+        teacher: lessonSix.teacher,
+        subject: lessonSix.subject,
+        theme: lessonSix.theme,
+        presentation: lessonSix.presentation,
+        additional: lessonSix.additional,
+        link: lessonSix.link,
+        homework: lessonSix.homework,
+    });
+    res.json('Lessons created!');
 });
 
 app.get('/api/schedule', async (req, res) => {
-    const scheduleData = await Schedule.find();
-    res.json(scheduleData);
+    const lessons = await Lesson.find();
+    res.json(lessons);
 });
 
 app.post('/api/homework', async (req, res) => {
-    const {status, user, group, subject, homework} = req.body;
+    const {status, user_id, group, subject, homework} = req.body;
     const homeworkDoc = await Homework.create({
         status,
-        user,
+        user_id,
         group,
         subject,
         homework,
@@ -168,8 +209,8 @@ app.get('/api/homework', async (req, res) => {
     if (token) {
         jwt.verify(token, secret, {}, async (err,info) => {
             if (err) throw err;
-            const user = info.email;
-            const homeworkList = await Homework.find({user});
+            const user_id = info.id;
+            const homeworkList = await Homework.find({user_id});
             res.json(homeworkList);
         });
     } else {
@@ -179,15 +220,13 @@ app.get('/api/homework', async (req, res) => {
 
 app.put('/api/homework', async (req, res) => {
 
-    const { _id, stat, user, group, subject, homework } = req.body;
+    const task = req.body;
+    const _id = task._id;
     const homeworkDoc = await Homework.findOne({_id});
     
     await homeworkDoc.updateOne({
-        status: stat,
-        user,
-        group,
-        subject,
-        homework,
+        ...task,
+        status: 'sent',
     });
 
     res.json(homeworkDoc);

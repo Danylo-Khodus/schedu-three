@@ -10,7 +10,7 @@ import HomeworkPage from './pages/HomeworkPage';
 import CreateArticlePage from './pages/CreateSchedulePage';
 
 import {Route, Routes} from "react-router-dom";
-import { UserContextProvider } from './UserContext';
+import { UserContextProvider} from './UserContext';
 
 function App() {
 

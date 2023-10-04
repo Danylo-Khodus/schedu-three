@@ -99,17 +99,6 @@ main.welcome {
 
 /*   #region filter   */
 
-.filter__wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--size-xs);
-}
-
-.btn.filter.chosen {
-  color: var(--clr-white);
-  background-color: var(--clr-red);
-}
-
 .days__wrapper {
   display: flex;
   justify-content: space-between;
@@ -142,11 +131,26 @@ main.welcome {
 
 /*   #region lessons  */
 
+.lessons__wrapper {
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 0.6fr 1fr;
+  gap: var(--size-base);
+}
+
 .lessons {
   display: flex;
   flex-direction: column;
   gap: var(--size-base);
   margin-bottom: var(--size-base);
+}
+
+.lessons__info {
+  background-color: var(--clr-white);
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
+  margin-bottom: 15px;
 }
 
 .lesson__wrapper {
@@ -178,25 +182,6 @@ main.welcome {
   border: 4px solid var(--clr-green);
 }
 
-.status__dot:after {
-  content: "";
-  position: absolute;
-  top: 16px;
-  left: 4px;
-  height: 120px;
-  width: 4px;
-  background-color: var(--clr-grey);
-}
-
-.status__dot.finished:after {
-  background-color: var(--clr-green);
-}
-
-.status__dot.last:after, .status__dot.soon.last:after, .status__dot.ongoing.last:after, .status__dot.finished.last:after{
-  height: 80px;
-  background-color: var(--clr-white);
-}
-
 .lesson {
   width: 100%;
   min-height: 85px;
@@ -208,57 +193,14 @@ main.welcome {
   border-radius: 10px;
   background-color: var(--clr-white);
   box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
-  animation: disappear 0.3s;
-}
-
-.lesson.opened {
-  height: 110px;
-  gap: 10px;
-  animation: appear 0.3s;
-}
-
-.lesson__inner {
-  display: none;
-}
-
-.lesson__inner.shown {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-@keyframes appear {
-  from {
-    height: 80px;
-    gap: 0px;
-  }
-  to {
-    height: 110px;
-    gap: 10px;
-  }
-}
-@keyframes disappear {
-  from {
-    height: 110px;
-    gap: 10px;
-  }
-  to {
-    height: 80px;
-    gap: 0px;
-  }
+  cursor: pointer;
 }
 
 .lesson__preview {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-}
-
-.lesson__inner svg {
-  width: 25px;
 }
 
 .lesson__preview .name {
@@ -334,6 +276,11 @@ main.welcome {
   .btn.begin {
     align-self: self-start;
     margin-left: var(--size-7xl);
+  }
+  .days__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
   }
 }
 

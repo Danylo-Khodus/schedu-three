@@ -1,7 +1,7 @@
 import '../stylesheets/HomeworkPage.css'; 
 
 import URL from '../URL';
-import { Link} from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { UserContext } from '../UserContext';
 import {useState, useEffect, useContext} from 'react';
 
@@ -11,86 +11,75 @@ export default function HomeworkPage () {
 
     const {userInfo} = useContext(UserContext);
 
-    const [homeworkList, setHomeworkList] = useState([]);
+    const [homework, setHomework] = useState([]);
 
     useEffect(() => {
-        fetch('https://schedu-three.vercel.app/api' + '/homework',  {credentials: 'include'})
+        fetch('schedu-three.vercel.app' + '/api/homework',  {credentials: 'include'})
         .then(response => {
-            response.json().then(homework => {
-              setHomeworkList(homework);
+            response.json().then(list => {
+              setHomework(list);
             });
         });
     }, []); 
 
-    const filteredHomeworkList = homeworkList.filter((ev) => {
+    const filtered = homework.filter((ev) => {
         if (ev.group.includes(userInfo?.group)) {return ev}
     });
 
     // TASK COMPONENT
 
-    function Task ({_id, status, user, group, subject, homework}) {
+    function Task (task) {
 
-        async function handleStatusChange (stat) {
+        const [currentStatus, setCurrentStatus] = useState(task.status);
 
-            const response = await fetch('https://schedu-three.vercel.app/api' + '/homework', {
+        async function handleStatusChange () {
+
+            const response = await fetch('schedu-three.vercel.app' + '/api/homework', {
                 method: 'PUT',
-                body: JSON.stringify({ _id, stat, user, group, subject, homework}),
+                body: JSON.stringify(task),
                 headers: {'Content-Type':'application/json'},
             });
-            if (response.status === 200) {
-                window.location.reload();
-            } else {
+            if (response.status !== 200) {
                 alert('При відправленні доманього завдання сталася помилка. Будь-ласка, спробуйте пізніше.');
             }
             
         };
 
         return (
-            <>
-            {status === 'assigned' &&
-                <div className="task__wrapper">
-                    <div className="task__info">
-                        <div className="subject">{subject} :</div>
-                        <div className="task">{homework}</div>
-                    </div>
-                    <button className='btn colored' onClick={() => handleStatusChange('sent')}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                        </svg>
-                    </button>
+            <div className="task__wrapper">
+                <div className="task__info">
+                    <div className="subject">{task.subject} :</div>
+                    <div className="task">{task.homework}</div>
                 </div>
-            }
-            {status === 'sent' && 
-                <div className='task__wrapper'>
-                    <div className="task__info done">
-                        <div className="subject">{subject} :</div>
-                        <div className="task">{homework}</div>
-                    </div>
-                    <button className='btn done inactive'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
-                    </button>
-                </div>
-            }
-            </>
+                <button className={`btn ${currentStatus === 'assigned' && 'colored'} ${currentStatus === 'sent' && 'done inactive'}`} onClick={() => {setCurrentStatus('sent'); handleStatusChange();}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                </button>
+            </div>
         );
     };
 
     return (
-        <div className="homework__page">
-            <h1 className="section__h1">Домашне завдання</h1>
-            <div className="homework">
-                {filteredHomeworkList.length > 0 
-                ? 
-                filteredHomeworkList.map(task => <Task key={task._id} {...task}/>)
-                :
-                <div className='weekend__wrapper'>
-                    <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
-                    <Link to='/homework' className='btn colored'>Повернутися до розкладу</Link>
+        <>
+            {userInfo ? 
+                <div className="homework__page">
+                    <h1 className="section__h1">Домашне завдання</h1>
+                    <div className="homework">
+                        {filtered.length > 0 
+                        ? 
+                        filtered.map(task => <Task key={task._id} {...task}/>)
+                        :
+                        <div className='weekend__wrapper'>
+                            <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
+                            <Link to='/homework' className='btn colored'>Повернутися до розкладу</Link>
+                        </div>
+                        }
+                    </div>
                 </div>
-                }
-            </div>
-        </div>
+                :
+                <Navigate to={'/login'} />
+            }
+        </>
     );
 }
