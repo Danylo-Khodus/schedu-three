@@ -34,7 +34,7 @@ export default function HomeworkPage () {
 
         async function handleStatusChange () {
 
-            const response = await fetch('schedu-three.vercel.app' + '/api/homework', {
+            const response = await fetch('https://schedu-three.vercel.app' + '/api/homework', {
                 method: 'PUT',
                 body: JSON.stringify(task),
                 headers: {'Content-Type':'application/json'},
