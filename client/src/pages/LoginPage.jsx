@@ -34,6 +34,13 @@ export default function LoginPage() {
             if (response.ok) {
                 response.json().then(userInfo => {
                     setUserInfo(userInfo);
+<<<<<<< HEAD
+=======
+                    setRedirect(true);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 100);
+>>>>>>> 9ebee20532c02a0fe728c928c9805f032ff83ac3
                 });
 
             } else {
