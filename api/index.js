@@ -73,13 +73,17 @@ app.get('/api/profile', async (req,res) => {
             if (err) throw err;
             const _id = info.id;
             const userDoc = await User.findOne({_id});
-            res.json({
-                id: userDoc._id,
-                firstName: userDoc.firstName,
-                lastName: userDoc.lastName,
-                group: userDoc.group,
-                perm: userDoc.perm,
-            });
+            if (userDoc) {
+                res.json({
+                    id: userDoc._id,
+                    firstName: userDoc.firstName,
+                    lastName: userDoc.lastName,
+                    group: userDoc.group,
+                    perm: userDoc.perm,
+                });
+            } else {
+                res.status(401).json(null);
+            }
         });
     } else {
         res.status(401).json(null);

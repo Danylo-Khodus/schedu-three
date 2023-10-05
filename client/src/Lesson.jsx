@@ -1,7 +1,7 @@
 import URL from './URL';
 import {format} from 'date-fns';
 import { UserContext } from './UserContext';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 export default function Lesson (lesson) {
 
@@ -33,7 +33,7 @@ export default function Lesson (lesson) {
 
     const [status, setStatus] = useState('');
 
-    useEffect(()=>{
+    setInterval(()=>{
         const currentTime = new Date().getTime();
         const soonTime = new Date(lesson.beginTime).getTime() - 10*60*1000;
 
@@ -44,20 +44,6 @@ export default function Lesson (lesson) {
         }  else if (currentTime >= new Date(lesson.endTime).getTime()) {
             setStatus('finished');
         }
-    },[]);
-
-    setInterval(()=>{
-        const currentTime = format(new Date(), 'dd.MM.yyyy HH:mm:ss');
-        const soonTime = format(new Date(lesson.beginTime).getTime() - 10*60*1000, 'dd.MM.yyyy HH:mm:ss');
-
-        if (currentTime === soonTime) {
-            window.location.reload();
-        } else if (currentTime === format(new Date(lesson.beginTime), 'dd.MM.yyyy HH:mm:ss'))  {
-            window.location.reload();
-        } else if (currentTime === format(new Date(lesson.endTime), 'dd.MM.yyyy HH:mm:ss')) {
-            window.location.reload();
-        }
-
     },1000);
 
     // UI FUNCTIONS
