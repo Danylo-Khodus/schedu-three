@@ -95,7 +95,7 @@ export default function CreateArticlePage() {
 
     function createNewLesson(ev) {
        ev.preventDefault();
-       const response = fetch(URL + '/api/create-schedule', {
+       const response = fetch('https://schedu-three.vercel.app' + '/api/create-schedule', {
        method: 'POST',
        body: JSON.stringify({date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix}),
        headers: {'Content-Type':'application/json'},
