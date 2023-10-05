@@ -192,7 +192,6 @@ main.welcome {
   border-radius: 10px;
   background-color: var(--clr-white);
   box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
-  cursor: pointer;
   animation: disappear 0.3s;
 }
 
@@ -225,20 +224,25 @@ main.welcome {
 }
 
 .lesson__preview {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 .lesson__preview .name {
   padding-left: 4px;
   width: 100%;
   display: flex;
-  font-weight: 800;
-  border-radius: 10px;
-  color: black;
+  gap: 25px;
   background-color: var(--clr-third);
+}
+
+.lesson__preview .name p {
+  color: black;
+  font-weight: 800;
 }
 
 .lesson__preview .time {

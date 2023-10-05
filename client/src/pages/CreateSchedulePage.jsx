@@ -93,17 +93,23 @@ export default function CreateArticlePage() {
 
    const [redirect, setRedirect] = useState(false);
 
-    function createNewLesson(ev) {
-       ev.preventDefault();
-       const response = fetch('https://schedu-three.vercel.app' + '/api/create-schedule', {
-       method: 'POST',
-       body: JSON.stringify({date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix}),
-       headers: {'Content-Type':'application/json'},
-       });
+   const requirements = (group !== '' && date !== '');
 
-       if (response) {
-       setRedirect(true);
-       }
+    function createNewLesson(ev) {
+        if (requirements) {
+            ev.preventDefault();
+            const response = fetch('https://schedu-three.vercel.app' + '/api/create-schedule', {
+            method: 'POST',
+            body: JSON.stringify({date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix}),
+            headers: {'Content-Type':'application/json'},
+            });
+     
+            if (response) {
+            setRedirect(true);
+            }
+        } else {
+            alert('Дата та клас мають бути вказані.');
+        }
     }
 
     if (redirect) {

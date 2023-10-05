@@ -25,10 +25,15 @@ export default function HomePage() {
     const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
 
     const filteredSchedule = schedule.filter((ev) => {
-        if (ev.group.includes(userInfo?.group) && ev.date.includes(selectedDate)) {return ev}
-    });
 
-    const [lessonInfo, setLessonInfo] = useState('');
+        const fullName = `${userInfo?.lastName} ${userInfo?.firstName}`;
+
+        if (userInfo?.perm === 'teacher') {
+            if (ev.teacher.includes(fullName) && ev.date.includes(selectedDate)) {return ev}
+        } else {
+        if (ev.group.includes(userInfo?.group) && ev.date.includes(selectedDate)) {return ev}
+        }
+    });
 
     return(
         <div className='homepage__wrapper'>

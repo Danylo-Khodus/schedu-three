@@ -73,7 +73,13 @@ app.get('/api/profile', async (req,res) => {
             if (err) throw err;
             const _id = info.id;
             const userDoc = await User.findOne({_id});
-            res.json(userDoc);
+            res.json({
+                id: userDoc._id,
+                firstName: userDoc.firstName,
+                lastName: userDoc.lastName,
+                group: userDoc.group,
+                perm: userDoc.perm,
+            });
         });
     } else {
         res.status(401).json(null);
@@ -106,85 +112,97 @@ app.put('/api/profile', async (req,res) => {
 
 app.post('/api/create-schedule', async (req, res) => {
     const {date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix} = req.body;
-    const firstDoc = await Lesson.create({
-        date,
-        group,
-        beginTime: `${date}T06:00:00.388Z`,
-        endTime: `${date}T06:40:00.388Z`,
-        teacher: lessonOne.teacher,
-        subject: lessonOne.subject,
-        theme: lessonOne.theme,
-        presentation: lessonOne.presentation,
-        additional: lessonOne.additional,
-        link: lessonOne.link,
-        homework: lessonOne.homework,
-    });
-    const secondDoc = await Lesson.create({
-        date,
-        group,
-        beginTime: `${date}T06:50:00.388Z`,
-        endTime: `${date}T07:30:00.388Z`,
-        teacher: lessonTwo.teacher,
-        subject: lessonTwo.subject,
-        theme: lessonTwo.theme,
-        presentation: lessonTwo.presentation,
-        additional: lessonTwo.additional,
-        link: lessonTwo.link,
-        homework: lessonTwo.homework,
-    });
-    const thirdDoc = await Lesson.create({
-        date,
-        group,
-        beginTime: `${date}T07:40:00.388Z`,
-        endTime: `${date}T08:20:00.388Z`,
-        teacher: lessonThree.teacher,
-        subject: lessonThree.subject,
-        theme: lessonThree.theme,
-        presentation: lessonThree.presentation,
-        additional: lessonThree.additional,
-        link: lessonThree.link,
-        homework: lessonThree.homework,
-    });
-    const fourthDoc = await Lesson.create({
-        date,
-        group,
-        beginTime: `${date}T08:30:00.388Z`,
-        endTime: `${date}T09:10:00.388Z`,
-        teacher: lessonFour.teacher,
-        subject: lessonFour.subject,
-        theme: lessonFour.theme,
-        presentation: lessonFour.presentation,
-        additional: lessonFour.additional,
-        link: lessonFour.link,
-        homework: lessonFour.homework,
-    });
-    const fifthDoc = await Lesson.create({
-        date,
-        group,
-        beginTime: `${date}T09:20:00.388Z`,
-        endTime: `${date}T10:00:00.388Z`,
-        teacher: lessonFive.teacher,
-        subject: lessonFive.subject,
-        theme: lessonFive.theme,
-        presentation: lessonFive.presentation,
-        additional: lessonFive.additional,
-        link: lessonFive.link,
-        homework: lessonFive.homework,
-    });
-    const sixthDoc = await Lesson.create({
-        date,
-        group,
-        beginTime: `${date}T10:10:00.388Z`,
-        endTime: `${date}T10:50:00.388Z`,
-        teacher: lessonSix.teacher,
-        subject: lessonSix.subject,
-        theme: lessonSix.theme,
-        presentation: lessonSix.presentation,
-        additional: lessonSix.additional,
-        link: lessonSix.link,
-        homework: lessonSix.homework,
-    });
-    res.json('Lessons created!');
+    if (lessonOne.subject !== '') {
+        const firstDoc = await Lesson.create({
+            date,
+            group,
+            beginTime: date + 'T06:00:00.388Z',
+            endTime: date + 'T06:40:00.388Z',
+            teacher: lessonOne.teacher,
+            subject: lessonOne.subject,
+            theme: lessonOne.theme,
+            presentation: lessonOne.presentation,
+            additional: lessonOne.additional,
+            link: lessonOne.link,
+            homework: lessonOne.homework,
+        });
+    }
+    if (lessonTwo.subject !== '') {
+        const secondDoc = await Lesson.create({
+            date,
+            group,
+            beginTime: date + 'T06:50:00.388Z',
+            endTime: date + 'T07:30:00.388Z',
+            teacher: lessonTwo.teacher,
+            subject: lessonTwo.subject,
+            theme: lessonTwo.theme,
+            presentation: lessonTwo.presentation,
+            additional: lessonTwo.additional,
+            link: lessonTwo.link,
+            homework: lessonTwo.homework,
+        });
+    }
+    if (lessonThree.subject !== '') {
+        const thirdDoc = await Lesson.create({
+            date,
+            group,
+            beginTime: date + 'T07:40:00.388Z',
+            endTime: date + 'T08:20:00.388Z',
+            teacher: lessonThree.teacher,
+            subject: lessonThree.subject,
+            theme: lessonThree.theme,
+            presentation: lessonThree.presentation,
+            additional: lessonThree.additional,
+            link: lessonThree.link,
+            homework: lessonThree.homework,
+        });
+    }
+    if (lessonFour.subject !== '') {
+        const fourthDoc = await Lesson.create({
+            date,
+            group,
+            beginTime: date + 'T08:30:00.388Z',
+            endTime: date + 'T09:10:00.388Z',
+            teacher: lessonFour.teacher,
+            subject: lessonFour.subject,
+            theme: lessonFour.theme,
+            presentation: lessonFour.presentation,
+            additional: lessonFour.additional,
+            link: lessonFour.link,
+            homework: lessonFour.homework,
+        });
+    }
+    if (lessonFive.subject !== '') {
+        const fifthDoc = await Lesson.create({
+            date,
+            group,
+            beginTime: date + 'T09:20:00.388Z',
+            endTime: date + 'T10:00:00.388Z',
+            teacher: lessonFive.teacher,
+            subject: lessonFive.subject,
+            theme: lessonFive.theme,
+            presentation: lessonFive.presentation,
+            additional: lessonFive.additional,
+            link: lessonFive.link,
+            homework: lessonFive.homework,
+        });
+    }
+    if (lessonSix.subject !== '') {
+        const sixthDoc = await Lesson.create({
+            date,
+            group,
+            beginTime: date + 'T10:10:00.388Z',
+            endTime: date + 'T10:50:00.388Z',
+            teacher: lessonSix.teacher,
+            subject: lessonSix.subject,
+            theme: lessonSix.theme,
+            presentation: lessonSix.presentation,
+            additional: lessonSix.additional,
+            link: lessonSix.link,
+            homework: lessonSix.homework,
+        });
+    }
+    res.json('ok');
 });
 
 app.get('/api/schedule', async (req, res) => {

@@ -3,7 +3,8 @@ const {Schema, model} = mongoose;
 
 const LessonSchema = new Schema({
     date: String,
-    time: String,
+    beginTime: String,
+    endTime: String,
     group: String,
     teacher: String,
     subject: String,
