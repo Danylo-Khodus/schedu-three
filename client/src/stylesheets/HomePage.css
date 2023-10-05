@@ -184,16 +184,44 @@ main.welcome {
 
 .lesson {
   width: 100%;
-  min-height: 85px;
+  height: 85px;
   padding: 10px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 0px;
   border-radius: 10px;
   background-color: var(--clr-white);
   box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
   cursor: pointer;
+  animation: disappear 0.3s;
+}
+
+.lesson.opened {
+  height: 110px;
+  gap: 13px;
+  animation: appear 0.3s;
+}
+
+@keyframes appear {
+  from {
+    height: 85px;
+    gap: 0;
+  }
+  to {
+    height: 110px;
+    gap: 13px;
+  }
+}
+
+@keyframes disappear {
+  from {
+    height: 110px;
+    gap: 13px;
+  }
+  to {
+    height: 85px;
+    gap: 0;
+  }
 }
 
 .lesson__preview {
@@ -217,6 +245,11 @@ main.welcome {
   text-align: center;
   font-weight: 800;
   color: #DEDEDE;
+}
+
+.lesson__info {
+  display: flex;
+  justify-content: space-between;
 }
 
 /*   #endregion  */

@@ -24,7 +24,7 @@ export default function LoginPage() {
         if (requirements) {
             
             ev.preventDefault();
-            const response = await fetch('https://schedu-three.vercel.app' + '/api/login', {
+            const response = await fetch(URL + '/api/login', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'},

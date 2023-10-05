@@ -19,7 +19,7 @@ export default function Lesson (lesson) {
 
     function postHomework() {
         if (lesson.homework !== '') {
-            fetch('https://schedu-three.vercel.app' + '/api/homework', {
+            fetch(URL + '/api/homework', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {'Content-Type':'application/json'}
@@ -63,19 +63,31 @@ export default function Lesson (lesson) {
 
     },1000);
 
+    const [opened, setOpened] = useState(false);
+
+    function openLink(link) {
+        window.open(link, '_blank');
+    };
+
     return (
         <>
             {lesson.subject ? 
                 <div className='lesson__wrapper'>
                     <div className={`status__dot ${status}`}></div>
-                    <div className='lesson'>
-                        <div className="lesson__preview">
+                    <div className={`lesson ${opened ? 'opened' : ''}`}>
+                        <div className="lesson__preview" onClick={()=>{setOpened(prev=>!prev)}}>
                             <div className="name">{lesson.subject}</div>
                             <div className="time">
                                 <div className="start">{format(new Date(lesson.beginTime), 'H:mm')}</div>
                                 <div className="end">{format(new Date(lesson.endTime), 'H:mm')}</div>
                             </div>
                         </div>
+                        {opened && 
+                            <div className="lesson__info">
+                                <button className='btn colored'>Презентація</button>
+                                <button className='btn colored' onClick={()=>{openLink(lesson.link)}}>Перейти</button>
+                            </div>
+                        }
                     </div>
                 </div> : <></>
             }
