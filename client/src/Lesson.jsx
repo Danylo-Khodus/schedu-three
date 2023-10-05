@@ -58,9 +58,9 @@ export default function Lesson (lesson) {
             setTimeout(()=>{
                 postHomework();
             },100);
-            setTimeout(()=>{
-                window.location.reload();
-            },200);
+            // setTimeout(()=>{
+            //     window.location.reload();
+            // },200);
         }
 
     },1000);
