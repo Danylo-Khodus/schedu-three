@@ -161,7 +161,7 @@ export default function CreateArticlePage() {
     function createNewLesson(ev) {
         if (schedule.group !== '' && schedule.date !== '') {
             ev.preventDefault();
-            const response = fetch('https://schedu-three.vercel.app' + '/api/create-schedule', {
+            const response = fetch(URL + '/api/create-schedule', {
             method: 'POST',
             body: JSON.stringify(schedule),
             headers: {'Content-Type':'application/json'},

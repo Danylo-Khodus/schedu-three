@@ -16,7 +16,7 @@ export default function HomeworkPage () {
     const [homework, setHomework] = useState([]);
 
     useEffect(() => {
-        fetch('https://schedu-three.vercel.app' + '/api/homework',  {credentials: 'include'})
+        fetch(URL + '/api/homework',  {credentials: 'include'})
         .then(response => {
             response.json().then(list => {
               setHomework(list);
@@ -36,7 +36,7 @@ export default function HomeworkPage () {
 
         async function handleStatusChange () {
 
-            const response = await fetch('https://schedu-three.vercel.app' + '/api/homework', {
+            const response = await fetch(URL + '/api/homework', {
                 method: 'PUT',
                 body: JSON.stringify(task),
                 headers: {'Content-Type':'application/json'},

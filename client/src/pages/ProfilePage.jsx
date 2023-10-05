@@ -33,7 +33,7 @@ export default function ProfilePage() {
     async function Update(ev) {
 
         ev.preventDefault();
-        const response = await fetch('https://schedu-three.vercel.app' + '/api/profile', {
+        const response = await fetch(URL + '/api/profile', {
             method: 'PUT',
             body: JSON.stringify(userData),
             headers: {'Content-Type':'application/json'},

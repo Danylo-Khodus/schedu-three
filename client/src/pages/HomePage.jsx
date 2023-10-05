@@ -17,7 +17,7 @@ export default function HomePage() {
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
-        fetch('https://schedu-three.vercel.app' + '/api/schedule').then(response => {
+        fetch(URL + '/api/schedule').then(response => {
             response.json().then(schedule => {
                 setSchedule(schedule);
             });

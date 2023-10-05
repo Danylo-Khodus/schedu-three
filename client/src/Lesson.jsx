@@ -20,7 +20,7 @@ export default function Lesson (lesson) {
     function postHomework() {
         if (userInfo?.perm !== 'teacher') {
             if (lesson.homework !== '') {
-                fetch('https://schedu-three.vercel.app' + '/api/homework', {
+                fetch(URL + '/api/homework', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {'Content-Type':'application/json'}
