@@ -7,9 +7,11 @@ import {useState, useEffect, useContext} from 'react';
 
 export default function HomeworkPage () {
 
-    // GETTING LIST OF HOME ASSIGNMENTS
+    // CHECKING IF THE USER IS LOGGED IN
 
     const {userInfo} = useContext(UserContext);
+
+    // GETTING LIST OF HOME ASSIGNMENTS
 
     const [homework, setHomework] = useState([]);
 
@@ -52,9 +54,15 @@ export default function HomeworkPage () {
                     <div className="task">{task.homework}</div>
                 </div>
                 <button className={`btn ${currentStatus === 'assigned' && 'colored'} ${currentStatus === 'sent' && 'done inactive'}`} onClick={() => {setCurrentStatus('sent'); handleStatusChange();}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                    </svg>
+                    {currentStatus === 'sent' ?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                    }
                 </button>
             </div>
         );
@@ -62,7 +70,9 @@ export default function HomeworkPage () {
 
     return (
         <>
-            {userInfo ? 
+            {!userInfo?.id ?
+                <Navigate to={'/login'}/>
+                :
                 <div className="homework__page">
                     <h1 className="section__h1">Домашне завдання</h1>
                     <div className="homework">
@@ -77,8 +87,6 @@ export default function HomeworkPage () {
                         }
                     </div>
                 </div>
-                :
-                <Navigate to={'/login'} />
             }
         </>
     );

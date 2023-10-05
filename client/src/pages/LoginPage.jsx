@@ -1,18 +1,24 @@
 import '../stylesheets/LoginPage.css';
 
 import URL from '../URL';
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {Navigate, Link} from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 export default function LoginPage() {
 
+    // CHECKING IF THE USER IS LOGGED IN
+
     const {userInfo, setUserInfo} = useContext(UserContext);
+
+    // INPUTS CONSTRUCTIONS
 
     const [userData, setUserData] = useState({
         email: '',
         password: '',
     });
+
+    // LOGGING IN
 
     async function login(ev) {
 
@@ -47,39 +53,39 @@ export default function LoginPage() {
 
     return(
         <>
-            {!userInfo ? 
-                <div className='login__page__wrapper'>
-                    <form className="login" onSubmit={login}>
-                        <h1 className='section__title'>Вхід</h1>
-                        <div className='login__inputs'>
-                            <input type="text" 
-                                placeholder="Електронна пошта *" 
-                                name='email'
-                                onChange={(ev) => setUserData({
-                                    ...userData,
-                                    [ev.target.name]:ev.target.value,
-                                })}/>
-                            <input type="password" 
-                                placeholder="Пароль *" 
-                                name='password'
-                                onChange={(ev) => setUserData({
-                                    ...userData,
-                                    [ev.target.name]:ev.target.value,
-                                })}/>
-                        </div>
-                        <button className="btn login-register-btn" >Увійти</button>
-                        <div className="registration">
-                            <p>Досі немає акаунту?</p>
-                            <Link className="register__link" to="/register">Створити акаунт</Link>
-                        </div>
-                        <div className="forgot__password">
-                            <Link className="forgot__password__link" to="/password-recovery">Забули пароль?</Link>
-                        </div>
-                    </form>
-                </div>
-                :
-                <Navigate to={'/'}/>
-            }
+        {userInfo?.id ?
+            <Navigate to={'/'}/>
+            :
+            <div className='login__page__wrapper'>
+                <form className="login" onSubmit={login}>
+                    <h1 className='section__title'>Вхід</h1>
+                    <div className='login__inputs'>
+                        <input type="text" 
+                            placeholder="Електронна пошта *" 
+                            name='email'
+                            onChange={(ev) => setUserData({
+                                ...userData,
+                                [ev.target.name]:ev.target.value,
+                            })}/>
+                        <input type="password" 
+                            placeholder="Пароль *" 
+                            name='password'
+                            onChange={(ev) => setUserData({
+                                ...userData,
+                                [ev.target.name]:ev.target.value,
+                            })}/>
+                    </div>
+                    <button className="btn login-register-btn" >Увійти</button>
+                    <div className="registration">
+                        <p>Досі немає акаунту?</p>
+                        <Link className="register__link" to="/register">Створити акаунт</Link>
+                    </div>
+                    <div className="forgot__password">
+                        <Link className="forgot__password__link" to="/password-recovery">Забули пароль?</Link>
+                    </div>
+                </form>
+            </div>
+        }
         </>
     );
 }

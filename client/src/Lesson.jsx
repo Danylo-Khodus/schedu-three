@@ -55,15 +55,12 @@ export default function Lesson (lesson) {
         } else if (currentTime === format(new Date(lesson.beginTime), 'dd.MM.yyyy HH:mm:ss'))  {
             window.location.reload();
         } else if (currentTime === format(new Date(lesson.endTime), 'dd.MM.yyyy HH:mm:ss')) {
-            setTimeout(()=>{
-                postHomework();
-            },100);
-            setTimeout(()=>{
-                window.location.reload();
-            },200);
+            window.location.reload();
         }
 
     },1000);
+
+    // UI FUNCTIONS
 
     const [opened, setOpened] = useState(false);
 
@@ -92,7 +89,7 @@ export default function Lesson (lesson) {
                         {opened && 
                             <div className="lesson__info">
                                 <button className={`btn colored ${!lesson.presentation ? 'inactive' : ''}`} onClick={()=>{openLink(lesson.presentation)}}>Презентація</button>
-                                <button className={`btn colored ${(status === 'soon' || status === 'ongoing') ? '' : 'inactive'}`} onClick={()=>{openLink(lesson.link)}}>Перейти</button>
+                                <button className={`btn colored ${(status === 'soon' || status === 'ongoing') ? '' : 'inactive'}`} onClick={()=>{postHomework(); openLink(lesson.link);}}>Перейти</button>
                             </div>
                         }
                     </div>

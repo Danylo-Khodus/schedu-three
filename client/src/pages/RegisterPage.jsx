@@ -7,6 +7,8 @@ export default function RegisterPage() {
 
     const {userInfo} = useContext(UserContext);
 
+    // INPUTS CONSTRUCTIONS
+
     const [userData, setUserData] = useState({
         email: '',
         password: '',
@@ -21,6 +23,8 @@ export default function RegisterPage() {
         {label: "3-В",value: "3-В",},
         {label: "3-Г",value: "3-Г",},
     ];
+
+    // REGISTERING
 
     async function register(ev) {
 
@@ -45,7 +49,9 @@ export default function RegisterPage() {
 
     return(
         <>
-            {!userInfo ?
+            {userInfo?.id ?
+                <Navigate to={'/'} />
+                :
                 <div className="registration__page__wrapper">
                     <form className="register" onSubmit={register}>
                         <h1 className="section__title">Реєстрація</h1>
@@ -84,8 +90,6 @@ export default function RegisterPage() {
                         </div>
                     </form>
                 </div>
-                :
-                <Navigate to={'/'} />
             }
         </>
     );

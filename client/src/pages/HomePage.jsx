@@ -12,6 +12,8 @@ export default function HomePage() {
 
     const {userInfo} = useContext(UserContext);
 
+    // GETTING SCHEDULE
+
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
@@ -21,6 +23,8 @@ export default function HomePage() {
             });
         });
     }, []);
+
+    // FILTERING THE DATA
 
     const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
 
@@ -36,9 +40,11 @@ export default function HomePage() {
     });
 
     return(
-        <div className='homepage__wrapper'>
-            {userInfo ? 
-                <>
+        <>
+            {!userInfo?.id ?
+                <Navigate to={'/login'}/>
+                :
+                <div className='homepage__wrapper'>
                     <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
                     {filteredSchedule.length > 0 
                         ? 
@@ -51,9 +57,8 @@ export default function HomePage() {
                             <Link to='/homework' className='btn colored'>Переглянути д/з</Link>
                         </div>
                     }
-                </> 
-                : <Navigate to={'/login'}/>
+                </div>
             }
-        </div>
+        </>
     );
 }

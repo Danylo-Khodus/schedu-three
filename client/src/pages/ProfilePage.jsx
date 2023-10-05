@@ -1,7 +1,7 @@
 import '../stylesheets/ProfilePage.css';
 
 import URL from '../URL';
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate } from 'react-router-dom';
 
@@ -9,11 +9,17 @@ export default function ProfilePage() {
 
     const {userInfo, setUserInfo} = useContext(UserContext);
 
+    // GETTING PROFILE DATA
+
     const [userData, setUserData] = useState({
         firstName: userInfo?.firstName,
         lastName: userInfo?.lastName,
         group: userInfo?.group,
     });
+
+    const firstLetter = Array.from(`${userInfo?.firstName}`)[0];
+
+    // CHANGING PROFILE INFO
 
     const options = [
         {label: "Select...",value: "initial",},
@@ -47,11 +53,11 @@ export default function ProfilePage() {
 
     }
 
-    const firstLetter = Array.from(`${userInfo?.firstName}`)[0];
-
     return (
         <>
-            {userInfo ?
+            {!userInfo?.id ?
+                <Navigate to={'/login'}/>
+                :
                 <>
                     <h1 className='section__h1'>Мій профіль</h1>
                     <div className="profile__wrapper">
@@ -109,8 +115,6 @@ export default function ProfilePage() {
                         )}
                     </div>
                 </>
-                :
-                <Navigate to={'/login'} />
             }
         </>
     )
