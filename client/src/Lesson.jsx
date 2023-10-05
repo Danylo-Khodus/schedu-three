@@ -33,18 +33,20 @@ export default function Lesson (lesson) {
 
     const [status, setStatus] = useState('');
 
-    setInterval(()=>{
-        const currentTime = new Date().getTime();
-        const soonTime = new Date(lesson.beginTime).getTime() - 10*60*1000;
+    if (status !== 'finished') {
+        setInterval(()=>{
+            const currentTime = new Date().getTime();
+            const soonTime = new Date(lesson.beginTime).getTime() - 10*60*1000;
 
-        if (currentTime >= soonTime && !(currentTime >= new Date(lesson.beginTime).getTime())) {
-            setStatus('soon');
-        } else if (currentTime >= new Date(lesson.beginTime).getTime() && !(currentTime >= new Date(lesson.endTime).getTime()))  {
-            setStatus('ongoing');
-        }  else if (currentTime >= new Date(lesson.endTime).getTime()) {
-            setStatus('finished');
-        }
-    },100);
+            if (currentTime >= soonTime && !(currentTime >= new Date(lesson.beginTime).getTime())) {
+                setStatus('soon');
+            } else if (currentTime >= new Date(lesson.beginTime).getTime() && !(currentTime >= new Date(lesson.endTime).getTime()))  {
+                setStatus('ongoing');
+            }  else if (currentTime >= new Date(lesson.endTime).getTime()) {
+                setStatus('finished');
+            }
+        },100);
+    }
 
     // UI FUNCTIONS
 
