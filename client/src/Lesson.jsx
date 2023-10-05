@@ -44,7 +44,7 @@ export default function Lesson (lesson) {
         }  else if (currentTime >= new Date(lesson.endTime).getTime()) {
             setStatus('finished');
         }
-    },1000);
+    },100);
 
     // UI FUNCTIONS
 
