@@ -55,16 +55,7 @@ export default function Lesson (lesson) {
         } else if (currentTime === format(new Date(lesson.beginTime), 'dd.MM.yyyy HH:mm:ss'))  {
             window.location.reload();
         } else if (currentTime === format(new Date(lesson.endTime), 'dd.MM.yyyy HH:mm:ss')) {
-<<<<<<< HEAD
             window.location.reload();
-=======
-            setTimeout(()=>{
-                postHomework();
-            },100);
-            // setTimeout(()=>{
-            //     window.location.reload();
-            // },200);
->>>>>>> 470158f2ba57c4356efba54d37947d9e396a60fd
         }
 
     },1000);
