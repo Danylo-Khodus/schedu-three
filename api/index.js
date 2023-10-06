@@ -215,40 +215,39 @@ app.get('/api/schedule', async (req, res) => {
 });
 
 app.post('/api/homework', async (req, res) => {
-    const {status, user_id, group, subject, homework} = req.body;
+    const {status, student_id, student_fullName, group, teacher, subject, homework, link} = req.body;
     const homeworkDoc = await Homework.create({
         status,
-        user_id,
+        student_id,
+        student_fullName,
         group,
+        teacher,
         subject,
         homework,
+        link,
     });
     res.json(homeworkDoc);
 });
 
 app.get('/api/homework', async (req, res) => {
-    const token = req.cookies?.token;
-    if (token) {
-        jwt.verify(token, secret, {}, async (err,info) => {
-            if (err) throw err;
-            const user_id = info.id;
-            const homeworkList = await Homework.find({user_id});
-            res.json(homeworkList);
-        });
-    } else {
-        res.status(401).json(null);
-    }
+    const homeworkList = await Homework.find();
+    res.json(homeworkList);
 });
 
 app.put('/api/homework', async (req, res) => {
 
-    const task = req.body;
-    const _id = task._id;
+    const {_id, status, student_id, student_fullName, group, teacher, subject, homework, link} = req.body;
     const homeworkDoc = await Homework.findOne({_id});
     
     await homeworkDoc.updateOne({
-        ...task,
-        status: 'sent',
+        status,
+        student_id,
+        student_fullName,
+        group,
+        teacher,
+        subject,
+        homework,
+        link,
     });
 
     res.json(homeworkDoc);

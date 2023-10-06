@@ -11,10 +11,13 @@ export default function Lesson (lesson) {
 
     const [data, setData] = useState({
         status: 'assigned',
-        user_id: userInfo?.id,
+        student_id: userInfo?.id,
+        student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
         group : userInfo?.group,
+        teacher: lesson.teacher,
         subject: lesson.subject,
         homework: lesson.homework,
+        link: '',
     });
 
     function postHomework() {

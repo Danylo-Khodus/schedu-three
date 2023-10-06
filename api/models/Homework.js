@@ -3,10 +3,13 @@ const {Schema, model} = mongoose;
 
 const HomeworkSchema = new Schema({
     status: String,
-    user_id: String,
+    student_id: String,
+    student_fullName: String,
     group: String,
+    teacher: String,
     subject: String,
     homework: String,
+    link: String,
 }, {
     timestamps: true,
 });

@@ -16,8 +16,7 @@ export default function HomeworkPage () {
     const [homework, setHomework] = useState([]);
 
     useEffect(() => {
-        fetch(URL + '/api/homework',  {credentials: 'include'})
-        .then(response => {
+        fetch(URL + '/api/homework').then(response => {
             response.json().then(list => {
               setHomework(list);
             });
@@ -25,7 +24,13 @@ export default function HomeworkPage () {
     }, []); 
 
     const filtered = homework.filter((ev) => {
-        if (ev.group.includes(userInfo?.group)) {return ev}
+        const fullName = `${userInfo?.lastName} ${userInfo?.firstName}`;
+
+        if (userInfo?.perm === 'teacher') {
+            if (ev.teacher.includes(fullName) && ev.status !== 'assigned') {return ev}
+        } else {
+            if (ev.student_id.includes(userInfo?.id)) {return ev}
+        }
     });
 
     // TASK COMPONENT
