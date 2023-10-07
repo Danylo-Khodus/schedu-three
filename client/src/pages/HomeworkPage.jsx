@@ -27,7 +27,7 @@ export default function HomeworkPage () {
         const fullName = `${userInfo?.lastName} ${userInfo?.firstName}`;
 
         if (userInfo?.perm === 'teacher') {
-            if (ev.teacher.includes(fullName) && ev.status !== 'assigned') {return ev}
+            if (ev.teacher.includes(fullName) && ev.status === 'sent') {return ev}
         } else {
             if (ev.student_id.includes(userInfo?.id)) {return ev}
         }
@@ -35,15 +35,17 @@ export default function HomeworkPage () {
 
     // TASK COMPONENT
 
-    function Task (task) {
+    function Task ({_id, status, subject, homework, link}) {
 
-        const [currentStatus, setCurrentStatus] = useState(task.status);
+        const [newLink, setNewLink] = useState(link);
 
-        async function handleStatusChange () {
+        const [opened, setOpened] = useState(false);
+
+        async function handleClick (stat) {
 
             const response = await fetch(URL + '/api/homework', {
                 method: 'PUT',
-                body: JSON.stringify(task),
+                body: JSON.stringify({ _id, stat, newLink }),
                 headers: {'Content-Type':'application/json'},
             });
             if (response.status !== 200) {
@@ -53,23 +55,75 @@ export default function HomeworkPage () {
         };
 
         return (
-            <div className="task__wrapper">
-                <div className="task__info">
-                    <div className="subject">{task.subject} :</div>
-                    <div className="task">{task.homework}</div>
-                </div>
-                <button className={`btn ${currentStatus === 'assigned' && 'colored'} ${currentStatus === 'sent' && 'done inactive'}`} onClick={() => {setCurrentStatus('sent'); handleStatusChange();}}>
-                    {currentStatus === 'sent' ?
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
-                        :
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                        </svg>
-                    }
-                </button>
-            </div>
+            <>
+                {userInfo?.perm !== 'teacher' ?
+                    <div className='task__wrapper'>
+                        <div className="task__info__wrapper" onClick={()=>{setOpened(prev=>!prev)}}>
+                            {status === 'assigned' &&
+                                <div className='btn colored no-hover'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                                    </svg>
+                                </div>
+                            }
+                            {status === 'sent' && 
+                                <div className='btn sent inactive'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            }
+                            {status === 'checked' && 
+                                <div className='btn checked inactive'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            }
+                            <div className="task__info">
+                                <div className="subject">{subject} :</div>
+                                <div className={`task ${opened ? 'full' : ''}`}>{homework}</div>
+                            </div>
+                        </div>
+                        <div className={`task__input__wrapper ${opened ? 'shown':''}`}>
+                            <div className="task__input">
+                                <input className={`${status !== 'assigned' ? 'inactive' : ''}`}
+                                    type='text' 
+                                    value={newLink}
+                                    placeholder={'Посилання на домашню роботу*'}
+                                    onChange={(ev)=> setNewLink(ev.target.value)}
+                                />
+                                <button className={`btn colored ${(newLink === '' || status === 'sent') ? 'inactive' : ''}`} onClick={()=>{handleClick('sent')}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                    </svg>
+                                </button>
+                            </div>
+                            {newLink !== '' && 
+                                <img src={newLink} alt="Image" border="0"/>
+                            }
+                        </div>
+                    </div>
+                    :
+                    <div className="task__wrapper">
+                        <div className="task__info">
+                            <div className="subject">{subject} :</div>
+                            <div className="task">{homework}</div>
+                        </div>
+                        <button className={`btn ${status === 'assigned' && 'colored'} ${status === 'sent' && 'done inactive'}`} onClick={() => {setStatus('checked')}}>
+                            {status === 'sent' ?
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                </svg>
+                            }
+                        </button>
+                    </div>
+                }
+            </>
         );
     };
 

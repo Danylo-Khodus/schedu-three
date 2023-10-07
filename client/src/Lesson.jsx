@@ -17,7 +17,6 @@ export default function Lesson (lesson) {
         teacher: lesson.teacher,
         subject: lesson.subject,
         homework: lesson.homework,
-        link: '',
     });
 
     function postHomework() {

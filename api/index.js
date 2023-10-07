@@ -215,7 +215,7 @@ app.get('/api/schedule', async (req, res) => {
 });
 
 app.post('/api/homework', async (req, res) => {
-    const {status, student_id, student_fullName, group, teacher, subject, homework, link} = req.body;
+    const {status, student_id, student_fullName, group, teacher, subject, homework} = req.body;
     const homeworkDoc = await Homework.create({
         status,
         student_id,
@@ -224,7 +224,7 @@ app.post('/api/homework', async (req, res) => {
         teacher,
         subject,
         homework,
-        link,
+        link: '',
     });
     res.json(homeworkDoc);
 });
@@ -236,18 +236,18 @@ app.get('/api/homework', async (req, res) => {
 
 app.put('/api/homework', async (req, res) => {
 
-    const {_id, status, student_id, student_fullName, group, teacher, subject, homework, link} = req.body;
+    const {_id, stat, newLink} = req.body;
     const homeworkDoc = await Homework.findOne({_id});
     
     await homeworkDoc.updateOne({
-        status,
-        student_id,
-        student_fullName,
-        group,
-        teacher,
-        subject,
-        homework,
-        link,
+        student_id: homeworkDoc.student_id,
+        student_fullName: homeworkDoc.student_fullName,
+        group: homeworkDoc.group,
+        teacher: homeworkDoc.teacher,
+        subject: homeworkDoc.subject,
+        homework: homeworkDoc.homework,
+        status: stat,
+        link: newLink,
     });
 
     res.json(homeworkDoc);

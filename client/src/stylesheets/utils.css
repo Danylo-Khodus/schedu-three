@@ -26,7 +26,6 @@
     align-items: center;
     justify-content: center;
     gap: 3px;
-    cursor: pointer;
     background-color: var(--clr-white);
     border: 0;
     color: #000000;
@@ -40,23 +39,27 @@
     filter:brightness(0.9);
 }
 
+.btn.no-hover:hover {
+    filter:brightness(1);
+}
+
 .btn.colored {
     color: var(--clr-white);
     background-color: var(--clr-red);
 }
 
-.btn.colored.inactive {
-    opacity: 0.25;
-    pointer-events: none;
+.btn.sent {
+    color: var(--clr-white);
+    background-color: var(--clr-yellow);
 }
 
-.btn.done {
+.btn.checked {
     color: var(--clr-white);
     background-color: var(--clr-green);
 }
 
-.btn.done.inactive {
-    opacity: 0.4;
+.btn.inactive {
+    opacity: 0.45;
     pointer-events: none;
 }
 
