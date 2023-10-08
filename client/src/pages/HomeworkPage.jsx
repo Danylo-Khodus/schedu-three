@@ -27,7 +27,7 @@ export default function HomeworkPage () {
         const fullName = `${userInfo?.lastName} ${userInfo?.firstName}`;
 
         if (userInfo?.perm === 'teacher') {
-            if (ev.teacher.includes(fullName) && ev.status === 'sent') {return ev}
+            if (ev.teacher.includes(fullName) && (ev.status === 'sent' || ev.status === 'checked')) {return ev}
         } else {
             if (ev.student_id.includes(userInfo?.id)) {return ev}
         }
@@ -35,7 +35,7 @@ export default function HomeworkPage () {
 
     // TASK COMPONENT
 
-    function Task ({_id, status, subject, homework, link}) {
+    function Task ({_id, status, group, student_fullName, subject, homework, link}) {
 
         const [newLink, setNewLink] = useState(link);
 
@@ -67,7 +67,7 @@ export default function HomeworkPage () {
                                 </div>
                             }
                             {status === 'sent' && 
-                                <div className='btn sent inactive'>
+                                <div className='btn sent inactive' style={{backgroundColor: 'var(--clr-yellow)'}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -100,27 +100,51 @@ export default function HomeworkPage () {
                                 </button>
                             </div>
                             {newLink !== '' && 
-                                <img src={newLink} alt="Image" border="0"/>
+                                <img src={newLink} alt="Image" border="0" onClick={()=>{window.open(newLink, '_blank');}}/>
                             }
                         </div>
                     </div>
                     :
-                    <div className="task__wrapper">
-                        <div className="task__info">
-                            <div className="subject">{subject} :</div>
-                            <div className="task">{homework}</div>
-                        </div>
-                        <button className={`btn ${status === 'assigned' && 'colored'} ${status === 'sent' && 'done inactive'}`} onClick={() => {setStatus('checked')}}>
-                            {status === 'sent' ?
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                                :
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                                </svg>
+                    <div className='task__wrapper'>
+                        <div className="task__info__wrapper" onClick={()=>{setOpened(prev=>!prev)}}>
+                            {status === 'sent' && 
+                                <div className='btn sent no-hover' style={{backgroundColor: 'var(--clr-red)'}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
                             }
-                        </button>
+                            {status === 'checked' && 
+                                <div className='btn checked inactive'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                </div>
+                            }
+                            <div className="task__info" style={{gap: `${opened ? 'var(--size-xxs)' : '0'}`}}>
+                                <div className="student__info">{group}&#160;{student_fullName}</div>
+                                <div className="subject teacher">{subject}</div>
+                                <div className={`task ${opened ? 'full' : 'hidden'}`}>{homework}</div>
+                            </div>
+                        </div>
+                        <div className={`task__input__wrapper ${opened ? 'shown':''}`}>
+                            <div className="task__input" >
+                                <input className={`${status !== 'checked' ? '' : 'inactive'}`}
+                                    type='text' 
+                                    value={newLink}
+                                    placeholder={'Посилання на домашню роботу*'}
+                                    onChange={(ev)=> setNewLink(ev.target.value)}
+                                />
+                                <button className={`btn colored ${(newLink === '' || status === 'checked') ? 'inactive' : ''}`} onClick={()=>{handleClick('checked')}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                </button>
+                            </div>
+                            {newLink !== '' && 
+                                <img src={newLink} alt="Image" border="0" onClick={()=>{window.open(newLink, '_blank');}}/>
+                            }
+                        </div>
                     </div>
                 }
             </>

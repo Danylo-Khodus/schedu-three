@@ -50,7 +50,6 @@
 
 .btn.sent {
     color: var(--clr-white);
-    background-color: var(--clr-yellow);
 }
 
 .btn.checked {
