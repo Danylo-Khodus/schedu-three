@@ -18,6 +18,7 @@
 }
 
 .task__info__wrapper {
+    min-height: var(--size-6xl);
     display: grid;
     gap: var(--size-xs);
     grid-template-columns: auto 1fr;
@@ -27,24 +28,31 @@
 .task__info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
-.task__info.done *{
+.task__info.hidden *{
     opacity: 0.4;
 }
 
 .student__info {
-    font-weight: 700;
+    display: flex;
+    gap: var(--size-xs);
 }
 
-.subject {
+.student__info p{
+    font-weight: 700;
+    font-size: var(--size-base);
+}
+
+.task__info .subject {
     top: -20px;
     font-weight: 700;
     font-size: var(--size-lg);
     color: var(--clr-red);
 }
 
-.task {
+.task__info .task {
     padding-right: 45px;
     font-weight: 700;
     font-size: var(--size-lg);
@@ -94,8 +102,6 @@
     .task__info {
         padding-left: 25px;
         display: flex;
-        align-items: center;
-        flex-direction: row;
     }
     .subject {
         width: 212px;

@@ -54,6 +54,19 @@ export default function HomeworkPage () {
             
         };
 
+        async function handleDeletion () {
+
+            const response = await fetch(URL + '/api/homework', {
+                method: 'DELETE',
+                body: JSON.stringify({ _id }),
+                headers: {'Content-Type':'application/json'},
+            });
+            if (response.status !== 200) {
+                alert('Видалення не вдалося. Будь-ласка, спробуйте пізніше.');
+            }
+
+        };
+
         return (
             <>
                 {userInfo?.perm !== 'teacher' ?
@@ -80,7 +93,7 @@ export default function HomeworkPage () {
                                     </svg>
                                 </div>
                             }
-                            <div className="task__info">
+                            <div className={`task__info ${(status === 'checked' || status === 'sent') ? 'hidden':''}`} style={{gap: `${opened ? 'var(--size-xxs)' : '0'}`}}>
                                 <div className="subject">{subject} :</div>
                                 <div className={`task ${opened ? 'full' : ''}`}>{homework}</div>
                             </div>
@@ -93,11 +106,20 @@ export default function HomeworkPage () {
                                     placeholder={'Посилання на домашню роботу*'}
                                     onChange={(ev)=> setNewLink(ev.target.value)}
                                 />
-                                <button className={`btn colored ${(newLink === '' || status === 'sent') ? 'inactive' : ''}`} onClick={()=>{handleClick('sent')}}>
+                                {(status === 'assigned' || status === 'sent') && (
+                                <button className={`btn colored ${(newLink === '' || status === 'checked') ? 'inactive' : ''}`} onClick={()=>{handleClick('sent')}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                     </svg>
                                 </button>
+                                )}
+                                {status === 'checked' && (
+                                <button className='btn delete' onClick={()=>{handleDeletion()}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                                )}
                             </div>
                             {newLink !== '' && 
                                 <img src={newLink} alt="Image" border="0" onClick={()=>{window.open(newLink, '_blank');}}/>
@@ -121,8 +143,11 @@ export default function HomeworkPage () {
                                     </svg>
                                 </div>
                             }
-                            <div className="task__info" style={{gap: `${opened ? 'var(--size-xxs)' : '0'}`}}>
-                                <div className="student__info">{group}&#160;{student_fullName}</div>
+                            <div className={`task__info ${status === 'checked' ? 'hidden':''}`} style={{gap: `${opened ? 'var(--size-xxs)' : '0'}`}}>
+                                <div className="student__info">
+                                    <p>{group}</p>
+                                    <p>{student_fullName}</p>
+                                </div>
                                 <div className="subject teacher">{subject}</div>
                                 <div className={`task ${opened ? 'full' : 'hidden'}`}>{homework}</div>
                             </div>
@@ -135,11 +160,19 @@ export default function HomeworkPage () {
                                     placeholder={'Посилання на домашню роботу*'}
                                     onChange={(ev)=> setNewLink(ev.target.value)}
                                 />
+                                {status === 'sent' ?
                                 <button className={`btn colored ${(newLink === '' || status === 'checked') ? 'inactive' : ''}`} onClick={()=>{handleClick('checked')}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                     </svg>
                                 </button>
+                                :
+                                <button className='btn delete' onClick={()=>{handleDeletion()}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                                }
                             </div>
                             {newLink !== '' && 
                                 <img src={newLink} alt="Image" border="0" onClick={()=>{window.open(newLink, '_blank');}}/>
@@ -152,25 +185,19 @@ export default function HomeworkPage () {
     };
 
     return (
-        <>
-            {!userInfo?.id ?
-                <Navigate to={'/login'}/>
+        <div className="homework__page">
+            <h1 className="section__h1">Домашне завдання</h1>
+            <div className="homework">
+                {filtered.length > 0 
+                ? 
+                filtered.map(task => <Task key={task._id} {...task}/>)
                 :
-                <div className="homework__page">
-                    <h1 className="section__h1">Домашне завдання</h1>
-                    <div className="homework">
-                        {filtered.length > 0 
-                        ? 
-                        filtered.map(task => <Task key={task._id} {...task}/>)
-                        :
-                        <div className='weekend__wrapper'>
-                            <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
-                            <Link to='/homework' className='btn colored'>Повернутися до розкладу</Link>
-                        </div>
-                        }
-                    </div>
+                <div className='weekend__wrapper'>
+                    <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
+                    <Link to='/homework' className='btn colored'>Повернутися до розкладу</Link>
                 </div>
-            }
-        </>
+                }
+            </div>
+        </div>
     );
 }

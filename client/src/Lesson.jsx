@@ -67,9 +67,9 @@ export default function Lesson (lesson) {
                         <div className="lesson__preview" onClick={()=>{setOpened(prev=>!prev)}}>
                             <div className="name">
                                 {userInfo?.perm === 'teacher' && 
-                                <p>{lesson.group}</p>
+                                <p className='group'>{lesson.group}</p>
                                 }
-                                <p>{lesson.subject}</p>
+                                <p className='subject'>{lesson.subject}</p>
                             </div>
                             <div className="time">
                                 <div className="start">{format(new Date(lesson.beginTime), 'H:mm')}</div>

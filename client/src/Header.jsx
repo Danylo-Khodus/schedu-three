@@ -2,7 +2,7 @@ import './stylesheets/Header.css';
 
 import URL from './URL';
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { UserContext } from "./UserContext";
 
 export default function Header () {
@@ -18,12 +18,15 @@ export default function Header () {
     });
   }, []);
 
+  const [redirect, setRedirect] = useState(false);
+
   function logout() {
     fetch(URL + '/api/logout', {
       credentials: 'include',
       method: 'POST'
     });
     setUserInfo(null);
+    setRedirect(true);
   }
 
   const [shown, setShown] = useState(false);
@@ -42,6 +45,10 @@ export default function Header () {
 
     return () => document.body.removeEventListener('click', closeDropdown);
   });
+
+  if (redirect) {
+    return <Navigate to={'/login'}/>
+  }
 
   return (
     <header className={`container padding ${!userInfo ? 'welcome' : ''}`}>

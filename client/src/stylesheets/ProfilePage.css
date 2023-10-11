@@ -8,6 +8,7 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    margin: 0 auto;
     background-color:cadetblue;
     display: flex;
     justify-content: center;

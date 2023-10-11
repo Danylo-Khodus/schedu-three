@@ -98,13 +98,12 @@ app.put('/api/profile', async (req,res) => {
             if (err) throw err;
 
             const _id = info.id;
-            const {firstName, lastName, group} = req.body;
+            const {firstName, lastName} = req.body;
             const profileDoc = await User.findOne({_id});
             
             await profileDoc.updateOne({
                 firstName,
                 lastName,
-                group,
             });
 
             res.json(profileDoc);
@@ -251,6 +250,17 @@ app.put('/api/homework', async (req, res) => {
     });
 
     res.json(homeworkDoc);
+
+});
+
+app.delete('/api/homework', async (req, res) => {
+
+    const {_id} = req.body;
+    const homeworkDoc = await Homework.findOne({_id});
+    
+    await homeworkDoc.deleteOne({});
+
+    res.status(200).json('success');
 
 });
 

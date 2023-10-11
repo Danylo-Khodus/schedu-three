@@ -236,11 +236,18 @@ main.welcome {
   padding-left: 4px;
   width: 100%;
   display: flex;
+  align-items: center;
   gap: 25px;
   background-color: var(--clr-third);
 }
 
-.lesson__preview .name p {
+.lesson__preview .name .group {
+  color: black;
+  text-wrap: nowrap;
+  font-weight: 800;
+}
+
+.lesson__preview .name .subject {
   color: black;
   font-weight: 800;
 }

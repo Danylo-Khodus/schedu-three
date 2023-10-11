@@ -57,6 +57,11 @@
     background-color: var(--clr-green);
 }
 
+.btn.delete {
+    color: var(--clr-white);
+    background-color: rgb(252, 74, 74);
+}
+
 .btn.inactive {
     opacity: 0.45;
     pointer-events: none;
