@@ -67,26 +67,22 @@ app.post('/api/logout', (req,res) => {
 
 app.get('/api/profile', async (req,res) => {
 
-    const token = req.cookies?.token;
+    const {token} = req.cookies;
     if (token) {
         jwt.verify(token, secret, {}, async (err,info) => {
             if (err) throw err;
             const _id = info.id;
             const userDoc = await User.findOne({_id});
-            if (userDoc) {
-                res.json({
-                    id: userDoc._id,
-                    firstName: userDoc.firstName,
-                    lastName: userDoc.lastName,
-                    group: userDoc.group,
-                    perm: userDoc.perm,
-                });
-            } else {
-                res.status(401).json(null);
-            }
+            res.json({
+                id: userDoc._id,
+                firstName: userDoc.firstName,
+                lastName: userDoc.lastName,
+                group: userDoc.group,
+                perm: userDoc.perm,
+            });
         });
     } else {
-        res.status(401).json(null);
+        res.json(null);
     }
 });
 

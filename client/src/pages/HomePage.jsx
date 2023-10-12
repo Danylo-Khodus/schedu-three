@@ -40,19 +40,25 @@ export default function HomePage() {
     });
 
     return(
-        <div className='homepage__wrapper'>
-            <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
-            {filteredSchedule.length > 0 
-                ? 
-                    <div className='lessons'>
-                        {filteredSchedule.map(post => <Lesson key={post._id} {...post} />)}
-                    </div>
-                :
-                <div className='weekend__wrapper'>
-                    <h1 className='weekend'>На сьогодні, запланованих занять - немає.</h1>
-                    <Link to='/homework' className='btn colored'>Переглянути д/з</Link>
+        <>
+            {userInfo?.id ?
+                <div className='homepage__wrapper'>
+                    <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
+                    {filteredSchedule.length > 0 
+                        ? 
+                            <div className='lessons'>
+                                {filteredSchedule.map(post => <Lesson key={post._id} {...post} />)}
+                            </div>
+                        :
+                        <div className='weekend__wrapper'>
+                            <h1 className='weekend'>На сьогодні, запланованих занять - немає.</h1>
+                            <Link to='/homework' className='btn colored'>Переглянути д/з</Link>
+                        </div>
+                    }
                 </div>
+            :
+                <Navigate to={'/login'}/>
             }
-        </div>
+        </>
     );
 }

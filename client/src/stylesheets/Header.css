@@ -7,10 +7,7 @@ header.container {
   padding-top: var(--size-2xl);
   padding-bottom: var(--size-2xl);
   align-items: center;
-}
-
-header.welcome {
-  background-color: var(--clr-red);
+  background-color: transparent;
 }
 
 header a {
