@@ -55,7 +55,7 @@ export default function LoginPage() {
                     <form className="login" onSubmit={login}>
                         <h1 className='section__title'>Вхід</h1>
                         <div className='login__inputs'>
-                            <input type="text" 
+                            <input type="email" 
                                 placeholder="Електронна пошта *" 
                                 name='email'
                                 onChange={(ev) => setUserData({
@@ -74,9 +74,6 @@ export default function LoginPage() {
                         <div className="registration">
                             <p>Досі немає акаунту?</p>
                             <Link className="register__link" to="/register">Створити акаунт</Link>
-                        </div>
-                        <div className="forgot__password">
-                            <Link className="forgot__password__link" to="/password-recovery">Забули пароль?</Link>
                         </div>
                     </form>
                 </div>

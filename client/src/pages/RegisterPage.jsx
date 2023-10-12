@@ -11,10 +11,10 @@ export default function RegisterPage() {
 
     const [userData, setUserData] = useState({
         email: '',
-        password: '',
-        firstName: '',
+        password: null,
+        firstName: null,
         lastName: '',
-        group: '',
+        group: null,
         perm: '',
     });
 
@@ -24,11 +24,39 @@ export default function RegisterPage() {
         {label: "3-Г",value: "3-Г",},
     ];
 
+    // CHECKING EMAIL
+
+    const [error, setError] = useState(false);
+
+    function emailCheck(input) {
+        return /\S+@\S+\.\S+/.test(input);
+    };
+    
+    const handleChange = ev => {
+        if (!emailCheck(ev.target.value)) {
+            setError(true);
+        } else {
+            setError(false);
+        }
+
+        setUserData({...userData,[ev.target.name]:ev.target.value})
+    };
+
     // REGISTERING
 
     async function register(ev) {
 
-        const blank = (userData.password === '' || userData.email === '' || userData.firstName === '' || userData.group === '');
+        const blank = (
+            userData.password === '' || 
+            userData.email === '' || 
+            userData.firstName === '' || 
+            userData.group === '' || 
+            userData.group === 'initial' || 
+            userData.password === null ||
+            userData.firstName === null ||
+            userData.group === null || 
+            error
+        );
 
         if (blank) {
             alert('Будь-ласка, вказуйте усю інформацію необхідну для реєстрації.');
@@ -57,16 +85,19 @@ export default function RegisterPage() {
                         <h1 className="section__title">Реєстрація</h1>
                         <div className="register__inputs">
                             <div className="name__input__wrapper">
-                                <input type="text" 
+                                <input className={`${userData.firstName === '' && 'error'}`}
+                                    type="text" 
                                     placeholder="Ім'я *"
                                     name="firstName"
                                     onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
-                                <input type="text" 
+                                <input
+                                    type="text" 
                                     placeholder="Прізвище"
                                     name="lastName"
                                     onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
                             </div>
-                            <select name='group'
+                            <select className={`${(userData.group === '' || userData.group === 'initial') && 'error'}`}
+                                    name='group'
                                     onChange={(ev)=> setUserData({
                                         ...userData,
                                         [ev.target.name]:ev.target.value,})}>
@@ -74,11 +105,14 @@ export default function RegisterPage() {
                                     <option key={option.value} value={option.value}>{option.label}</option>
                                 ))}
                             </select>
-                            <input type="text" 
+                            <input className={`${error && 'error'}`}
+                                type="text" 
                                 placeholder="Електронна пошта *"
                                 name="email"
-                                onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
-                            <input type="password" 
+                                value={userData.email}
+                                onChange={handleChange}/>
+                            <input className={`${userData.password === '' && 'error'}`}
+                                type="password" 
                                 placeholder="Пароль *"
                                 name="password"
                                 onChange={ev => setUserData({...userData,[ev.target.name]:ev.target.value})}/>
