@@ -243,8 +243,10 @@ main.welcome {
 }
 
 .lesson__preview .name .subject {
+  font-size: var(--size-xl);
   color: black;
   font-weight: 800;
+  padding-left: 15px;
 }
 
 .lesson__preview .time {
@@ -292,9 +294,8 @@ main.welcome {
   border-top-right-radius: 10px;
   background-color: var(--clr-red);
   color: var(--clr-white);
-  padding: 15px;
-  display: flex;
-  align-items: end;
+  padding-left: 15px;
+  padding-top: 110px;
 }
 
 .lesson__info .info {
@@ -305,7 +306,14 @@ main.welcome {
   flex-direction: column;
 }
 
+.lesson__info h1 {
+  font-size: var(--size-4xl);
+}
+
 .lesson__info p {
+  font-size: var(--size-lg);
+  font-weight: 500;
+
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

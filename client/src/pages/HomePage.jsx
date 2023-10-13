@@ -96,8 +96,8 @@ export default function HomePage() {
                                         <h1 style={{lineHeight:'20px'}}>{lesson.subject}</h1>
                                     </div>
                                     <div className="info">
-                                        <p>Викладач: {lesson.teacher}</p>
-                                        <p>Тема: {lesson.theme}</p>
+                                        <p>Викладач: &#160;&#160;{lesson.teacher}</p>
+                                        <p>Тема: &#160;&#160;{lesson.theme}</p>
                                     </div>
                                     <div className="buttons">
                                         <button className='btn colored' 
