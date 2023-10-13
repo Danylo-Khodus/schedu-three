@@ -82,7 +82,7 @@ export default function HomePage() {
                         ? 
                             <div style={{position:'relative'}}>
                                 <div className='lessons'>
-                                    {filteredSchedule.map(post => <Lesson key={post._id} lesson={...post} handleCallback={(ev)=>{setLesson(ev); setOpened(true)}}/>)}
+                                    {filteredSchedule.map(post => <Lesson key={post._id} lesson={post} handleCallback={(ev)=>{setLesson(ev); setOpened(true)}}/>)}
                                 </div>
                                 <div className={`lesson__info ${opened && 'shown'}`}>
                                     <button className='btn close' onClick={()=>{setOpened(false)}}>
