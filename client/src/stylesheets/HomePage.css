@@ -242,7 +242,7 @@ main.welcome {
 
 .lesson__preview .name .subject {
   font-size: var(--size-xl);
-  color: rgb(35, 39, 42, 0.65);
+  color: black;
   font-weight: 800;
   padding-left: 15px;
 }
