@@ -61,8 +61,6 @@ export default function HomePage() {
         homework: lesson.homework,
     });
 
-    console.log(data);
-
     function postHomework() {
         if (userInfo?.perm !== 'teacher') {
             if (lesson.homework !== '') {
@@ -93,7 +91,7 @@ export default function HomePage() {
                                         </svg>
                                     </button>
                                     <div className='image'>
-                                        <h1 style={{lineHeight:'20px'}}>{lesson.subject}</h1>
+                                        <h1>{lesson.subject}</h1>
                                     </div>
                                     <div className="info">
                                         <p>Викладач: &#160;&#160;{lesson.teacher}</p>

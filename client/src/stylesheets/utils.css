@@ -91,6 +91,9 @@ height: 20px;
     .container {
         max-width: 768px;
     }
+    .btn {
+        padding: 8px 10px;
+    }
 }
 
 @media (min-width:1024px) {

@@ -110,7 +110,6 @@ main.welcome {
   color: var(--clr-grey);
   font-size: var(--size-sm);
   padding: 15px 10px;
-
 }
 
 .day__filter.chosen {
@@ -119,7 +118,6 @@ main.welcome {
   position: relative;
   background-color: var(--clr-red);
   border-radius: 10px;
-
 }
 
 /*   #endregion   */
@@ -244,7 +242,7 @@ main.welcome {
 
 .lesson__preview .name .subject {
   font-size: var(--size-xl);
-  color: black;
+  color: rgb(35, 39, 42, 0.65);
   font-weight: 800;
   padding-left: 15px;
 }
@@ -308,6 +306,7 @@ main.welcome {
 
 .lesson__info h1 {
   font-size: var(--size-4xl);
+  line-height: 20px;
 }
 
 .lesson__info p {
@@ -390,8 +389,23 @@ main.welcome {
     gap: 20px;
     justify-content: center;
   }
+  .day__filter {
+    padding: 8px 10px;
+  }
+  .lesson {
+    width: 34%;
+  }
+  .lesson__preview .name .subject {
+    font-size: var(--size-lg);
+  }
   .lesson__info {
-    left: 768px;
+    left: unset;
+    right: -768px;
+    width: 60%;
+  }
+  .lesson__info.shown {
+    left: unset;
+    right: 0;
   }
 }
 
@@ -412,19 +426,19 @@ main.welcome {
     top: 45px;
   }
   .lesson__info {
-    left: 1024px;
+    right: -1024px;
   }
 }
 
 @media (min-width: 1280px) {
   .lesson__info {
-    left: 1280px;
+    right: -1280px;
   }
 }
 
 @media (min-width: 1440px) {
   .lesson__info {
-    left: 1440px;
+    right: -1440px;
   }
 }
 
