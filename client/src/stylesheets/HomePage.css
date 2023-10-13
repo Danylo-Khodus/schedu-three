@@ -101,6 +101,7 @@ main.welcome {
 
 .days__wrapper {
   display: flex;
+  justify-content: space-between;
 }
 
 .day__filter {
@@ -108,7 +109,7 @@ main.welcome {
   font-weight: 600;
   color: var(--clr-grey);
   font-size: var(--size-sm);
-  padding: 15px 18px;
+  padding: 15px 10px;
 
 }
 
