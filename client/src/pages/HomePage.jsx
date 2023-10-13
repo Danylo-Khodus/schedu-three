@@ -39,6 +39,40 @@ export default function HomePage() {
         }
     });
 
+    // DISPLAYING LESSON INFO
+
+    const [opened, setOpened] = useState(false);
+
+    const [lesson, setLesson] = useState('');
+
+    function openLink(link) {
+        window.open(link, '_blank');
+    };
+
+    // HOMEWORK ASSIGNMENT  
+
+    const [data, setData] = useState({
+        status: 'assigned',
+        student_id: userInfo?.id,
+        student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
+        group: userInfo?.group,
+        teacher: lesson.teacher,
+        subject: lesson.subject,
+        homework: lesson.homework,
+    });
+
+    function postHomework() {
+        if (userInfo?.perm !== 'teacher') {
+            if (lesson.homework !== '') {
+                fetch(URL + '/api/homework', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {'Content-Type':'application/json'}
+                });
+            };
+        }
+    };
+
     return(
         <>
             {userInfo?.id ?
@@ -46,8 +80,42 @@ export default function HomePage() {
                     <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
                     {filteredSchedule.length > 0 
                         ? 
-                            <div className='lessons'>
-                                {filteredSchedule.map(post => <Lesson key={post._id} {...post} />)}
+                            <div style={{position:'relative'}}>
+                                <div className='lessons'>
+                                    {filteredSchedule.map(post => <Lesson key={post._id} lesson={...post} handleCallback={(ev)=>{setLesson(ev); setOpened(true)}}/>)}
+                                </div>
+                                <div className={`lesson__info ${opened && 'shown'}`}>
+                                    <button className='btn close' onClick={()=>{setOpened(false)}}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div className='image'></div>
+                                    <div className="info">
+                                        <h1>{lesson.subject}</h1>
+                                        <div className="details">
+                                            <p>Викладач:</p>
+                                            <p>{lesson.teacher}</p>
+                                            <p>Тема:</p>
+                                            <p>{lesson.theme}</p> 
+                                        </div>
+                                    </div>
+                                    <div className="buttons">
+                                        <button className='btn colored' 
+                                                onClick={()=>{
+                                                    openLink(lesson.presentation); 
+                                                }}>
+                                            Презентація
+                                        </button>
+                                        <button className='btn colored' 
+                                                onClick={()=>{
+                                                    openLink(lesson.link); 
+                                                    postHomework();
+                                                }}>
+                                            Перейти
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         :
                         <div className='weekend__wrapper'>

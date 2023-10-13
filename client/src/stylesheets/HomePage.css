@@ -254,10 +254,70 @@ main.welcome {
 }
 
 .lesson__info {
+  width: 100%;
+  height: calc(100vh - 178px);
+  top: 0;
+  left: 425px;
+  border-radius: 10px;
+  padding: 10px;
+
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--clr-white);
+  box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
+  transition: all 0.5s;
+}
+
+.lesson__info.shown {
+  left: 0;
+}
+
+.lesson__info button.btn.close {
+  position: absolute;
+  right: 7px;
+  z-index: 1;
+}
+
+.lesson__info .image {
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: var(--clr-red);
+}
+
+.lesson__info .info {
+  padding-top: 150px;
+  gap: var(--size-xs);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson__info .details {
+  gap: var(--size-xs);
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.lesson__info p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lesson__info .buttons {
   display: flex;
   justify-content: space-between;
 }
-
 
 
 /*   #endregion  */
@@ -323,6 +383,9 @@ main.welcome {
     gap: 20px;
     justify-content: center;
   }
+  .lesson__info {
+    left: 768px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -341,14 +404,21 @@ main.welcome {
   .welcome__page h1.blank:after {
     top: 45px;
   }
+  .lesson__info {
+    left: 1024px;
+  }
 }
 
 @media (min-width: 1280px) {
-
+  .lesson__info {
+    left: 1280px;
+  }
 }
 
 @media (min-width: 1440px) {
-
+  .lesson__info {
+    left: 1440px;
+  }
 }
 
 /*   #endregion    */

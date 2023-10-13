@@ -182,449 +182,455 @@ export default function CreateArticlePage() {
     }
 
     return (
-        <form className="new__schedule" onSubmit={createNewLesson}>
-            <h1 className='section__h1'>Новий розклад</h1>
-            <div className="generalInputs__wrapper">  
-                <input type='date' 
-                        name='date'
-                        placeholder={'Дата*'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            [ev.target.name]:ev.target.value,
-                        })}/>
-                <select name='group'
-                        onChange={(ev) => setSchedule({
-                            ...schedule, 
-                            [ev.target.name]:ev.target.value})}>
-                        {group__options.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                </select>
-            </div>
-            <div className='lessonInputs__wrapper'>
-                <div className="lessonInput__wrapper">
-
-                    <h1 className='lessonInput__title'>9:00 - 9:40</h1>
-
-                    <select name='subject' 
-                            onChange={(ev)=> setSchedule({
-                                ...schedule,
-                                lessonOne: {
-                                    ...schedule.lessonOne,
+        <>
+            {userInfo?.id ?
+                <form className="new__schedule" onSubmit={createNewLesson}>
+                    <h1 className='section__h1'>Новий розклад</h1>
+                    <div className="generalInputs__wrapper">  
+                        <input type='date' 
+                                name='date'
+                                placeholder={'Дата*'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
                                     [ev.target.name]:ev.target.value,
-                            }})}>
-                            {lesson__options.map((option) => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                    </select>
-                    <input name='teacher'
-                        type="text" 
-                        placeholder={'Викладач*'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            lessonOne: {
-                                ...schedule.lessonOne,
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='theme'
-                        type="text" 
-                        placeholder={'Тема заняття*'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            lessonOne: {
-                                ...schedule.lessonOne,
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='link'
-                        type="text" 
-                        placeholder={'Посилання на заняття*'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            lessonOne: {
-                                ...schedule.lessonOne,
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='presentation'
-                        type="text" 
-                        placeholder={'Посилання на презентацію'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            lessonOne: {
-                                ...schedule.lessonOne,
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='additional'
-                        type="text" 
-                        placeholder={'Додаткові матеріали'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            lessonOne: {
-                                ...schedule.lessonOne,
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='homework'
-                        type="text" 
-                        placeholder={'Домашне завдання*'}
-                        onChange={(ev)=> setSchedule({
-                            ...schedule,
-                            lessonOne: {
-                                ...schedule.lessonOne,
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                </div>
-                <div className="lessonInput__wrapper">
+                                })}/>
+                        <select name='group'
+                                onChange={(ev) => setSchedule({
+                                    ...schedule, 
+                                    [ev.target.name]:ev.target.value})}>
+                                {group__options.map((option) => (
+                                    <option key={option.value} value={option.value}>{option.label}</option>
+                                ))}
+                        </select>
+                    </div>
+                    <div className='lessonInputs__wrapper'>
+                        <div className="lessonInput__wrapper">
 
-                    <h1 className='lessonInput__title'>9:50 - 10:30</h1>
+                            <h1 className='lessonInput__title'>9:00 - 9:40</h1>
 
-                    <select name='subject' 
-                            onChange={(ev) => setSchedule({
-                                ...schedule,
-                                lessonTwo:{
-                                    ...schedule.lessonTwo, 
-                                    [ev.target.name]:ev.target.value,
-                            }})}>
-                            {lesson__options.map((option) => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                    </select>
-                    <input name='teacher'
-                        type="text" 
-                        placeholder={'Викладач*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonTwo:{
-                                ...schedule.lessonTwo, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='theme'
-                        type="text" 
-                        placeholder={'Тема заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonTwo:{
-                                ...schedule.lessonTwo, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='link'
-                        type="text" 
-                        placeholder={'Посилання на заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonTwo:{
-                                ...schedule.lessonTwo, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='presentation'
-                        type="text" 
-                        placeholder={'Посилання на презентацію'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonTwo:{
-                                ...schedule.lessonTwo, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='additional'
-                        type="text" 
-                        placeholder={'Додаткові матеріали'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonTwo:{
-                                ...schedule.lessonTwo, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='homework'
-                        type="text" 
-                        placeholder={'Домашне завдання*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonTwo:{
-                                ...schedule.lessonTwo, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                </div>
-                <div className="lessonInput__wrapper">
+                            <select name='subject' 
+                                    onChange={(ev)=> setSchedule({
+                                        ...schedule,
+                                        lessonOne: {
+                                            ...schedule.lessonOne,
+                                            [ev.target.name]:ev.target.value,
+                                    }})}>
+                                    {lesson__options.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                            </select>
+                            <input name='teacher'
+                                type="text" 
+                                placeholder={'Викладач*'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
+                                    lessonOne: {
+                                        ...schedule.lessonOne,
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='theme'
+                                type="text" 
+                                placeholder={'Тема заняття*'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
+                                    lessonOne: {
+                                        ...schedule.lessonOne,
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='link'
+                                type="text" 
+                                placeholder={'Посилання на заняття*'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
+                                    lessonOne: {
+                                        ...schedule.lessonOne,
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='presentation'
+                                type="text" 
+                                placeholder={'Посилання на презентацію'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
+                                    lessonOne: {
+                                        ...schedule.lessonOne,
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='additional'
+                                type="text" 
+                                placeholder={'Додаткові матеріали'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
+                                    lessonOne: {
+                                        ...schedule.lessonOne,
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='homework'
+                                type="text" 
+                                placeholder={'Домашне завдання*'}
+                                onChange={(ev)=> setSchedule({
+                                    ...schedule,
+                                    lessonOne: {
+                                        ...schedule.lessonOne,
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                        </div>
+                        <div className="lessonInput__wrapper">
 
-                    <h1 className='lessonInput__title'>10:40 - 11:20</h1>
+                            <h1 className='lessonInput__title'>9:50 - 10:30</h1>
 
-                    <select name='subject' 
-                            onChange={(ev) => setSchedule({
-                                ...schedule,
-                                lessonThree:{
-                                    ...schedule.lessonThree, 
-                                    [ev.target.name]:ev.target.value,
-                            }})}>
-                            {lesson__options.map((option) => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                    </select>
-                    <input name='teacher'
-                        type="text" 
-                        placeholder={'Викладач*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonThree:{
-                                ...schedule.lessonThree, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='theme'
-                        type="text" 
-                        placeholder={'Тема заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonThree:{
-                                ...schedule.lessonThree, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='link'
-                        type="text" 
-                        placeholder={'Посилання на заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonThree:{
-                                ...schedule.lessonThree, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='presentation'
-                        type="text" 
-                        placeholder={'Посилання на презентацію'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonThree:{
-                                ...schedule.lessonThree, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='additional'
-                        type="text" 
-                        placeholder={'Додаткові матеріали'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonThree:{
-                                ...schedule.lessonThree, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='homework'
-                        type="text" 
-                        placeholder={'Домашне завдання*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonThree:{
-                                ...schedule.lessonThree, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                </div>
-                <div className="lessonInput__wrapper">
+                            <select name='subject' 
+                                    onChange={(ev) => setSchedule({
+                                        ...schedule,
+                                        lessonTwo:{
+                                            ...schedule.lessonTwo, 
+                                            [ev.target.name]:ev.target.value,
+                                    }})}>
+                                    {lesson__options.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                            </select>
+                            <input name='teacher'
+                                type="text" 
+                                placeholder={'Викладач*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonTwo:{
+                                        ...schedule.lessonTwo, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='theme'
+                                type="text" 
+                                placeholder={'Тема заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonTwo:{
+                                        ...schedule.lessonTwo, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='link'
+                                type="text" 
+                                placeholder={'Посилання на заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonTwo:{
+                                        ...schedule.lessonTwo, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='presentation'
+                                type="text" 
+                                placeholder={'Посилання на презентацію'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonTwo:{
+                                        ...schedule.lessonTwo, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='additional'
+                                type="text" 
+                                placeholder={'Додаткові матеріали'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonTwo:{
+                                        ...schedule.lessonTwo, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='homework'
+                                type="text" 
+                                placeholder={'Домашне завдання*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonTwo:{
+                                        ...schedule.lessonTwo, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                        </div>
+                        <div className="lessonInput__wrapper">
 
-                    <h1 className='lessonInput__title'>11:30 - 12:10</h1>
+                            <h1 className='lessonInput__title'>10:40 - 11:20</h1>
 
-                    <select name='subject' 
-                            onChange={(ev) => setSchedule({
-                                ...schedule,
-                                lessonFour:{
-                                    ...schedule.lessonFour, 
-                                    [ev.target.name]:ev.target.value,
-                            }})}>
-                            {lesson__options.map((option) => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                    </select>
-                    <input name='teacher'
-                        type="text" 
-                        placeholder={'Викладач*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFour:{
-                                ...schedule.lessonFour, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='theme'
-                        type="text" 
-                        placeholder={'Тема заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFour:{
-                                ...schedule.lessonFour, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='link'
-                        type="text" 
-                        placeholder={'Посилання на заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFour:{
-                                ...schedule.lessonFour, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='presentation'
-                        type="text" 
-                        placeholder={'Посилання на презентацію'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFour:{
-                                ...schedule.lessonFour, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='additional'
-                        type="text" 
-                        placeholder={'Додаткові матеріали'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFour:{
-                                ...schedule.lessonFour, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='homework'
-                        type="text" 
-                        placeholder={'Домашне завдання*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFour:{
-                                ...schedule.lessonFour, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                </div>
-                <div className="lessonInput__wrapper">
+                            <select name='subject' 
+                                    onChange={(ev) => setSchedule({
+                                        ...schedule,
+                                        lessonThree:{
+                                            ...schedule.lessonThree, 
+                                            [ev.target.name]:ev.target.value,
+                                    }})}>
+                                    {lesson__options.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                            </select>
+                            <input name='teacher'
+                                type="text" 
+                                placeholder={'Викладач*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonThree:{
+                                        ...schedule.lessonThree, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='theme'
+                                type="text" 
+                                placeholder={'Тема заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonThree:{
+                                        ...schedule.lessonThree, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='link'
+                                type="text" 
+                                placeholder={'Посилання на заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonThree:{
+                                        ...schedule.lessonThree, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='presentation'
+                                type="text" 
+                                placeholder={'Посилання на презентацію'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonThree:{
+                                        ...schedule.lessonThree, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='additional'
+                                type="text" 
+                                placeholder={'Додаткові матеріали'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonThree:{
+                                        ...schedule.lessonThree, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='homework'
+                                type="text" 
+                                placeholder={'Домашне завдання*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonThree:{
+                                        ...schedule.lessonThree, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                        </div>
+                        <div className="lessonInput__wrapper">
 
-                    <h1 className='lessonInput__title'>12:20 - 13:00</h1>
+                            <h1 className='lessonInput__title'>11:30 - 12:10</h1>
 
-                    <select name='subject' 
-                            onChange={(ev) => setSchedule({
-                                ...schedule,
-                                lessonFive:{
-                                    ...schedule.lessonFive, 
-                                    [ev.target.name]:ev.target.value,
-                            }})}>
-                            {lesson__options.map((option) => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                    </select>
-                    <input name='teacher'
-                        type="text" 
-                        placeholder={'Викладач*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFive:{
-                                ...schedule.lessonFive, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='theme'
-                        type="text" 
-                        placeholder={'Тема заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFive:{
-                                ...schedule.lessonFive, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='link'
-                        type="text" 
-                        placeholder={'Посилання на заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFive:{
-                                ...schedule.lessonFive, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='presentation'
-                        type="text" 
-                        placeholder={'Посилання на презентацію'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFive:{
-                                ...schedule.lessonFive, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='additional'
-                        type="text" 
-                        placeholder={'Додаткові матеріали'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFive:{
-                                ...schedule.lessonFive, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='homework'
-                        type="text" 
-                        placeholder={'Домашне завдання*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonFive:{
-                                ...schedule.lessonFive, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                </div>
-                <div className="lessonInput__wrapper">
+                            <select name='subject' 
+                                    onChange={(ev) => setSchedule({
+                                        ...schedule,
+                                        lessonFour:{
+                                            ...schedule.lessonFour, 
+                                            [ev.target.name]:ev.target.value,
+                                    }})}>
+                                    {lesson__options.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                            </select>
+                            <input name='teacher'
+                                type="text" 
+                                placeholder={'Викладач*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFour:{
+                                        ...schedule.lessonFour, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='theme'
+                                type="text" 
+                                placeholder={'Тема заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFour:{
+                                        ...schedule.lessonFour, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='link'
+                                type="text" 
+                                placeholder={'Посилання на заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFour:{
+                                        ...schedule.lessonFour, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='presentation'
+                                type="text" 
+                                placeholder={'Посилання на презентацію'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFour:{
+                                        ...schedule.lessonFour, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='additional'
+                                type="text" 
+                                placeholder={'Додаткові матеріали'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFour:{
+                                        ...schedule.lessonFour, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='homework'
+                                type="text" 
+                                placeholder={'Домашне завдання*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFour:{
+                                        ...schedule.lessonFour, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                        </div>
+                        <div className="lessonInput__wrapper">
 
-                    <h1 className='lessonInput__title'>13:10 - 13:50</h1>
+                            <h1 className='lessonInput__title'>12:20 - 13:00</h1>
 
-                    <select name='subject' 
-                            onChange={(ev) => setSchedule({
-                                ...schedule,
-                                lessonSix:{
-                                    ...schedule.lessonSix, 
-                                    [ev.target.name]:ev.target.value,
-                            }})}>
-                            {lesson__options.map((option) => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                    </select>
-                    <input name='teacher'
-                        type="text" 
-                        placeholder={'Викладач*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonSix:{
-                                ...schedule.lessonSix, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='theme'
-                        type="text" 
-                        placeholder={'Тема заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonSix:{
-                                ...schedule.lessonSix, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='link'
-                        type="text" 
-                        placeholder={'Посилання на заняття*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonSix:{
-                                ...schedule.lessonSix, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='presentation'
-                        type="text" 
-                        placeholder={'Посилання на презентацію'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonSix:{
-                                ...schedule.lessonSix, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='additional'
-                        type="text" 
-                        placeholder={'Додаткові матеріали'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonSix:{
-                                ...schedule.lessonSix, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                    <input name='homework'
-                        type="text" 
-                        placeholder={'Домашне завдання*'}
-                        onChange={(ev) => setSchedule({
-                            ...schedule,
-                            lessonSix:{
-                                ...schedule.lessonSix, 
-                                [ev.target.name]:ev.target.value,
-                        }})}/>
-                </div>
-            </div>
+                            <select name='subject' 
+                                    onChange={(ev) => setSchedule({
+                                        ...schedule,
+                                        lessonFive:{
+                                            ...schedule.lessonFive, 
+                                            [ev.target.name]:ev.target.value,
+                                    }})}>
+                                    {lesson__options.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                            </select>
+                            <input name='teacher'
+                                type="text" 
+                                placeholder={'Викладач*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFive:{
+                                        ...schedule.lessonFive, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='theme'
+                                type="text" 
+                                placeholder={'Тема заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFive:{
+                                        ...schedule.lessonFive, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='link'
+                                type="text" 
+                                placeholder={'Посилання на заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFive:{
+                                        ...schedule.lessonFive, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='presentation'
+                                type="text" 
+                                placeholder={'Посилання на презентацію'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFive:{
+                                        ...schedule.lessonFive, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='additional'
+                                type="text" 
+                                placeholder={'Додаткові матеріали'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFive:{
+                                        ...schedule.lessonFive, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='homework'
+                                type="text" 
+                                placeholder={'Домашне завдання*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonFive:{
+                                        ...schedule.lessonFive, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                        </div>
+                        <div className="lessonInput__wrapper">
 
-            <button className="btn create-btn">Зберегти</button>
-        </form>
+                            <h1 className='lessonInput__title'>13:10 - 13:50</h1>
+
+                            <select name='subject' 
+                                    onChange={(ev) => setSchedule({
+                                        ...schedule,
+                                        lessonSix:{
+                                            ...schedule.lessonSix, 
+                                            [ev.target.name]:ev.target.value,
+                                    }})}>
+                                    {lesson__options.map((option) => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                            </select>
+                            <input name='teacher'
+                                type="text" 
+                                placeholder={'Викладач*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonSix:{
+                                        ...schedule.lessonSix, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='theme'
+                                type="text" 
+                                placeholder={'Тема заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonSix:{
+                                        ...schedule.lessonSix, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='link'
+                                type="text" 
+                                placeholder={'Посилання на заняття*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonSix:{
+                                        ...schedule.lessonSix, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='presentation'
+                                type="text" 
+                                placeholder={'Посилання на презентацію'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonSix:{
+                                        ...schedule.lessonSix, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='additional'
+                                type="text" 
+                                placeholder={'Додаткові матеріали'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonSix:{
+                                        ...schedule.lessonSix, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                            <input name='homework'
+                                type="text" 
+                                placeholder={'Домашне завдання*'}
+                                onChange={(ev) => setSchedule({
+                                    ...schedule,
+                                    lessonSix:{
+                                        ...schedule.lessonSix, 
+                                        [ev.target.name]:ev.target.value,
+                                }})}/>
+                        </div>
+                    </div>
+
+                    <button className="btn create-btn">Зберегти</button>
+                </form>
+            :
+                <Navigate to={'/login'}/>
+            }
+        </>
     );
 }

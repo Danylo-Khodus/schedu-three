@@ -190,19 +190,25 @@ export default function HomeworkPage () {
     };
 
     return (
-        <div className="homework__page">
-            <h1 className="section__h1">Домашне завдання</h1>
-            <div className="homework">
-                {filtered.length > 0 
-                ? 
-                filtered.map(task => <Task key={task._id} {...task}/>)
-                :
-                <div className='weekend__wrapper'>
-                    <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
-                    <Link to='/' className='btn colored'>Повернутися до розкладу</Link>
+        <>
+            {userInfo?.id ?
+                <div className="homework__page">
+                    <h1 className="section__h1">Домашне завдання</h1>
+                    <div className="homework">
+                        {filtered.length > 0 
+                        ? 
+                        filtered.map(task => <Task key={task._id} {...task}/>)
+                        :
+                        <div className='weekend__wrapper'>
+                            <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
+                            <Link to='/' className='btn colored'>Повернутися до розкладу</Link>
+                        </div>
+                        }
+                    </div>
                 </div>
-                }
-            </div>
-        </div>
+            :
+                <Navigate to={'/login'}/>
+            }
+        </>
     );
 }
