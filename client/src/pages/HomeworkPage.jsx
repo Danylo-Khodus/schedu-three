@@ -199,7 +199,7 @@ export default function HomeworkPage () {
                 :
                 <div className='weekend__wrapper'>
                     <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
-                    <Link to='/homework' className='btn colored'>Повернутися до розкладу</Link>
+                    <Link to='/' className='btn colored'>Повернутися до розкладу</Link>
                 </div>
                 }
             </div>

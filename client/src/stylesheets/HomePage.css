@@ -109,22 +109,17 @@ main.welcome {
   font-weight: 600;
   color: var(--clr-grey);
   font-size: var(--size-sm);
+  padding: 6px 10px 6px 10px;
+
 }
 
 .day__filter.chosen {
-  color: black;
+  color: var(--clr-white);
   font-size: var(--size-sm);
   position: relative;
-}
-
-.day__filter.chosen:after{
-  content: "";
-  position: absolute;
-  width: calc(100% + 4px);
-  bottom: -0.3rem;
-  left: -2px;
-  height: 2.5px;
   background-color: var(--clr-red);
+  border-radius: 10px;
+
 }
 
 /*   #endregion   */
@@ -263,6 +258,8 @@ main.welcome {
   justify-content: space-between;
 }
 
+
+
 /*   #endregion  */
 
 /*   #endregion   */
@@ -323,8 +320,8 @@ main.welcome {
   }
   .days__wrapper {
     display: flex;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
   }
 }
 
