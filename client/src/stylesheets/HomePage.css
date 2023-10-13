@@ -255,6 +255,7 @@ main.welcome {
 
 .lesson__info {
   min-height: auto;
+  width: 100%;
   top: 0;
   left: 425px;
   border-radius: 10px;
