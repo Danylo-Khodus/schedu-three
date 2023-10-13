@@ -51,27 +51,27 @@ export default function HomePage() {
 
     // HOMEWORK ASSIGNMENT  
 
-    const [data, setData] = useState({
-        status: 'assigned',
-        student_id: userInfo?.id,
-        student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
-        group: userInfo?.group,
-        teacher: lesson.teacher,
-        subject: lesson.subject,
-        homework: lesson.homework,
-    });
+    // const [data, setData] = useState({
+    //     status: 'assigned',
+    //     student_id: userInfo?.id,
+    //     student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
+    //     group: userInfo?.group,
+    //     teacher: lesson.teacher,
+    //     subject: lesson.subject,
+    //     homework: lesson.homework,
+    // });
 
-    function postHomework() {
-        if (userInfo?.perm !== 'teacher') {
-            if (lesson.homework !== '') {
-                fetch(URL + '/api/homework', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {'Content-Type':'application/json'}
-                });
-            };
-        }
-    };
+    // function postHomework() {
+    //     if (userInfo?.perm !== 'teacher') {
+    //         if (lesson.homework !== '') {
+    //             fetch(URL + '/api/homework', {
+    //             method: 'POST',
+    //             body: JSON.stringify(data),
+    //             headers: {'Content-Type':'application/json'}
+    //             });
+    //         };
+    //     }
+    // };
 
     return(
         <>
@@ -110,7 +110,7 @@ export default function HomePage() {
                                         <button className='btn colored' 
                                                 onClick={()=>{
                                                     openLink(lesson.link); 
-                                                    postHomework();
+                                                    // postHomework();
                                                 }}>
                                             Перейти
                                         </button>
