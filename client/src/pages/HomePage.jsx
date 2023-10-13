@@ -61,6 +61,8 @@ export default function HomePage() {
         homework: lesson.homework,
     });
 
+    console.log(data);
+
     function postHomework() {
         if (userInfo?.perm !== 'teacher') {
             if (lesson.homework !== '') {
