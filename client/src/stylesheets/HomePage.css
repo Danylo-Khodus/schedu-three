@@ -255,7 +255,7 @@ main.welcome {
 
 .lesson__info {
   min-height: auto;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 230px);
   width: 100%;
   top: 0;
   left: 425px;
