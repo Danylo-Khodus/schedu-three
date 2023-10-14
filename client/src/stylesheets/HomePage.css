@@ -109,7 +109,7 @@ main.welcome {
   font-weight: 600;
   color: var(--clr-grey);
   font-size: var(--size-sm);
-  padding: 15px 10px;
+  padding: 10px 10px;
 }
 
 .day__filter.chosen {
@@ -156,7 +156,7 @@ main.welcome {
   top: 16px;
   left: 4px;
   width: 4px;
-  height: 82px;
+  height: 96px;
   background-color: var(--clr-grey);
 }
 
@@ -188,7 +188,7 @@ main.welcome {
 
 .lesson {
   width: 100%;
-  height: 85px;
+  height: 100px;
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -223,9 +223,10 @@ main.welcome {
 }
 
 .lesson__preview .name .subject {
+  font-family: 'Outfit', sans-serif;
   font-size: var(--size-xl);
   color: black;
-  font-weight: 800;
+  font-weight: 600;
   padding-left: 15px;
 }
 
@@ -239,7 +240,7 @@ main.welcome {
   min-height: auto;
   height: calc(100vh - 151px);
   width: 100%;
-  top: -79px;
+  top: -59px;
   left: 425px;
   border-radius: 10px;
   padding: 15px;

@@ -86,7 +86,7 @@ button {
 a {
     color: var(--clr-black);
     text-decoration: none;
-    font-size: 0.91rem;
+    font-size: 1.1rem;
     cursor: pointer;
 }
 
@@ -100,7 +100,7 @@ strong {
 input, select {
     display: block;
     background-color: #fff;
-    height: 50px;
+    height: 40px;
     width: 100%;
     padding: 8px;
     border-radius: 5px;

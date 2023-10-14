@@ -6,7 +6,7 @@
 }
 
 form.login, form.register {
-    width: 250px;
+    width: 270px;
 }
 
 .login__inputs, .register__inputs {
@@ -63,7 +63,6 @@ form.password__recovery {
 
 .logging-in p, .registration p{
     color: var(--clr-white);
-    font-size: 0.8rem;
 }
 
 .login__link, .register__link, .forgot__password__link{
