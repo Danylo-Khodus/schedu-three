@@ -150,16 +150,6 @@ export default function HomePage() {
                                                 }}
                                         />
                                     )}
-                                    {/* {firstLesson.map(post => 
-                                        <Lesson key={post._id} 
-                                                lesson={post} 
-                                                handleCallback={({lesson, status})=>{
-                                                    setLesson(lesson); 
-                                                    setStatus(status); 
-                                                    setOpened(true);
-                                                }}
-                                        />
-                                    )} */}
                                 </div>
                                 <div className={`lesson__info ${opened && 'shown'}`}>
                                     <button className='btn close' onClick={()=>{setOpened(false)}}>
@@ -168,23 +158,23 @@ export default function HomePage() {
                                         </svg>
                                     </button>
                                     <div className='image'>
-                                        <h1>{lesson.subject}</h1>
+                                        <h1>{lesson !== '' ? lesson.subject : one.subject}</h1>
                                     </div>
                                     <div className="info">
-                                        <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
-                                        <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                                        <p><strong>Викладач:</strong><br/>{lesson !== '' ? lesson.teacher : one.teacher}</p>
+                                        <p><strong>Тема:</strong><br/>{lesson !== '' ? lesson.theme : one.theme}</p>
                                     </div>
                                     <div className="buttons">
-                                        <button className={`btn colored ${lesson.presentation === '' && 'inactive'}`} 
+                                        <button className={`btn colored ${!(lesson !== '' ? lesson.presentation : one.presentation) && 'inactive'}`} 
                                                 onClick={()=>{
-                                                    openLink(lesson.presentation); 
+                                                    openLink(lesson !== '' ? lesson.presentation : one.presentation); 
                                                 }}>
                                             Презентація
                                         </button>
                                         <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
                                                 onClick={()=>{
-                                                    openLink(lesson.link); 
-                                                    postHomework(lesson);
+                                                    openLink(lesson !== '' ? lesson.link : one.link); 
+                                                    postHomework(lesson !== '' ? lesson : one);
                                                 }}>
                                             Перейти
                                         </button>

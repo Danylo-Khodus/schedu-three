@@ -7,24 +7,29 @@ export default function Filter({handleCallback, selected}) {
     const [second, setSecond] = useState(new Date(first.getTime() + (24 * 60 * 60 * 1000)));
     const [third, setThird] = useState(new Date(second.getTime() + (24 * 60 * 60 * 1000)))
     const [fourth, setFourth] = useState(new Date(third.getTime() + (24 * 60 * 60 * 1000)));
+    // const [fifth, setFifth] = useState(new Date(fourth.getTime() + (24 * 60 * 60 * 1000)));
 
     const days = [
         {
-        id: 1,
-        date: first,
+            id: 1,
+            date: first,
         },
         {
-        id: 2,
-        date: second,
+            id: 2,
+            date: second,
         },
         {
-        id: 3,
-        date: third,
+            id: 3,
+            date: third,
         },
         {
-        id: 4,
-        date: fourth,
+            id: 4,
+            date: fourth,
         },
+        // {
+        //     id: 5,
+        //     date: fifth,
+        // },
     ];
 
     function translatedDate (date) {
