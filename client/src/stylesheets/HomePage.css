@@ -158,6 +158,28 @@ main.welcome {
   background-color: var(--clr-white);
 }
 
+.status__dot::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 4px;
+  width: 4px;
+  height: 82px;
+  background-color: var(--clr-grey);
+}
+
+.status__dot.ongoing::after {
+  background-color: var(--clr-yellow);
+}
+
+.status__dot.finished::after {
+  background-color: var(--clr-green);
+}
+
+.status__dot.last::after {
+  display: none;
+}
+
 .status__dot.soon {
   border: 4px solid var(--clr-yellow);
 }
@@ -182,35 +204,6 @@ main.welcome {
   border-radius: 10px;
   background-color: var(--clr-white);
   box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
-  animation: disappear 0.3s;
-}
-
-.lesson.opened {
-  height: 110px;
-  gap: 13px;
-  animation: appear 0.3s;
-}
-
-@keyframes appear {
-  from {
-    height: 85px;
-    gap: 0;
-  }
-  to {
-    height: 110px;
-    gap: 13px;
-  }
-}
-
-@keyframes disappear {
-  from {
-    height: 110px;
-    gap: 13px;
-  }
-  to {
-    height: 85px;
-    gap: 0;
-  }
 }
 
 .lesson__preview {
