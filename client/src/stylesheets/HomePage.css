@@ -94,7 +94,7 @@ main.welcome {
 .homepage__wrapper {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 
 /*   #region filter   */
