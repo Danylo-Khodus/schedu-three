@@ -7,6 +7,7 @@
 
 .task__wrapper {
     padding: var(--size-xxs);
+    min-height: 100px;
     width: 100%;
     box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
     border-radius: 10px;
@@ -18,7 +19,7 @@
 }
 
 .task__info__wrapper {
-    min-height: var(--size-6xl);
+    min-height: 84px;
     display: grid;
     gap: var(--size-xs);
     grid-template-columns: auto 1fr;
