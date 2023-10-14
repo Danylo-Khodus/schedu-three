@@ -93,10 +93,9 @@ a {
 
 strong {
     font-weight: bold;
-    color: var(--clr-third);
+    color: var(--clr-red);
     text-decoration: none;
-    font-size: var(--size-2xl);
-    margin-left: var(--size-xxxs);
+    font-size: var(--size-lg);
 }
 
 input, select {

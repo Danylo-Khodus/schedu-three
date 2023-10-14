@@ -45,23 +45,25 @@ export default function HomePage() {
 
     const [lesson, setLesson] = useState('');
 
+    const [status, setStatus] = useState('');
+
     function openLink(link) {
         window.open(link, '_blank');
     };
 
     // HOMEWORK ASSIGNMENT  
 
-    const [data, setData] = useState({
-        status: 'assigned',
-        student_id: userInfo?.id,
-        student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
-        group: userInfo?.group,
-        teacher: lesson.teacher,
-        subject: lesson.subject,
-        homework: lesson.homework,
-    });
+    function postHomework(lesson) {
+        const data = {
+            status: 'assigned',
+            student_id: userInfo?.id,
+            student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
+            group: userInfo?.group,
+            teacher: lesson.teacher,
+            subject: lesson.subject,
+            homework: lesson.homework,
+        };
 
-    function postHomework() {
         if (userInfo?.perm !== 'teacher') {
             if (lesson.homework !== '') {
                 fetch(URL + '/api/homework', {
@@ -80,9 +82,17 @@ export default function HomePage() {
                     <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
                     {filteredSchedule.length > 0 
                         ? 
-                            <div style={{position:'relative'}}>
+                            <div className='lessons__wrapper'>
                                 <div className='lessons'>
-                                    {filteredSchedule.map(post => <Lesson key={post._id} lesson={post} handleCallback={(ev)=>{setLesson(ev); setOpened(true)}}/>)}
+                                    {filteredSchedule.map(post => 
+                                        <Lesson key={post._id} 
+                                                lesson={post} 
+                                                handleCallback={({lesson, status})=>{
+                                                    setLesson(lesson); 
+                                                    setStatus(status); 
+                                                    setOpened(true)}}
+                                        />
+                                    )}
                                 </div>
                                 <div className={`lesson__info ${opened && 'shown'}`}>
                                     <button className='btn close' onClick={()=>{setOpened(false)}}>
@@ -94,20 +104,20 @@ export default function HomePage() {
                                         <h1>{lesson.subject}</h1>
                                     </div>
                                     <div className="info">
-                                        <p>Викладач: &#160;&#160;{lesson.teacher}</p>
-                                        <p>Тема: &#160;&#160;{lesson.theme}</p>
+                                        <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
+                                        <p><strong>Тема:</strong><br/>{lesson.theme}</p>
                                     </div>
                                     <div className="buttons">
-                                        <button className='btn colored' 
+                                        <button className={`btn colored ${lesson.presentation === '' && 'inactive'}`} 
                                                 onClick={()=>{
                                                     openLink(lesson.presentation); 
                                                 }}>
                                             Презентація
                                         </button>
-                                        <button className='btn colored' 
+                                        <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
                                                 onClick={()=>{
                                                     openLink(lesson.link); 
-                                                    postHomework();
+                                                    postHomework(lesson);
                                                 }}>
                                             Перейти
                                         </button>
@@ -115,10 +125,10 @@ export default function HomePage() {
                                 </div>
                             </div>
                         :
-                        <div className='weekend__wrapper'>
-                            <h1 className='weekend'>На сьогодні, запланованих занять - немає.</h1>
-                            <Link to='/homework' className='btn colored'>Переглянути д/з</Link>
-                        </div>
+                            <div className='weekend__wrapper'>
+                                <h1 className='weekend'>На сьогодні, запланованих занять - немає.</h1>
+                                <Link to='/homework' className='btn colored'>Переглянути д/з</Link>
+                            </div>
                     }
                 </div>
             :

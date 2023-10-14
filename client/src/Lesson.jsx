@@ -26,7 +26,7 @@ export default function Lesson ({lesson, handleCallback}) {
     return (
         <>
             {lesson.subject ? 
-                <div className='lesson__wrapper' onClick={()=>{handleCallback(lesson)}}>
+                <div className='lesson__wrapper' onClick={()=>{handleCallback({lesson, status})}}>
                     <div className={`status__dot ${status}`}></div>
                     <div className='lesson'>
                         <div className="lesson__preview">
