@@ -90,7 +90,8 @@ export default function HomePage() {
                                                 handleCallback={({lesson, status})=>{
                                                     setLesson(lesson); 
                                                     setStatus(status); 
-                                                    setOpened(true)}}
+                                                    setOpened(true);
+                                                }}
                                         />
                                     )}
                                 </div>

@@ -252,9 +252,9 @@ main.welcome {
 
 .lesson__info {
   min-height: auto;
-  height: calc(100vh - 230px);
+  height: calc(100vh - 151px);
   width: 100%;
-  top: 0;
+  top: -79px;
   left: 425px;
   border-radius: 10px;
   padding: 15px;
