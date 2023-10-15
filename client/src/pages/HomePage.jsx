@@ -77,6 +77,24 @@ export default function HomePage() {
         }
     };
 
+    function sendNotification(lesson) {
+
+        const data = {
+            user_id: userInfo?.id,
+            seen: false,
+            subject: lesson.subject,
+            message: 'Було додано нове домашне завдання з',
+            link: '/homework',
+        };
+
+        fetch(URL + '/api/notifications', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type':'application/json'},
+        });
+
+    };
+
     return(
         <>
             {userInfo?.id ?
@@ -171,10 +189,11 @@ export default function HomePage() {
                                                 }}>
                                             Презентація
                                         </button>
-                                        <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
+                                        <button className={`btn colored`} 
                                                 onClick={()=>{
                                                     openLink(lesson !== '' ? lesson.link : one.link); 
                                                     postHomework(lesson !== '' ? lesson : one);
+                                                    sendNotification(lesson !== '' ? lesson : one);
                                                 }}>
                                             Перейти
                                         </button>

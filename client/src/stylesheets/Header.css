@@ -88,6 +88,37 @@ header .btn.simple svg {
 
 /* #region notifications */
 
+.notification__bell {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color .3s;
+}
+
+.notification__bell:hover {
+  background-color: rgb(35, 39, 42, 0.03);
+}
+
+.notification__bell svg.bell {
+  width: 25px;
+}
+
+.notification__bell .notification__status__dot {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--clr-red);
+  border: 1px solid var(--clr-white);
+}
+
 .dropdown.notification {
   width: 300px;
   z-index: -1;
@@ -103,32 +134,29 @@ header .btn.simple svg {
 }
 
 .dropdown.notification.open {
-  right: 0px;
+  right: -70px;
   opacity: 1;
-  animation: nav__appear 0.5s;
+  animation: notify__appear 0.5s;
 }
 
 .dropdown.notification.close {
   right: -100vw;
   opacity: 0;
-  animation: nav__disappear 0.5s;
+  animation: notify__disappear 0.5s;
 }
 
 .dropdown.notification h1 {
   font-size: var(--size-base);
   font-weight: 600;
-  padding-top: 1.2rem;
+  padding-top:  0.95rem;
   padding-left: 1.6rem;
   padding-right: .6rem;
-  padding-bottom: 1.2rem;
+  padding-bottom: 0.95rem;
 }
 
 .notifications {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .notifications .notification {
@@ -138,10 +166,19 @@ header .btn.simple svg {
   gap: 2.5px;
   padding-left: 1.5rem;
   padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  cursor: pointer;
+  transition: background-color .3s;
 }
 
-.notification__status__dot {
+.notifications .notification:hover {
+  background-color: rgb(35, 39, 42, 0.03);
+}
+
+.notifications .notification .notification__status__dot {
   position: absolute;
+  top: 10px;
   left: 10px;
   width: 8px;
   height: 8px;
@@ -184,21 +221,21 @@ header .btn.simple svg {
 
 @keyframes notify__appear{
   from {
-      right: 35px;
+      right: -90px;
       opacity: 0;
   }
   to {
-      right: 55px;
+      right: -70px;
       opacity: 1;
   }
 }
 @keyframes notify__disappear{
   from {
-    right: 55px;
+    right: -70px;
     opacity: 1;
   }
   to {
-      right: 35px;
+      right: -90px;
       opacity: 0;
   }
 }
@@ -238,11 +275,6 @@ header .btn.simple svg {
       right: -20px;
       opacity: 0;
   }
-}
-
-nav svg.bell {
-  width: 25px;
-  cursor: pointer;
 }
 
 .profilePic {
@@ -307,10 +339,10 @@ nav svg.bell {
 
 @media (min-width: 768px) {
   .dropdown.notification.open {
-    right: 55px;
-    animation: notify__appear 0.5s;
+    right: 0;
+    animation: nav__appear 0.5s;
   }
   .dropdown.notification.close {
-    animation: notify__disappear 0.5s;
+    animation: nav__disappear 0.5s;
   }
 }

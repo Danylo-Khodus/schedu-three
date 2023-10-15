@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const app = express();
 const User = require('./models/User');
 const Homework = require('./models/Homework.js');
+const Notification = require('./models/Notification.js');
 const Lesson = require('./models/Lesson');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -255,6 +256,62 @@ app.delete('/api/homework', async (req, res) => {
     const homeworkDoc = await Homework.findOne({_id});
     
     await homeworkDoc.deleteOne({});
+
+    res.status(200).json('success');
+
+});
+
+app.post('/api/notifications', async (req, res) => {
+    const {user_id, seen, subject, message, time, link} = req.body;
+    const notification = await Notification.create({
+        user_id,
+        seen,
+        subject,
+        message,
+        time,
+        link,
+    });
+    res.json(notification);
+});
+
+app.get('/api/notifications', async (req, res) => {
+
+    const token = req.cookies?.token;
+    if (token) {
+        jwt.verify(token, secret, {}, async (err,info) => {
+            if (err) throw err;
+
+            const user_id = info.id;
+            const notifications = await Notification.find({user_id}).sort({createdAt: -1});
+            res.json(notifications);
+        });
+    }
+});
+
+app.put('/api/notifications', async (req, res) => {
+
+    const {_id} = req.body;
+    const notification = await Notification.findOne({_id});
+    
+    await notification.updateOne({
+        user_id: notification.user_id,
+        seen: 'true',
+        subject: notification.subject,
+        message: notification.message,
+        time: notification.time,
+        link: notification.link,
+    });
+
+    res.json(notification);
+
+});
+
+app.delete('/api/notifications', async (req, res) => {
+
+    const {user_id} = req.body;
+    const notifications = await Homework.find({user_id});
+    
+    await notifications.deleteMany({});
 
     res.status(200).json('success');
 
