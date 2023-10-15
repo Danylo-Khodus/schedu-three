@@ -189,7 +189,7 @@ export default function HomePage() {
                                                 }}>
                                             Презентація
                                         </button>
-                                        <button className={`btn colored`} 
+                                        <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
                                                 onClick={()=>{
                                                     openLink(lesson !== '' ? lesson.link : one.link); 
                                                     postHomework(lesson !== '' ? lesson : one);

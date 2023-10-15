@@ -31,6 +31,8 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
 
         const time = moment(createdAt).fromNow();
 
+        const [redirect, setRedirect] = useState(false);
+
         // UPDATING SEEN STRING
 
         async function updateNotification () {
@@ -47,8 +49,6 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
         };
 
         // REDIRECTING
-
-        const [redirect, setRedirect] = useState(false);
 
         if (redirect) {
             return <Navigate to={link}/>
