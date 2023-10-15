@@ -1,3 +1,5 @@
+/* #region header general */
+
 header.container {
   height: 60px;
   position: relative;
@@ -35,7 +37,7 @@ header a.logo.welcome {
 
 header nav {
   display: flex;
-  gap: 10px;
+  gap: 30px;
   align-items: center;
 }
 
@@ -67,10 +69,14 @@ header .btn.simple svg {
   width: 15px;
 }
 
+/* #endregion */
+
+/* #region dropdowns */
+
 .dropdown {
   top: 48px;
   width: auto;
-  display: none;
+  display: flex;
   position: absolute;
   flex-direction: column;
   border-radius: 10px;
@@ -80,15 +86,102 @@ header .btn.simple svg {
   background-color: var(--clr-white);
 }
 
+/* #region notifications */
+
+.dropdown.notification {
+  width: 300px;
+  z-index: -1;
+  top: 48px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 0;
+  /* offset-x | offset-y | blur-radius | color */
+  box-shadow: 0px 0px 15px rgb(0,0,0,0.1);
+  background-color: var(--clr-white);
+}
+
+.dropdown.notification.open {
+  right: 55px;
+  opacity: 1;
+  animation: notify__appear 0.5s;
+}
+
+.dropdown.notification.close {
+  right: -100vw;
+  opacity: 0;
+  animation: notify__disappear 0.5s;
+}
+
+.dropdown.notification h1 {
+  font-size: var(--size-base);
+  font-weight: 600;
+  padding-top: .6rem;
+  padding-left: 1.6rem;
+  padding-right: .6rem;
+  padding-bottom: .6rem;
+}
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.notification {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.notification p {
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: var(--size-xl);
+}
+
+.notification time {
+  font-size: .75rem;
+  color: #8e8f96;
+}
+
+@keyframes notify__appear{
+  from {
+      right: 35px;
+      opacity: 0;
+  }
+  to {
+      right: 55px;
+      opacity: 1;
+  }
+}
+@keyframes notify__disappear{
+  from {
+    right: 55px;
+    opacity: 1;
+  }
+  to {
+      right: 35px;
+      opacity: 0;
+  }
+}
+
+/* #endregion */
+
+/* #region navigation */
+
 .dropdown.open {
   right: 0;
-  display: flex;
   opacity: 1;
   animation: nav__appear 0.5s;
 }
 
 .dropdown.close {
-  display: none;
+  right: -100vw;
+  opacity: 0;
+  animation: nav__disappear 0.5s;
 }
 
 @keyframes nav__appear{
@@ -100,6 +193,21 @@ header .btn.simple svg {
       right: 0;
       opacity: 1;
   }
+}
+@keyframes nav__disappear{
+  from {
+    right: 0;
+    opacity: 1;
+  }
+  to {
+      right: -20px;
+      opacity: 0;
+  }
+}
+
+nav svg.bell {
+  width: 25px;
+  cursor: pointer;
 }
 
 .profilePic {
@@ -157,3 +265,7 @@ header .btn.simple svg {
   font-size: var(--size-xs);
   line-height: 20px;
 }
+
+/* #endregion */
+
+/* #endregion */

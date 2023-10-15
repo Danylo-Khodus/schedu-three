@@ -30,6 +30,8 @@ export default function Header () {
 
   const [shown, setShown] = useState(false);
 
+  const [notify, setNotify] = useState(false);
+
   let menuRef = useRef();
 
   useEffect(() => {
@@ -37,6 +39,7 @@ export default function Header () {
     const closeDropdown = (e) => {
       if (!menuRef.current?.contains(e.target)) {
         setShown(false);
+        setNotify(false);
       }
     };
 
@@ -53,10 +56,14 @@ export default function Header () {
         </svg>
         SchEdu
       </Link>
-      <nav>
+      <nav ref={menuRef}>
         {userInfo && (
-            <div className="account__nav" ref={menuRef}>
-              <div className="account__btn" onClick={() => setShown(prev => !prev)}>
+          <>
+            {/* <svg onClick={() => {setNotify(prev => !prev); setShown(false);}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="bell">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg> */}
+            <div className="account__nav">
+              <div className="account__btn" onClick={() => {setShown(prev => !prev); setNotify(false);}}>
                 <div className="profilePic">
                   <p className='letter'>{Array.from(`${userInfo?.firstName}`)[0]}</p>
                 </div>
@@ -100,7 +107,30 @@ export default function Header () {
                   Вийти
                 </a>
               </div>
+              {/* <div className= {`dropdown notification ${notify ? 'open' : 'close'}`}>
+                <h1>Сповіщення</h1>
+                <div className="line"></div>
+                <div className="notifications">
+                  <div className="notification">
+                    <p>Було додано нове домашне завдання з {'Математика'}</p>
+                    <time>{'1 годину тому'}</time>
+                  </div>
+                  <div className="notification">
+                    <p>Скоро почнеться урок {'Українська мова'}</p>
+                    <time>{'50 хвилин тому'}</time>
+                  </div>
+                  <div className="notification">
+                    <p>Почався урок {'Українська мова'}</p>
+                    <time>{'40 хвилин тому'}</time>
+                  </div>
+                  <div className="notification">
+                    <p>Було додано нове домашне завдання з {'Українська мова'}</p>
+                    <time>{'1 секунду тому'}</time>
+                  </div>
+                </div>
+              </div> */}
             </div>
+          </>
         )}
       </nav>
     </header>
