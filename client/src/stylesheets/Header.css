@@ -103,24 +103,24 @@ header .btn.simple svg {
 }
 
 .dropdown.notification.open {
-  right: 55px;
+  right: 0px;
   opacity: 1;
-  animation: notify__appear 0.5s;
+  animation: nav__appear 0.5s;
 }
 
 .dropdown.notification.close {
   right: -100vw;
   opacity: 0;
-  animation: notify__disappear 0.5s;
+  animation: nav__disappear 0.5s;
 }
 
 .dropdown.notification h1 {
   font-size: var(--size-base);
   font-weight: 600;
-  padding-top: .6rem;
+  padding-top: 1.2rem;
   padding-left: 1.6rem;
   padding-right: .6rem;
-  padding-bottom: .6rem;
+  padding-bottom: 1.2rem;
 }
 
 .notifications {
@@ -131,18 +131,53 @@ header .btn.simple svg {
   padding-bottom: 1rem;
 }
 
-.notification {
-  padding-left: 1rem;
+.notifications .notification {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 2.5px;
+  padding-left: 1.5rem;
   padding-right: 1rem;
 }
 
-.notification p {
+.notification__status__dot {
+  position: absolute;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--clr-red);
+}
+
+.notifications .notification .icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  margin-top: .35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-red);
+}
+
+.notifications .notification .icon svg {
+  color: var(--clr-white);
+  width: 18px;
+}
+
+.notifications .notification p {
   font-size: .875rem;
   font-weight: 400;
   line-height: var(--size-xl);
 }
 
-.notification time {
+.notifications .notification strong {
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--clr-red);
+}
+
+.notifications .notification time {
   font-size: .75rem;
   color: #8e8f96;
 }
@@ -269,3 +304,13 @@ nav svg.bell {
 /* #endregion */
 
 /* #endregion */
+
+@media (min-width: 768px) {
+  .dropdown.notification.open {
+    right: 55px;
+    animation: notify__appear 0.5s;
+  }
+  .dropdown.notification.close {
+    animation: notify__disappear 0.5s;
+  }
+}

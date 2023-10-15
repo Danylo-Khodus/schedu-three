@@ -59,9 +59,9 @@ export default function Header () {
       <nav ref={menuRef}>
         {userInfo && (
           <>
-            {/* <svg onClick={() => {setNotify(prev => !prev); setShown(false);}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="bell">
+            <svg onClick={() => {setNotify(prev => !prev); setShown(false);}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="bell">
               <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-            </svg> */}
+            </svg>
             <div className="account__nav">
               <div className="account__btn" onClick={() => {setShown(prev => !prev); setNotify(false);}}>
                 <div className="profilePic">
@@ -107,28 +107,57 @@ export default function Header () {
                   Вийти
                 </a>
               </div>
-              {/* <div className= {`dropdown notification ${notify ? 'open' : 'close'}`}>
+              <div className= {`dropdown notification ${notify ? 'open' : 'close'}`}>
                 <h1>Сповіщення</h1>
                 <div className="line"></div>
                 <div className="notifications">
                   <div className="notification">
-                    <p>Було додано нове домашне завдання з {'Математика'}</p>
-                    <time>{'1 годину тому'}</time>
+                    <div className="notification__status__dot"></div>
+                    <div className="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                      </svg>
+                    </div>
+                    <div className="info">
+                      <p>Було додано нове домашне завдання з <strong>{'Математика'}</strong></p>
+                      <time>{'1 годину тому'}</time>
+                    </div>
                   </div>
                   <div className="notification">
-                    <p>Скоро почнеться урок {'Українська мова'}</p>
-                    <time>{'50 хвилин тому'}</time>
+                    <div className="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                      </svg>
+                    </div>
+                    <div className="info">
+                      <p>Скоро почнеться урок <strong>{'Українська мова'}</strong></p>
+                      <time>{'50 хвилин тому'}</time>
+                    </div>
                   </div>
                   <div className="notification">
-                    <p>Почався урок {'Українська мова'}</p>
-                    <time>{'40 хвилин тому'}</time>
+                    <div className="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                      </svg>
+                    </div>
+                    <div className="info">
+                      <p>Почався урок <strong>{'Українська мова'}</strong></p>
+                      <time>{'40 хвилин тому'}</time>
+                    </div>
                   </div>
                   <div className="notification">
-                    <p>Було додано нове домашне завдання з {'Українська мова'}</p>
-                    <time>{'1 секунду тому'}</time>
+                    <div className="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                      </svg>
+                    </div>
+                    <div className="info">
+                      <p>Було додано нове домашне завдання з <strong>{'Українська мова'}</strong></p>
+                      <time>{'1 секунду тому'}</time>
+                    </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </>
         )}
