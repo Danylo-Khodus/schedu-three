@@ -3,34 +3,11 @@ import { useEffect, useState } from "react";
 
 export default function Filter({handleCallback, selected}) {
 
-    const [first, setFirst] = useState(new Date());
-    const [second, setSecond] = useState(new Date(first.getTime() + (24 * 60 * 60 * 1000)));
-    const [third, setThird] = useState(new Date(second.getTime() + (24 * 60 * 60 * 1000)))
-    const [fourth, setFourth] = useState(new Date(third.getTime() + (24 * 60 * 60 * 1000)));
-    const [fifth, setFifth] = useState(new Date(fourth.getTime() + (24 * 60 * 60 * 1000)));
-
-    const days = [
-        {
-            id: 1,
-            date: first,
-        },
-        {
-            id: 2,
-            date: second,
-        },
-        {
-            id: 3,
-            date: third,
-        },
-        {
-            id: 4,
-            date: fourth,
-        },
-        {
-            id: 5,
-            date: fifth,
-        },
-    ];
+    const first = new Date();
+    const second = new Date(first.getTime() + (24 * 60 * 60 * 1000));
+    const third = new Date(second.getTime() + (24 * 60 * 60 * 1000));
+    const fourth = new Date(third.getTime() + (24 * 60 * 60 * 1000));
+    const fifth = new Date(fourth.getTime() + (24 * 60 * 60 * 1000));
 
     function translatedDate (date) {
         const month = format(new Date(date), 'MMM');
@@ -65,16 +42,14 @@ export default function Filter({handleCallback, selected}) {
         return `${format(new Date(date), 'dd') + ' '+ translatedMonth}`
     }
 
-    function DayOption ({date}) {
-        return (
-            <div className={`day__filter ${selected === format(new Date(date), 'yyyy-MM-dd') ? 'chosen' : ''}`} onClick={()=> handleCallback(format(new Date(date), 'yyyy-MM-dd'))}>{translatedDate(date)}</div>
-        );
-    }
-
     return (
         <>  
             <div className="days__wrapper">
-                {days.map(day => <DayOption key={day.id} {...day}/>)}               
+            <div className={`day__filter ${selected === format(new Date(first), 'yyyy-MM-dd') ? 'chosen' : ''}`} onClick={()=> handleCallback(format(new Date(first), 'yyyy-MM-dd'))}>{translatedDate(first)}</div>
+            <div className={`day__filter ${selected === format(new Date(second), 'yyyy-MM-dd') ? 'chosen' : ''}`} onClick={()=> handleCallback(format(new Date(second), 'yyyy-MM-dd'))}>{translatedDate(second)}</div>
+            <div className={`day__filter ${selected === format(new Date(third), 'yyyy-MM-dd') ? 'chosen' : ''}`} onClick={()=> handleCallback(format(new Date(third), 'yyyy-MM-dd'))}>{translatedDate(third)}</div>
+            <div className={`day__filter ${selected === format(new Date(fourth), 'yyyy-MM-dd') ? 'chosen' : ''}`} onClick={()=> handleCallback(format(new Date(fourth), 'yyyy-MM-dd'))}>{translatedDate(fourth)}</div>
+            <div className={`day__filter ${selected === format(new Date(fifth), 'yyyy-MM-dd') ? 'chosen' : ''}`} onClick={()=> handleCallback(format(new Date(fifth), 'yyyy-MM-dd'))}>{translatedDate(fifth)}</div>             
             </div>
         </>
     )

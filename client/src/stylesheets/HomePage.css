@@ -105,11 +105,19 @@ main.welcome {
 }
 
 .day__filter {
+  position: relative;
   cursor: pointer;
   font-weight: 600;
   color: var(--clr-grey);
   font-size: var(--size-sm);
+  background-color: var(--clr-white);
+  border-radius: 10px;
   padding: 10px 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.day__filter:hover {
+  background-color: rgb(35, 39, 42, 0.03);
 }
 
 .day__filter.chosen {
@@ -204,7 +212,6 @@ main.welcome {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 }
 

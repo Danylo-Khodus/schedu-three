@@ -32,6 +32,7 @@
 *{
     margin: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -114,6 +115,9 @@ input.inactive {
 }
 
 @media (min-width:768px) {
+    a {
+        font-size: 0.91rem;
+    }
     input, select {
         height: 40px;
     }
