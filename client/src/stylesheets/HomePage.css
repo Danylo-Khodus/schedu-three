@@ -139,6 +139,7 @@ main.welcome {
   display: flex;
   align-items: center;
   gap: var(--size-2xl);
+  margin-left: 25px;
 }
 
 .status__dot {
