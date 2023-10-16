@@ -16,14 +16,21 @@ export default function HomePage() {
 
     // GETTING SCHEDULE
 
+    const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
         setLoading(true);
         fetch(URL + '/api/schedule', {credentials: 'include'})
         .then(response => {
-            response.json().then(schedule => {
-                setSchedule(schedule);
+            response.json().then((schedule) => {
+                const filter = schedule.filter((ev)=>{
+                    if (ev.date.includes(selectedDate)) {
+                        return ev;
+                    }
+                });
+                setSchedule(filter);
             });
         }).finally(() => {
             setLoading(false);
@@ -32,20 +39,7 @@ export default function HomePage() {
 
     // FILTERING THE DATA
 
-    const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-
-    const filteredSchedule = schedule.filter((ev) => {
-
-        const fullName = `${userInfo?.lastName} ${userInfo?.firstName}`;
-
-        if (userInfo?.perm === 'teacher') {
-            if (ev.teacher.includes(fullName) && ev.date.includes(selectedDate)) {return ev}
-        } else {
-        if (ev.group.includes(userInfo?.group) && ev.date.includes(selectedDate)) {return ev}
-        }
-    });
-
-    const [one, two, three, four, five, six] = filteredSchedule;
+    const [one, two, three, four, five, six] = schedule;
 
     // DISPLAYING LESSON INFO
 
@@ -112,7 +106,7 @@ export default function HomePage() {
                         </div>
                     :
                         <>
-                            {filteredSchedule.length > 0 
+                            {schedule.length > 0 
                                 ? 
                                     <div className='lessons__wrapper'>
                                         <div className='lessons'>

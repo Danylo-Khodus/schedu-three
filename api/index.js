@@ -47,7 +47,7 @@ app.post('/api/login', async (req,res) => {
         const passOk = bcrypt.compareSync(password, userDoc.password);
         const fullName = `${userDoc.lastName} ${userDoc.firstName}`;
         if (passOk) {
-            jwt.sign({id:userDoc._id, fullName, perm:userDoc.perm}, secret, {}, (err,token) => {
+            jwt.sign({id:userDoc._id, group:userDoc.group, fullName, perm:userDoc.perm}, secret, {}, (err,token) => {
                 if (err) throw err;
                 res.cookie('token', token).json({
                     id: userDoc._id,
@@ -207,19 +207,25 @@ app.post('/api/create-schedule', async (req, res) => {
 });
 
 app.get('/api/schedule', async (req, res) => {
-    // const {token} = req.cookies;
-    // if (token) {
-    //     jwt.verify(token, secret, {}, async (err,info) => {
-    //         if (err) throw err;
-    //         const _id = info.id;
-    //         const lessons = await Lesson.find();
-    //         res.json(lessons);
-    //     });
-    // } else {
-    //     res.json(null);
-    // }
-    const lessons = await Lesson.find();
-    res.json(lessons);
+
+    const {token} = req.cookies;
+    if (token) {
+        jwt.verify(token, secret, {}, async (err,info) => {
+            if (err) throw err;
+            const perm = info.perm;
+            if (perm === 'teacher') {
+                const teacher = info.fullName;
+                const lessons = await Lesson.find({teacher});
+                res.json(lessons);
+            } else {
+                const group = info.group;
+                const lessons = await Lesson.find({group});
+                res.json(lessons);
+            }
+        });
+    } else {
+        res.json(null);
+    }
 });
 
 app.post('/api/homework', async (req, res) => {
