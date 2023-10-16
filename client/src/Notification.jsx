@@ -2,7 +2,7 @@ import URL from "./URL";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-import moment from 'moment';
+import moment from 'moment-with-locales-es6';
 
 export default function Notifications ({notify, setNotify, handleCallback}) {
 
@@ -26,7 +26,7 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
 
     function Notification ({_id, seen, message, subject, createdAt, link}) {
 
-        moment.locale('uk');
+        moment.locale("uk");
 
         const time = moment(createdAt).fromNow();
 

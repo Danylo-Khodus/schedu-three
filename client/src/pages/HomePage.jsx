@@ -25,12 +25,7 @@ export default function HomePage() {
         fetch(URL + '/api/schedule', {credentials: 'include'})
         .then(response => {
             response.json().then((schedule) => {
-                const filter = schedule.filter((ev)=>{
-                    if (ev.date.includes(selectedDate)) {
-                        return ev;
-                    }
-                });
-                setSchedule(filter);
+                setSchedule(schedule);
             });
         }).finally(() => {
             setLoading(false);
@@ -39,7 +34,13 @@ export default function HomePage() {
 
     // FILTERING THE DATA
 
-    const [one, two, three, four, five, six] = schedule;
+    const lessons = schedule.filter((ev)=>{
+        if (ev.date.includes(selectedDate)) {
+            return (ev);
+        }
+    });
+
+    const [one, two, three, four, five, six] = lessons;
 
     // DISPLAYING LESSON INFO
 
@@ -106,7 +107,7 @@ export default function HomePage() {
                         </div>
                     :
                         <>
-                            {schedule.length > 0 
+                            {lessons.length > 0 
                                 ? 
                                     <div className='lessons__wrapper'>
                                         <div className='lessons'>
