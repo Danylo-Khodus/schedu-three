@@ -107,7 +107,7 @@ export default function HomePage() {
                 <div className='homepage__wrapper'>
                     <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
                     {loading ? 
-                        <div className='loading'>
+                        <div className='screen__center'>
                             <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                         </div>
                     :

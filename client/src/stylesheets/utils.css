@@ -81,7 +81,7 @@ height: 20px;
     margin-bottom: var(--size-xl);
 }
 
-.loading {
+.screen__center {
     display: flex;
     justify-content: center;
     align-items: center;

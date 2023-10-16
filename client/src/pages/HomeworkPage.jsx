@@ -201,7 +201,7 @@ export default function HomeworkPage () {
                     <h1 className="section__h1">Домашне завдання</h1>
                     <div className="homework">
                         {loading ?
-                            <div className='loading'>
+                            <div className='screen__center'>
                                 <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                             </div>
                             :
