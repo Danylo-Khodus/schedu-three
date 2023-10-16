@@ -37,7 +37,7 @@ header a.logo.welcome {
 
 header nav {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   align-items: center;
 }
 
@@ -342,6 +342,9 @@ header .btn.simple svg {
 /* #endregion */
 
 @media (min-width: 768px) {
+  header nav {
+    gap: 30px;
+  }
   .dropdown.notification.open {
     right: 0;
     animation: nav__appear 0.5s;
