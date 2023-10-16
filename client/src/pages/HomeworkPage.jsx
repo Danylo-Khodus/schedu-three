@@ -15,11 +15,16 @@ export default function HomeworkPage () {
 
     const [homework, setHomework] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
+        setLoading(true);
         fetch(URL + '/api/homework').then(response => {
             response.json().then(list => {
               setHomework(list);
             });
+        }).finally(() => {
+            setLoading(false)
         });
     }, []); 
 
@@ -195,14 +200,22 @@ export default function HomeworkPage () {
                 <div className="homework__page">
                     <h1 className="section__h1">Домашне завдання</h1>
                     <div className="homework">
-                        {filtered.length > 0 
-                        ? 
-                        filtered.map(task => <Task key={task._id} {...task}/>)
-                        :
-                        <div className='weekend__wrapper'>
-                            <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
-                            <Link to='/' className='btn colored'>Повернутися до розкладу</Link>
-                        </div>
+                        {loading ?
+                            <div className='loading'>
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            </div>
+                            :
+                            <>
+                                {filtered.length > 0 
+                                    ? 
+                                    filtered.map(task => <Task key={task._id} {...task}/>)
+                                    :
+                                    <div className='weekend__wrapper'>
+                                        <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>
+                                        <Link to='/' className='btn colored'>Повернутися до розкладу</Link>
+                                    </div>
+                                }
+                            </>
                         }
                     </div>
                 </div>

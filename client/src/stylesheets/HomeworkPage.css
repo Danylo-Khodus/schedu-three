@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-base);
-    margin-bottom: var(--size-base);
 }
 
 .task__wrapper {
@@ -97,6 +96,13 @@
 .task__input__wrapper img {
     width: 100%;
     border-radius: 10px;
+}
+
+.homework p {
+    height: var(--size-section);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (min-width:768px) {
