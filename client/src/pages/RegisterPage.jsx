@@ -5,7 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 
 export default function RegisterPage() {
 
-    const {userInfo} = useContext(UserContext);
+    const {userInfo, setUserInfo} = useContext(UserContext);
 
     // INPUTS CONSTRUCTIONS
 
@@ -66,9 +66,13 @@ export default function RegisterPage() {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {'Content-Type':'application/json'},
+                credentials: 'include',
             });
             if (response.status === 200) {
                 alert('Реєстрація пройшла успішно!');
+                response.json().then(response => {
+                    setUserInfo(response);
+                });
             } else {
                 alert('Нaведена електронна пошта вже використовується.');
             }

@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URL);
 app.post('/api/register', async (req,res) => {
     const {email, password, firstName, lastName, group, perm} = req.body;
     try{
-        const userDoc = await User.create({
+        const createUserDoc = await User.create({
             email,
             password: bcrypt.hashSync(password,salt),
             firstName,
@@ -32,7 +32,23 @@ app.post('/api/register', async (req,res) => {
             group,
             perm,
         });
-        res.json(userDoc);
+        try {
+            const findUserDoc = await User.findOne({email});
+            const fullName = `${lastName} ${firstName}`;
+            const id = findUserDoc._id;
+            jwt.sign({id, group, fullName, perm}, secret, {}, (err,token) => {
+                if (err) throw err;
+                res.cookie('token', token).json({
+                    id,
+                    firstName,
+                    lastName,
+                    group,
+                    perm,
+                });
+            });
+        } catch(e) {
+            res.status(400).json("User wasn't found.");
+        }
     } catch(e) {
         res.status(400).json("User wasn't created.");
     }
