@@ -316,7 +316,7 @@ app.get('/api/notifications', async (req, res) => {
             if (err) throw err;
 
             const user_id = info.id;
-            const notifications = await Notification.find({user_id}).sort({createdAt: -1});
+            const notifications = await Notification.find({user_id}).sort({createdAt: -1}).limit(4);
             res.json(notifications);
         });
     }

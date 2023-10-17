@@ -1,3 +1,7 @@
+.body {
+    overflow: hidden;
+}
+
 .body.no-info {
     background-color: var(--clr-red);
 }

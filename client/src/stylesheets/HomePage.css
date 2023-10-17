@@ -122,10 +122,7 @@ main.welcome {
 
 .day__filter.chosen {
   color: var(--clr-white);
-  font-size: var(--size-sm);
-  position: relative;
   background-color: var(--clr-red);
-  border-radius: 10px;
 }
 
 /*   #endregion   */
@@ -204,7 +201,7 @@ main.welcome {
   flex-direction: column;
   border-radius: 10px;
   background-color: var(--clr-white);
-  box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
+  box-shadow: 0 0 20px rgb(222, 222, 222, 0.75);
 }
 
 .lesson__preview {
@@ -258,7 +255,7 @@ main.welcome {
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--clr-white);
-  box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
+  box-shadow: 0 0 20px rgb(222, 222, 222, 0.75);
   transition: all 0.5s;
 }
 
@@ -395,6 +392,7 @@ main.welcome {
   }
   .day__filter {
     padding: 8px 10px;
+    border-radius: 5px;
   }
   .lesson__preview .name .subject {
     font-size: var(--size-lg);
@@ -419,6 +417,9 @@ main.welcome {
     gap: var(--size-base);
     margin-bottom: 0;
   }
+  .lesson {
+    border-radius: 5px;
+  }
   .lesson__info button.btn.close {
     display: none;
     position: absolute;
@@ -426,25 +427,18 @@ main.welcome {
     z-index: 1;
   }
   .lesson__info {
-    min-height: auto;
-    height: calc(100vh - 151px);
-    width: 100%;
     top: 0;
     left: 0;
-    border-radius: 10px;
-    padding: 15px;
-    gap: 15px;
+    border-radius: 5px;
   
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--clr-white);
-    box-shadow: 0 0 20px rgb(222, 222, 222, 0.5);
-    transition: all 0.5s;
   }
   .lesson__info.shown {
     left: 0;
+  }
+  .lesson__info .image {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
   }
 }
 

@@ -39,19 +39,15 @@
 
 html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
 }
 
 body {
     color: #222;
     font-family: 'Noto Sans', sans-serif;
-    background-color: var(--clr-first);
-    overflow-x: hidden;
 }
 
 main {
     min-height: var(--size-main);
-    overflow-x: hidden;
 }
 
 h1 {
