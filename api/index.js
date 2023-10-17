@@ -58,7 +58,7 @@ app.post('/api/login', async (req,res) => {
     const {email,password} = req.body;
     const userDoc = await User.findOne({email});
     if (!userDoc) {
-        res.status(400).json('User was not found');
+        res.status(400).json('Користувача з наведеною електронною адресою не зареєстровано');
     } else {
         const passOk = bcrypt.compareSync(password, userDoc.password);
         const fullName = `${userDoc.lastName} ${userDoc.firstName}`;
@@ -74,7 +74,7 @@ app.post('/api/login', async (req,res) => {
                 });
             });
         } else {
-            res.status(400).json('Password issue.');
+            res.status(400).json('Невірний пароль');
         }
     }
 });

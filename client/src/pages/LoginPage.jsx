@@ -36,9 +36,10 @@ export default function LoginPage() {
                 response.json().then(userInfo => {
                     setUserInfo(userInfo);
                 });
-
             } else {
-                alert('Невірна поштова адреса або пароль. Будь-ласка, спробуйте знову.');
+                response.json().then(message => {
+                    alert(message);
+                });
             }
 
         } else {

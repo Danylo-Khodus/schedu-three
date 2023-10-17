@@ -178,6 +178,9 @@ height: 20px;
     .container {
         max-width: 768px;
     }
+    .btn {
+        border-radius: 5px;
+    }
     .lds-ellipsis {
         display: inline-block;
         position: relative;
