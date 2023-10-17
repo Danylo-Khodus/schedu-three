@@ -100,10 +100,10 @@ strong {
 input, select {
     display: block;
     background-color: #fff;
-    height: 40px;
+    height: 45px;
     width: 100%;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid rgb(35, 39, 42, 0.25);
     cursor: pointer;
 }
@@ -119,5 +119,6 @@ input.inactive {
     }
     input, select {
         height: 40px;
+        border-radius: 5px;
     }
 }

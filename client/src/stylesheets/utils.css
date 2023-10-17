@@ -93,22 +93,11 @@ height: 20px;
     width: 100%;
 }
 
-.screen__center.login {
-    position: absolute;
-    height: var(--size-main);
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
 .lds-ellipsis {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
-}
-
-.lds-ellipsis.login {
-    background-color: var(--clr-red);
-    border-radius: 15px;
 }
 
 .lds-ellipsis div {
@@ -117,12 +106,12 @@ height: 20px;
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: var(--clr-red);
+    background-color: var(--clr-red);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
-.lds-ellipsis.login div {
-    background: var(--clr-white);
+.lds-ellipsis.white div {
+    background-color: var(--clr-white);
 }
 
 .lds-ellipsis div:nth-child(1) {
