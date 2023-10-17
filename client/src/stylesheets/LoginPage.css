@@ -1,7 +1,8 @@
 .login__page__wrapper , .registration__page__wrapper, .recovery__page__wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    height: calc(100vh - 182px);
+    min-height: var(--size-main);
     justify-content: center;
 }
 

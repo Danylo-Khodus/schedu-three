@@ -10,15 +10,16 @@ export default function Header () {
 
   // GETTING PROFILE INFO
 
-  const {userInfo, setUserInfo} = useContext(UserContext);
+  const {setInfoLoading, userInfo, setUserInfo} = useContext(UserContext);
 
   useEffect(() => {
+    setInfoLoading(true);
     fetch(URL + '/api/profile',  {credentials: 'include'})
         .then(response => {
         response.json().then(profileInfo => {
           setUserInfo(profileInfo);
         });
-    });
+    }).finally(()=>{setInfoLoading(false);});
   }, []);
 
   // LOGGING OUT

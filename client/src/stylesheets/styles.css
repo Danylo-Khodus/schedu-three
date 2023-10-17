@@ -27,6 +27,7 @@
     --size-8xl: 6rem;
     --size-9xl: 8rem;
     --size-10xl: 10rem;
+    --size-main: calc(100vh - 136.23px);
     --size-section: calc(100vh - 188.73px);
 }
 
@@ -49,7 +50,7 @@ body {
 }
 
 main {
-    min-height: calc(100vh - 136.23px);
+    min-height: var(--size-main);
     overflow-x: hidden;
 }
 

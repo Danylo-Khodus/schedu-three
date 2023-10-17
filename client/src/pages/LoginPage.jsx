@@ -9,7 +9,7 @@ export default function LoginPage() {
 
     // CHECKING IF THE USER IS LOGGED IN
 
-    const { userInfo, setUserInfo } = useContext(UserContext);
+    const { infoLoading, userInfo, setUserInfo } = useContext(UserContext);
 
     // INPUTS CONSTRUCTIONS
 
@@ -51,33 +51,40 @@ export default function LoginPage() {
             {userInfo?.id ?
                 <Navigate to={'/'}/>
             :
-                <div className='login__page__wrapper'>
-                    <form className="login" onSubmit={login}>
-                        <h1 className='section__title'>Вхід</h1>
-                        <div className='login__inputs'>
-                            <input type="email" 
-                                placeholder="Електронна пошта *" 
-                                name='email'
-                                onChange={(ev) => setUserData({
-                                    ...userData,
-                                    [ev.target.name]:ev.target.value,
-                                })}/>
-                            <input type="password" 
-                                placeholder="Пароль *" 
-                                name='password'
-                                onChange={(ev) => setUserData({
-                                    ...userData,
-                                    [ev.target.name]:ev.target.value,
-                                })}/>
-                        </div>
-                        <button className="btn login-register-btn" >Увійти</button>
-                        <div className="registration">
-                            <p>Досі немає акаунту?</p>
-                            <Link className="register__link" to="/register">Створити акаунт</Link>
-                        </div>
-                    </form>
-                </div>
-        }
-    </>
+                <> 
+                    <div className='login__page__wrapper'>
+                        {infoLoading &&
+                            <div className='screen__center login'>
+                                <div className="lds-ellipsis login"><div></div><div></div><div></div><div></div></div>
+                            </div>
+                        }
+                        <form className="login" onSubmit={login}>
+                            <h1 className='section__title'>Вхід</h1>
+                            <div className='login__inputs'>
+                                <input type="email" 
+                                    placeholder="Електронна пошта *" 
+                                    name='email'
+                                    onChange={(ev) => setUserData({
+                                        ...userData,
+                                        [ev.target.name]:ev.target.value,
+                                    })}/>
+                                <input type="password" 
+                                    placeholder="Пароль *" 
+                                    name='password'
+                                    onChange={(ev) => setUserData({
+                                        ...userData,
+                                        [ev.target.name]:ev.target.value,
+                                    })}/>
+                            </div>
+                            <button className="btn login-register-btn" >Увійти</button>
+                            <div className="registration">
+                                <p>Досі немає акаунту?</p>
+                                <Link className="register__link" to="/register">Створити акаунт</Link>
+                            </div>
+                        </form>
+                    </div>     
+                </>
+            }
+        </>
     );
 }
