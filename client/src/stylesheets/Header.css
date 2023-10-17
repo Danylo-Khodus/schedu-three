@@ -129,6 +129,7 @@ header .btn.simple svg {
   flex-direction: column;
   border-radius: 10px;
   padding: 0;
+  cursor: initial;
   /* offset-x | offset-y | blur-radius | color */
   box-shadow: 0px 0px 15px rgb(0,0,0,0.1);
   background-color: var(--clr-white);
@@ -146,13 +147,31 @@ header .btn.simple svg {
   animation: notify__disappear 0.5s;
 }
 
+.notifications__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top:  0.95rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  padding-bottom: 0.95rem;
+}
+
 .dropdown.notification h1 {
   font-size: var(--size-base);
   font-weight: 600;
-  padding-top:  0.95rem;
-  padding-left: 1.6rem;
-  padding-right: .6rem;
-  padding-bottom: 0.95rem;
+}
+
+.notifications__header p {
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.notifications__header p:hover {
+  background-color: rgb(35, 39, 42, 0.05);
 }
 
 .notifications {

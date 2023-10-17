@@ -343,9 +343,8 @@ app.put('/api/notifications', async (req, res) => {
 app.delete('/api/notifications', async (req, res) => {
 
     const {user_id} = req.body;
-    const notifications = await Homework.find({user_id});
     
-    await notifications.deleteMany({});
+    await Notification.deleteMany({user_id});
 
     res.status(200).json('success');
 

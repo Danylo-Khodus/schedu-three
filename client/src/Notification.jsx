@@ -1,10 +1,13 @@
 import URL from "./URL";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import moment from 'moment-with-locales-es6';
+import { UserContext } from "./UserContext";
 
 export default function Notifications ({notify, setNotify, handleCallback}) {
+
+    const {userInfo} = useContext(UserContext);
 
     // GETTING NOTIFICATIONS
 
@@ -21,6 +24,18 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
             });
         });
     },[]);
+
+    // CLEARING NOTIFICATIONS
+
+    const user_id = userInfo?.id;
+
+    function clearNotifications () {
+        fetch(URL + '/api/notifications', {
+            method: 'DELETE',
+            body: JSON.stringify({ user_id }),
+            headers: {'Content-Type':'application/json'},
+        }).finally(()=>{setNotifications([])});
+    };
 
     // NOTIFICATION COMPONENT
 
@@ -76,7 +91,10 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
             <div className= {`dropdown notification ${notify ? 'open' : 'close'}`}>
-                <h1>Сповіщення</h1>
+                <div className="notifications__header">
+                    <h1>Сповіщення</h1>
+                    <p onClick={()=>{clearNotifications()}}>Очистити</p>
+                </div>
                 <div className="line"></div>
                 <div className="notifications">
                     {notifications.length > 0 ? 
