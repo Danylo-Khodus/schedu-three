@@ -136,7 +136,7 @@ header .btn.simple svg {
 }
 
 .dropdown.notification.open {
-  right: -70px;
+  right: -55px;
   opacity: 1;
   animation: notify__appear 0.5s;
 }

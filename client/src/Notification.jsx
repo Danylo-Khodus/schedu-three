@@ -100,7 +100,7 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                     {notifications.length > 0 ? 
                         notifications.map(notification => <Notification key={notification._id} {...notification}/>)
                     :
-                        <p>Наразі сповіщень немає</p>
+                        <p>Cповіщень немає</p>
                     }
                 </div>
             </div>
