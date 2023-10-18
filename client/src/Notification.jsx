@@ -36,7 +36,7 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
 
     // NOTIFICATION COMPONENT
 
-    function Notification ({_id, seen, message, subject, createdAt, link}) {
+    function Notification ({_id, seen, message, createdAt, link}) {
 
         moment.locale("uk");
 
@@ -65,7 +65,7 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                     </svg>
                 </div>
                 <div className="info">
-                    <p>{message} <strong>{subject}</strong></p>
+                    <p>{message}</p>
                     <time>{time}</time>
                 </div>
             </Link>

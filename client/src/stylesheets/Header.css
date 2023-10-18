@@ -121,7 +121,6 @@ header .btn.simple svg {
 
 .dropdown.notification {
   width: 300px;
-  min-height: 150px;
   z-index: -1;
   top: 48px;
   display: flex;
@@ -176,8 +175,7 @@ header .btn.simple svg {
 }
 
 .notifications {
-  min-height: 90px;
-  max-height: 360px;
+  height: 360px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -185,7 +183,7 @@ header .btn.simple svg {
 }
 
 .notifications p.no {
-  margin-top: var(--size-3xl);
+  margin-top: var(--size-base);
 }
 
 /* width */

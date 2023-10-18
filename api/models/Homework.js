@@ -3,9 +3,10 @@ const {Schema, model} = mongoose;
 
 const HomeworkSchema = new Schema({
     status: String,
-    student_id: String,
-    student_fullName: String,
     group: String,
+    student_id: String,
+    student: String,
+    teacher_id: String,
     teacher: String,
     subject: String,
     homework: String,

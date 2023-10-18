@@ -30,7 +30,7 @@ export default function HomeworkPage () {
 
     // TASK COMPONENT
 
-    function Task ({_id, status, group, student_fullName, subject, homework, link}) {
+    function Task ({_id, status, group, teacher_id, student, subject, homework, link}) {
 
         const [newLink, setNewLink] = useState(link);
 
@@ -38,7 +38,25 @@ export default function HomeworkPage () {
 
         const [opened, setOpened] = useState(false);
 
-        async function handleClick (stat) {
+        function sendNotification(message) {
+
+            const data = {
+                caller_id: _id,
+                user_id: teacher_id,
+                seen: false,
+                message,
+                link: '/homework',
+            };
+    
+            fetch(URL + '/api/notifications', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {'Content-Type':'application/json'},
+            });
+    
+        };
+
+        async function statusChange (stat) {
 
             const response = await fetch(URL + '/api/homework', {
                 method: 'PUT',
@@ -108,7 +126,7 @@ export default function HomeworkPage () {
                                     onChange={(ev)=> setNewLink(ev.target.value)}
                                 />
                                 {(currentStatus === 'assigned' || currentStatus === 'sent') ?
-                                <button className={`btn colored ${currentStatus === 'sent' ? 'inactive' : ''}`} onClick={()=>{handleClick('sent')}}>
+                                <button className={`btn colored ${currentStatus === 'sent' ? 'inactive' : ''}`} onClick={()=>{statusChange('sent'); sendNotification(`${student} виконав/ла домашне завдання з ${subject}`);}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                     </svg>
@@ -146,7 +164,7 @@ export default function HomeworkPage () {
                             <div className={`task__info ${currentStatus === 'checked' ? 'hidden':''}`} style={{gap: `${opened ? 'var(--size-xxs)' : '0'}`}}>
                                 <div className="student__info">
                                     <p>{group}</p>
-                                    <p>{student_fullName}</p>
+                                    <p>{student}</p>
                                 </div>
                                 <div className="subject teacher">{subject}</div>
                                 <div className={`task ${opened ? 'full' : 'hidden'}`}>{homework}</div>
@@ -161,7 +179,7 @@ export default function HomeworkPage () {
                                     onChange={(ev)=> setNewLink(ev.target.value)}
                                 />
                                 {currentStatus === 'sent' ?
-                                <button className={`btn colored ${(newLink === '' || currentStatus === 'checked') ? 'inactive' : ''}`} onClick={()=>{handleClick('checked')}}>
+                                <button className={`btn colored ${(currentStatus === 'checked') ? 'inactive' : ''}`} onClick={()=>{statusChange('checked')}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                     </svg>

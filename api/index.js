@@ -130,12 +130,14 @@ app.put('/api/profile', async (req,res) => {
 app.post('/api/create-schedule', async (req, res) => {
     const {date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix} = req.body;
     if (lessonOne.subject !== '') {
-        const firstDoc = await Lesson.create({
+        const teacher = await User.findOne({ _id: lessonOne.teacher_id });
+        await Lesson.create({
             date,
             group,
             beginTime: date + 'T06:00:00.388Z',
             endTime: date + 'T06:40:00.388Z',
-            teacher: lessonOne.teacher,
+            teacher_id: lessonOne.teacher_id,
+            teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonOne.subject,
             theme: lessonOne.theme,
             presentation: lessonOne.presentation,
@@ -145,12 +147,14 @@ app.post('/api/create-schedule', async (req, res) => {
         });
     }
     if (lessonTwo.subject !== '') {
-        const secondDoc = await Lesson.create({
+        const teacher = await User.findOne({ _id: lessonTwo.teacher_id });
+        await Lesson.create({
             date,
             group,
             beginTime: date + 'T06:50:00.388Z',
             endTime: date + 'T07:30:00.388Z',
-            teacher: lessonTwo.teacher,
+            teacher_id: lessonTwo.teacher_id,
+            teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonTwo.subject,
             theme: lessonTwo.theme,
             presentation: lessonTwo.presentation,
@@ -160,12 +164,14 @@ app.post('/api/create-schedule', async (req, res) => {
         });
     }
     if (lessonThree.subject !== '') {
-        const thirdDoc = await Lesson.create({
+        const teacher = await User.findOne({ _id: lessonThree.teacher_id });
+        await Lesson.create({
             date,
             group,
             beginTime: date + 'T07:40:00.388Z',
             endTime: date + 'T08:20:00.388Z',
-            teacher: lessonThree.teacher,
+            teacher_id: lessonThree.teacher_id,
+            teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonThree.subject,
             theme: lessonThree.theme,
             presentation: lessonThree.presentation,
@@ -175,12 +181,14 @@ app.post('/api/create-schedule', async (req, res) => {
         });
     }
     if (lessonFour.subject !== '') {
-        const fourthDoc = await Lesson.create({
+        const teacher = await User.findOne({ _id: lessonFour.teacher_id });
+        await Lesson.create({
             date,
             group,
             beginTime: date + 'T08:30:00.388Z',
             endTime: date + 'T09:10:00.388Z',
-            teacher: lessonFour.teacher,
+            teacher_id: lessonFour.teacher_id,
+            teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonFour.subject,
             theme: lessonFour.theme,
             presentation: lessonFour.presentation,
@@ -190,12 +198,14 @@ app.post('/api/create-schedule', async (req, res) => {
         });
     }
     if (lessonFive.subject !== '') {
-        const fifthDoc = await Lesson.create({
+        const teacher = await User.findOne({ _id: lessonFive.teacher_id });
+        await Lesson.create({
             date,
             group,
             beginTime: date + 'T09:20:00.388Z',
             endTime: date + 'T10:00:00.388Z',
-            teacher: lessonFive.teacher,
+            teacher_id: lessonFive.teacher_id,
+            teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonFive.subject,
             theme: lessonFive.theme,
             presentation: lessonFive.presentation,
@@ -205,12 +215,14 @@ app.post('/api/create-schedule', async (req, res) => {
         });
     }
     if (lessonSix.subject !== '') {
-        const sixthDoc = await Lesson.create({
+        const teacher = await User.findOne({ _id: lessonSix.teacher_id });
+        await Lesson.create({
             date,
             group,
             beginTime: date + 'T10:10:00.388Z',
             endTime: date + 'T10:50:00.388Z',
-            teacher: lessonSix.teacher,
+            teacher_id: lessonSix.teacher_id,
+            teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonSix.subject,
             theme: lessonSix.theme,
             presentation: lessonSix.presentation,
@@ -230,8 +242,8 @@ app.get('/api/schedule', async (req, res) => {
             if (err) throw err;
             const perm = info.perm;
             if (perm === 'teacher') {
-                const teacher = info.fullName;
-                const lessons = await Lesson.find({teacher});
+                const teacher_id = info.id;
+                const lessons = await Lesson.find({teacher_id});
                 res.json(lessons);
             } else {
                 const group = info.group;
@@ -245,14 +257,15 @@ app.get('/api/schedule', async (req, res) => {
 });
 
 app.post('/api/homework', async (req, res) => {
-    const {status, student_id, student_fullName, group, teacher, subject, homework} = req.body;
+    const {status, group, student_id, student, teacher_id, teacher, subject, homework} = req.body;
     const exists = await Homework.findOne({homework, student_id});
     if (!exists) {
         const homeworkDoc = await Homework.create({
             status,
-            student_id,
-            student_fullName,
             group,
+            student_id,
+            student,
+            teacher_id,
             teacher,
             subject,
             homework,
@@ -272,8 +285,8 @@ app.get('/api/homework', async (req, res) => {
             if (err) throw err;
             const perm = info.perm;
             if (perm === 'teacher') {
-                const teacher = info.fullName;
-                const homework = await Homework.find({teacher, status: 'sent' || 'checked'});
+                const teacher_id = info.id;
+                const homework = await Homework.find({teacher_id, status:'sent'});
                 res.json(homework);
             } else {
                 const student_id = info.id;
@@ -292,13 +305,14 @@ app.put('/api/homework', async (req, res) => {
     const homeworkDoc = await Homework.findOne({_id});
     
     await homeworkDoc.updateOne({
-        student_id: homeworkDoc.student_id,
-        student_fullName: homeworkDoc.student_fullName,
+        status: stat,
         group: homeworkDoc.group,
+        student_id: homeworkDoc.student_id,
+        student: homeworkDoc.student,
+        teacher_id: homeworkDoc.teacher_id,
         teacher: homeworkDoc.teacher,
         subject: homeworkDoc.subject,
         homework: homeworkDoc.homework,
-        status: stat,
         link: newLink,
     });
 
@@ -318,16 +332,14 @@ app.delete('/api/homework', async (req, res) => {
 });
 
 app.post('/api/notifications', async (req, res) => {
-    const {lesson_id, user_id, seen, subject, message, time, link} = req.body;
-    const exists = await Notification.findOne({lesson_id, user_id});
+    const {caller_id, user_id, seen, message, link} = req.body;
+    const exists = await Notification.findOne({caller_id, user_id});
     if (!exists) {
         const notification = await Notification.create({
-            lesson_id,
+            caller_id,
             user_id,
             seen,
-            subject,
             message,
-            time,
             link,
         });
         res.status(201).json(notification);
@@ -356,11 +368,10 @@ app.put('/api/notifications', async (req, res) => {
     const notification = await Notification.findOne({_id});
     
     await notification.updateOne({
+        caller_id: notification.caller_id,
         user_id: notification.user_id,
         seen: 'true',
-        subject: notification.subject,
         message: notification.message,
-        time: notification.time,
         link: notification.link,
     });
 

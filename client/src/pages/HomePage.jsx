@@ -52,12 +52,31 @@ export default function HomePage() {
 
     // HOMEWORK ASSIGNMENT  
 
+    function sendNotification(lesson) {
+
+        const data = {
+            caller_id: lesson._id,
+            user_id: userInfo?.id,
+            seen: false,
+            message: `Було додано нове домашне завдання з ${lesson.subject}`,
+            link: '/homework',
+        };
+
+        fetch(URL + '/api/notifications', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type':'application/json'},
+        });
+
+    };
+
     function postHomework(lesson) {
         const data = {
             status: 'assigned',
-            student_id: userInfo?.id,
-            student_fullName: `${userInfo?.lastName} ${userInfo?.firstName}`,
             group: userInfo?.group,
+            student_id: userInfo?.id,
+            student: `${userInfo?.lastName} ${userInfo?.firstName}`,
+            teacher_id: lesson.teacher_id,
             teacher: lesson.teacher,
             subject: lesson.subject,
             homework: lesson.homework,
@@ -70,27 +89,9 @@ export default function HomePage() {
                 body: JSON.stringify(data),
                 headers: {'Content-Type':'application/json'}
                 });
+                sendNotification(lesson);
             };
         }
-    };
-
-    function sendNotification(lesson) {
-
-        const data = {
-            lesson_id: lesson._id,
-            user_id: userInfo?.id,
-            seen: false,
-            subject: lesson.subject,
-            message: 'Було додано нове домашне завдання з',
-            link: '/homework',
-        };
-
-        fetch(URL + '/api/notifications', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {'Content-Type':'application/json'},
-        });
-
     };
 
     return(
@@ -197,7 +198,6 @@ export default function HomePage() {
                                                         onClick={()=>{
                                                             window.open((lesson !== '' ? lesson.link : one.link),'_blank');
                                                             postHomework(lesson !== '' ? lesson : one);
-                                                            sendNotification(lesson !== '' ? lesson : one);
                                                         }}>
                                                     Перейти
                                                 </button>

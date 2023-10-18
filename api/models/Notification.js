@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
 const NotificationSchema = new Schema({
-    lesson_id: String,
+    caller_id: String,
     user_id: String,
     seen: String,
-    subject: String,
     message: String,
-    time: String,
     link: String,
 }, {
     timestamps: true,

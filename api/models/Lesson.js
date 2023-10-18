@@ -6,6 +6,7 @@ const LessonSchema = new Schema({
     beginTime: String,
     endTime: String,
     group: String,
+    teacher_id: String,
     teacher: String,
     subject: String,
     theme: String,
