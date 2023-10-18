@@ -58,7 +58,7 @@ export default function HomePage() {
             caller_id: lesson._id,
             user_id: userInfo?.id,
             seen: false,
-            message: `Було додано нове домашне завдання з ${lesson.subject}`,
+            message: `Було додано нове домашне завдання з <strong>${lesson.subject}</strong>`,
             link: '/homework',
         };
 

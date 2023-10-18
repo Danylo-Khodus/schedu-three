@@ -65,7 +65,7 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                     </svg>
                 </div>
                 <div className="info">
-                    <p>{message}</p>
+                    <p dangerouslySetInnerHTML={{__html:message}}/>
                     <time>{time}</time>
                 </div>
             </Link>
