@@ -1,6 +1,6 @@
 import URL from "./URL";
 import { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import moment from 'moment-with-locales-es6';
 import { UserContext } from "./UserContext";
@@ -13,13 +13,10 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
 
     const [notifications, setNotifications] = useState([]);
 
-    const [newNotifications, setNewNotifications] = useState(false);
-
     useEffect(()=>{
         fetch(URL + '/api/notifications',  {credentials: 'include'})
         .then(response => {
             response.json().then(notifications => {
-                notifications.filter((ev) => {if(ev.seen === 'false'){setNewNotifications(ev)}});
                 setNotifications(notifications);
             });
         });
@@ -45,8 +42,6 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
 
         const time = moment(createdAt).fromNow();
 
-        const [redirect, setRedirect] = useState(false);
-
         // UPDATING SEEN STRING
 
         async function updateNotification () {
@@ -57,17 +52,10 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                     headers: {'Content-Type':'application/json'},
                 });
             }
-            setRedirect(true);
         };
 
-        // REDIRECTING
-
-        if (redirect) {
-            return <Navigate to={link}/>
-        }
-
         return (
-            <div className="notification" onClick={()=>{updateNotification()}}>
+            <Link to={link} className="notification" onClick={() => updateNotification()}>
                 {seen === 'false' && 
                     <div className="notification__status__dot"></div>
                 }
@@ -80,13 +68,13 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                     <p>{message} <strong>{subject}</strong></p>
                     <time>{time}</time>
                 </div>
-            </div>
+            </Link>
         );
     };
     
     return (
         <div className="notification__bell" onClick={() => {setNotify(prev => !prev); handleCallback(false);}}>
-            {newNotifications && <div className='notification__status__dot'></div>}
+            {notifications.some((ev) => {if(ev.seen === 'false'){return true}}) && <div className='notification__status__dot'></div>}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="bell">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
@@ -100,7 +88,7 @@ export default function Notifications ({notify, setNotify, handleCallback}) {
                     {notifications.length > 0 ? 
                         notifications.map(notification => <Notification key={notification._id} {...notification}/>)
                     :
-                        <p>Cповіщень немає</p>
+                        <p className="no">Cповіщень немає</p>
                     }
                 </div>
             </div>

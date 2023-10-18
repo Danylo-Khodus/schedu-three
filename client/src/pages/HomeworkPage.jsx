@@ -19,7 +19,7 @@ export default function HomeworkPage () {
 
     useEffect(() => {
         setLoading(true);
-        fetch(URL + '/api/homework').then(response => {
+        fetch(URL + '/api/homework', {credentials:'include'}).then(response => {
             response.json().then(list => {
               setHomework(list);
             });
@@ -27,16 +27,6 @@ export default function HomeworkPage () {
             setLoading(false)
         });
     }, []); 
-
-    const filtered = homework.filter((ev) => {
-        const fullName = `${userInfo?.lastName} ${userInfo?.firstName}`;
-
-        if (userInfo?.perm === 'teacher') {
-            if (ev.teacher.includes(fullName) && (ev.status === 'sent' || ev.status === 'checked')) {return ev}
-        } else {
-            if (ev.student_id.includes(userInfo?.id)) {return ev}
-        }
-    });
 
     // TASK COMPONENT
 
@@ -118,7 +108,7 @@ export default function HomeworkPage () {
                                     onChange={(ev)=> setNewLink(ev.target.value)}
                                 />
                                 {(currentStatus === 'assigned' || currentStatus === 'sent') ?
-                                <button className={`btn colored ${(newLink === '' || currentStatus === 'sent') ? 'inactive' : ''}`} onClick={()=>{handleClick('sent')}}>
+                                <button className={`btn colored ${currentStatus === 'sent' ? 'inactive' : ''}`} onClick={()=>{handleClick('sent')}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                     </svg>
@@ -206,9 +196,9 @@ export default function HomeworkPage () {
                             </div>
                             :
                             <>
-                                {filtered.length > 0 
+                                {homework.length > 0 
                                     ? 
-                                    filtered.map(task => <Task key={task._id} {...task}/>)
+                                    homework.map(task => <Task key={task._id} {...task}/>)
                                     :
                                     <div className='weekend__wrapper'>
                                         <h1 className='weekend'>Все домашне завдання на данний момент виконано. Так тримати!</h1>

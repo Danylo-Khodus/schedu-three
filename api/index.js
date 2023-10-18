@@ -246,22 +246,44 @@ app.get('/api/schedule', async (req, res) => {
 
 app.post('/api/homework', async (req, res) => {
     const {status, student_id, student_fullName, group, teacher, subject, homework} = req.body;
-    const homeworkDoc = await Homework.create({
-        status,
-        student_id,
-        student_fullName,
-        group,
-        teacher,
-        subject,
-        homework,
-        link: '',
-    });
-    res.json(homeworkDoc);
+    const exists = await Homework.findOne({homework, student_id});
+    if (!exists) {
+        const homeworkDoc = await Homework.create({
+            status,
+            student_id,
+            student_fullName,
+            group,
+            teacher,
+            subject,
+            homework,
+            link: '',
+        });
+        res.status(201).json(homeworkDoc);
+    } else {
+        res.status(200).json('exists');
+    }
 });
 
 app.get('/api/homework', async (req, res) => {
-    const homeworkList = await Homework.find();
-    res.json(homeworkList);
+
+    const {token} = req.cookies;
+    if (token) {
+        jwt.verify(token, secret, {}, async (err,info) => {
+            if (err) throw err;
+            const perm = info.perm;
+            if (perm === 'teacher') {
+                const teacher = info.fullName;
+                const homework = await Homework.find({teacher, status: 'sent' || 'checked'});
+                res.json(homework);
+            } else {
+                const student_id = info.id;
+                const homework = await Homework.find({student_id});
+                res.json(homework);
+            }
+        });
+    } else {
+        res.json(null);
+    }
 });
 
 app.put('/api/homework', async (req, res) => {
@@ -296,16 +318,22 @@ app.delete('/api/homework', async (req, res) => {
 });
 
 app.post('/api/notifications', async (req, res) => {
-    const {user_id, seen, subject, message, time, link} = req.body;
-    const notification = await Notification.create({
-        user_id,
-        seen,
-        subject,
-        message,
-        time,
-        link,
-    });
-    res.json(notification);
+    const {lesson_id, user_id, seen, subject, message, time, link} = req.body;
+    const exists = await Notification.findOne({lesson_id, user_id});
+    if (!exists) {
+        const notification = await Notification.create({
+            lesson_id,
+            user_id,
+            seen,
+            subject,
+            message,
+            time,
+            link,
+        });
+        res.status(201).json(notification);
+    } else {
+        res.status(200).json('exists');
+    }
 });
 
 app.get('/api/notifications', async (req, res) => {
@@ -316,7 +344,7 @@ app.get('/api/notifications', async (req, res) => {
             if (err) throw err;
 
             const user_id = info.id;
-            const notifications = await Notification.find({user_id}).sort({createdAt: -1}).limit(4);
+            const notifications = await Notification.find({user_id}).sort({createdAt: -1});
             res.json(notifications);
         });
     }

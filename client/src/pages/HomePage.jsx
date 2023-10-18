@@ -50,10 +50,6 @@ export default function HomePage() {
 
     const [status, setStatus] = useState('');
 
-    function openLink(link) {
-        window.open(link, '_blank');
-    };
-
     // HOMEWORK ASSIGNMENT  
 
     function postHomework(lesson) {
@@ -81,6 +77,7 @@ export default function HomePage() {
     function sendNotification(lesson) {
 
         const data = {
+            lesson_id: lesson._id,
             user_id: userInfo?.id,
             seen: false,
             subject: lesson.subject,
@@ -198,7 +195,7 @@ export default function HomePage() {
                                                 </button>
                                                 <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
                                                         onClick={()=>{
-                                                            openLink(lesson !== '' ? lesson.link : one.link); 
+                                                            window.open((lesson !== '' ? lesson.link : one.link),'_blank');
                                                             postHomework(lesson !== '' ? lesson : one);
                                                             sendNotification(lesson !== '' ? lesson : one);
                                                         }}>
