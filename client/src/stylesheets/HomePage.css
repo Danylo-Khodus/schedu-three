@@ -309,6 +309,22 @@ main.welcome {
   text-overflow: ellipsis;
 }
 
+.lesson__info p.links {
+  display: flex;
+  align-items: center;
+  gap: var(--size-base);
+}
+
+.lesson__info p.links svg.check {
+  color: var(--clr-green);
+  width: 25px;
+}
+
+.lesson__info p.links svg.cross {
+  color: red;
+  width: 25px;
+}
+
 .lesson__info .buttons {
   display: flex;
   justify-content: space-between;
