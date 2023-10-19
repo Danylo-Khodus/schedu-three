@@ -7,6 +7,7 @@ import Filter from '../Filter';
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from '../UserContext';
 import { useContext, useEffect, useState } from "react";
+import LessonInfo from '../LessonInfo';
 
 export default function HomePage() {
 
@@ -46,59 +47,17 @@ export default function HomePage() {
 
     const [opened, setOpened] = useState(false);
 
-    const [lesson, setLesson] = useState('');
-
     const [status, setStatus] = useState('');
 
-    // HOMEWORK ASSIGNMENT  
+    const [edit, setEdit] = useState(false);
 
-    function sendNotification(lesson) {
-
-        const data = {
-            caller_id: lesson._id,
-            user_id: userInfo?.id,
-            seen: false,
-            message: `Було додано нове домашне завдання з <strong>${lesson.subject}</strong>`,
-            link: '/homework',
-        };
-
-        fetch(URL + '/api/notifications', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {'Content-Type':'application/json'},
-        });
-
-    };
-
-    function postHomework(lesson) {
-        const data = {
-            status: 'assigned',
-            group: userInfo?.group,
-            student_id: userInfo?.id,
-            student: `${userInfo?.lastName} ${userInfo?.firstName}`,
-            teacher_id: lesson.teacher_id,
-            teacher: lesson.teacher,
-            subject: lesson.subject,
-            homework: lesson.homework,
-        };
-
-        if (userInfo?.perm !== 'teacher') {
-            if (lesson.homework !== '') {
-                fetch(URL + '/api/homework', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {'Content-Type':'application/json'}
-                });
-                sendNotification(lesson);
-            };
-        }
-    };
+    const [lesson, setLesson] = useState('');
 
     return(
         <>
             {userInfo?.id ?
                 <div className='homepage__wrapper'>
-                    <Filter handleCallback={(ev) => setSelectedDate(ev)} selected={selectedDate}/>
+                    <Filter handleCallback={(ev) => {setSelectedDate(ev); setEdit(false)}} selected={selectedDate}/>
                     {loading ? 
                         <div className='screen__center'>
                             <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
@@ -113,6 +72,7 @@ export default function HomePage() {
                                                         last={!two ? true : false}
                                                         lesson={one} 
                                                         handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
@@ -123,6 +83,7 @@ export default function HomePage() {
                                                         last={!three ? true : false}
                                                         lesson={two} 
                                                         handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
@@ -134,6 +95,7 @@ export default function HomePage() {
                                                         last={!four ? true : false}
                                                         lesson={three} 
                                                         handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
@@ -145,6 +107,7 @@ export default function HomePage() {
                                                         last={!five ? true : false}
                                                         lesson={four} 
                                                         handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
@@ -156,6 +119,7 @@ export default function HomePage() {
                                                         last={!six ? true : false}
                                                         lesson={five} 
                                                         handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
@@ -167,6 +131,7 @@ export default function HomePage() {
                                                         last={true}
                                                         lesson={six} 
                                                         handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
@@ -174,35 +139,13 @@ export default function HomePage() {
                                                 />
                                             )}
                                         </div>
-                                        <div className={`lesson__info ${opened && 'shown'}`}>
-                                            <button className='btn close' onClick={()=>{setOpened(false)}}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                            <div className='image'>
-                                                <h1>{lesson !== '' ? lesson.subject : one.subject}</h1>
-                                            </div>
-                                            <div className="info">
-                                                <p><strong>Викладач:</strong><br/>{lesson !== '' ? lesson.teacher : one.teacher}</p>
-                                                <p><strong>Тема:</strong><br/>{lesson !== '' ? lesson.theme : one.theme}</p>
-                                            </div>
-                                            <div className="buttons">
-                                                <button className={`btn colored ${!(lesson !== '' ? lesson.presentation : one.presentation) && 'inactive'}`} 
-                                                        onClick={()=>{
-                                                            openLink(lesson !== '' ? lesson.presentation : one.presentation); 
-                                                        }}>
-                                                    Презентація
-                                                </button>
-                                                <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
-                                                        onClick={()=>{
-                                                            window.open((lesson !== '' ? lesson.link : one.link),'_blank');
-                                                            postHomework(lesson !== '' ? lesson : one);
-                                                        }}>
-                                                    Перейти
-                                                </button>
-                                            </div>
-                                        </div>
+                                        <LessonInfo opened={opened} 
+                                                    status={status} 
+                                                    edit={edit}
+                                                    data={lesson === '' ? one : lesson} 
+                                                    handleOpen={(ev)=>{setOpened(ev)}}
+                                                    handleEdit={(ev)=>{setEdit(ev)}}
+                                        />
                                     </div>
                                 :
                                     <div className='weekend__wrapper'>

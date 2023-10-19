@@ -241,8 +241,7 @@ main.welcome {
 }
 
 .lesson__info {
-  min-height: auto;
-  height: calc(100vh - 151px);
+  min-height: calc(100vh - 151px);
   width: 100%;
   top: -59px;
   left: 425px;
@@ -263,8 +262,10 @@ main.welcome {
   left: 0;
 }
 
-.lesson__info button.btn.close {
+.lesson__info .absolute__buttons {
   position: absolute;
+  display: flex;
+  gap: var(--size-base);
   right: 15px;
   z-index: 1;
 }
@@ -420,12 +421,6 @@ main.welcome {
   .lesson {
     border-radius: 5px;
   }
-  .lesson__info button.btn.close {
-    display: none;
-    position: absolute;
-    right: 15px;
-    z-index: 1;
-  }
   .lesson__info {
     top: 0;
     left: 0;
@@ -435,6 +430,9 @@ main.welcome {
   }
   .lesson__info.shown {
     left: 0;
+  }
+  .lesson__info button.btn.close {
+    display: none;
   }
   .lesson__info .image {
     border-top-left-radius: 5px;

@@ -256,6 +256,38 @@ app.get('/api/schedule', async (req, res) => {
     }
 });
 
+app.put('/api/schedule', async (req,res) => {
+
+    const token = req.cookies?.token;
+    if (token) {
+        jwt.verify(token, secret, {}, async (err,info) => {
+            if (err) throw err;
+
+            const perm = (info.perm === 'teacher');
+            if (perm) {
+
+                const lesson = req.body;
+
+                const _id = lesson._id;
+                const lessonDoc = await Lesson.findOne({_id});
+            
+                await lessonDoc.updateOne({
+                    theme: lesson.theme,
+                    presentation: lesson.presentation,
+                    link: lesson.link,
+                    homework: lesson.homework,
+                });
+    
+                res.json(lessonDoc);
+            } else {
+                res.json('No permission');
+            }
+        });
+    } else {
+        res.status(401).json(null);
+    }
+});
+
 app.post('/api/homework', async (req, res) => {
     const {status, group, student_id, student, teacher_id, teacher, subject, homework} = req.body;
     const exists = await Homework.findOne({homework, student_id});
