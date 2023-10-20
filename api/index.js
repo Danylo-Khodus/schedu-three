@@ -131,6 +131,19 @@ app.post('/api/create-schedule', async (req, res) => {
     const {date, group, lessonOne, lessonTwo, lessonThree, lessonFour, lessonFive, lessonSix} = req.body;
     if (lessonOne.subject !== '') {
         const teacher = await User.findOne({ _id: lessonOne.teacher_id });
+
+        const presentation = lessonOne.presentation !== '' ? 
+            (lessonOne.presentation.includes('https://') ? lessonOne.presentation : 'https://' + lessonOne.presentation) 
+            : 
+            lessonOne.presentation
+        ;
+
+        const link = lessonOne.link !== '' ? 
+            (lessonOne.link.includes('https://') ? lessonOne.link : 'https://' + lessonOne.link) 
+            : 
+            lessonOne.link
+        ;
+
         await Lesson.create({
             date,
             group,
@@ -140,14 +153,27 @@ app.post('/api/create-schedule', async (req, res) => {
             teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonOne.subject,
             theme: lessonOne.theme,
-            presentation: lessonOne.presentation,
+            presentation,
             additional: lessonOne.additional,
-            link: lessonOne.link,
+            link,
             homework: lessonOne.homework,
         });
     }
     if (lessonTwo.subject !== '') {
         const teacher = await User.findOne({ _id: lessonTwo.teacher_id });
+
+        const presentation = lessonTwo.presentation !== '' ? 
+            (lessonTwo.presentation.includes('https://') ? lessonTwo.presentation : 'https://' + lessonTwo.presentation) 
+            : 
+            lessonTwo.presentation
+        ;
+
+        const link = lessonTwo.link !== '' ? 
+            (lessonTwo.link.includes('https://') ? lessonTwo.link : 'https://' + lessonTwo.link) 
+            : 
+            lessonTwo.link
+        ;
+
         await Lesson.create({
             date,
             group,
@@ -157,14 +183,27 @@ app.post('/api/create-schedule', async (req, res) => {
             teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonTwo.subject,
             theme: lessonTwo.theme,
-            presentation: lessonTwo.presentation,
+            presentation,
             additional: lessonTwo.additional,
-            link: lessonTwo.link,
+            link,
             homework: lessonTwo.homework,
         });
     }
     if (lessonThree.subject !== '') {
         const teacher = await User.findOne({ _id: lessonThree.teacher_id });
+
+        const presentation = lessonThree.presentation !== '' ? 
+            (lessonThree.presentation.includes('https://') ? lessonThree.presentation : 'https://' + lessonThree.presentation) 
+            : 
+            lessonThree.presentation
+        ;
+
+        const link = lessonThree.link !== '' ? 
+            (lessonThree.link.includes('https://') ? lessonThree.link : 'https://' + lessonThree.link) 
+            : 
+            lessonThree.link
+        ;
+
         await Lesson.create({
             date,
             group,
@@ -174,14 +213,27 @@ app.post('/api/create-schedule', async (req, res) => {
             teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonThree.subject,
             theme: lessonThree.theme,
-            presentation: lessonThree.presentation,
+            presentation,
             additional: lessonThree.additional,
-            link: lessonThree.link,
+            link,
             homework: lessonThree.homework,
         });
     }
     if (lessonFour.subject !== '') {
         const teacher = await User.findOne({ _id: lessonFour.teacher_id });
+
+        const presentation = lessonFour.presentation !== '' ? 
+            (lessonFour.presentation.includes('https://') ? lessonFour.presentation : 'https://' + lessonFour.presentation) 
+            : 
+            lessonFour.presentation
+        ;
+
+        const link = lessonFour.link !== '' ? 
+            (lessonFour.link.includes('https://') ? lessonFour.link : 'https://' + lessonFour.link) 
+            : 
+            lessonFour.link
+        ;
+
         await Lesson.create({
             date,
             group,
@@ -191,14 +243,27 @@ app.post('/api/create-schedule', async (req, res) => {
             teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonFour.subject,
             theme: lessonFour.theme,
-            presentation: lessonFour.presentation,
+            presentation,
             additional: lessonFour.additional,
-            link: lessonFour.link,
+            link,
             homework: lessonFour.homework,
         });
     }
     if (lessonFive.subject !== '') {
         const teacher = await User.findOne({ _id: lessonFive.teacher_id });
+
+        const presentation = lessonFive.presentation !== '' ? 
+            (lessonFive.presentation.includes('https://') ? lessonFive.presentation : 'https://' + lessonFive.presentation) 
+            : 
+            lessonFive.presentation
+        ;
+
+        const link = lessonFive.link !== '' ? 
+            (lessonFive.link.includes('https://') ? lessonFive.link : 'https://' + lessonFive.link) 
+            : 
+            lessonFive.link
+        ;
+
         await Lesson.create({
             date,
             group,
@@ -208,14 +273,27 @@ app.post('/api/create-schedule', async (req, res) => {
             teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonFive.subject,
             theme: lessonFive.theme,
-            presentation: lessonFive.presentation,
+            presentation,
             additional: lessonFive.additional,
-            link: lessonFive.link,
+            link,
             homework: lessonFive.homework,
         });
     }
     if (lessonSix.subject !== '') {
         const teacher = await User.findOne({ _id: lessonSix.teacher_id });
+
+        const presentation = lessonSix.presentation !== '' ? 
+            (lessonSix.presentation.includes('https://') ? lessonSix.presentation : 'https://' + lessonSix.presentation) 
+            : 
+            lessonSix.presentation
+        ;
+
+        const link = lessonSix.link !== '' ? 
+            (lessonSix.link.includes('https://') ? lessonSix.link : 'https://' + lessonSix.link) 
+            : 
+            lessonSix.link
+        ;
+
         await Lesson.create({
             date,
             group,
@@ -225,9 +303,9 @@ app.post('/api/create-schedule', async (req, res) => {
             teacher: `${teacher.lastName} ${teacher.firstName}`,
             subject: lessonSix.subject,
             theme: lessonSix.theme,
-            presentation: lessonSix.presentation,
+            presentation,
             additional: lessonSix.additional,
-            link: lessonSix.link,
+            link,
             homework: lessonSix.homework,
         });
     }
@@ -270,11 +348,25 @@ app.put('/api/schedule', async (req,res) => {
 
                 const _id = lesson._id;
                 const lessonDoc = await Lesson.findOne({_id});
+
+                const presentation = 
+                    lesson.presentation !== '' ? 
+                        (lesson.presentation.includes('https://') ? lesson.presentation : 'https://' + lesson.presentation) 
+                        : 
+                        lesson.presentation
+                ;
+
+                const link = 
+                    lesson.link !== '' ? 
+                        (lesson.link.includes('https://') ? lesson.link : 'https://' + lesson.link) 
+                        : 
+                        lesson.link
+                ;
             
                 await lessonDoc.updateOne({
                     theme: lesson.theme,
-                    presentation: lesson.presentation,
-                    link: lesson.link,
+                    presentation,
+                    link,
                     homework: lesson.homework,
                 });
     

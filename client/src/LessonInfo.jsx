@@ -65,23 +65,21 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
             homework: lesson.homework,
         };
 
-        if (userInfo?.perm !== 'teacher') {
-            if (lesson.homework !== '') {
-                fetch(URL + '/api/homework', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {'Content-Type':'application/json'}
-                });
-                sendNotification();
-            };
-        }
+        if (lesson.homework !== '') {
+            fetch(URL + '/api/homework', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type':'application/json'}
+            });
+            sendNotification();
+        };
     };
 
     return (
         <div className={`lesson__info ${opened && 'shown'}`}>
-            <div className="absolute__buttons">
-                {(userInfo?.perm === 'teacher' && userInfo?.id === lesson.teacher_id) && (
-                    <>
+            {(userInfo?.perm === 'teacher' && userInfo?.id === lesson.teacher_id) ? 
+                <>
+                    <div className="absolute__buttons">
                         {!edit ?
                             <button className='btn edit' onClick={()=>{handleEdit(true)}}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -89,95 +87,111 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
                                 </svg>
                             </button>
                         :
-                            <button className='btn edit' onClick={()=>{updateLessonInfo()}}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </button>
-                        }
-                    </>
-                )}
-                <button className='btn close' onClick={()=>{handleOpen(false)}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div className='image'>
-                <h1>{lesson.subject}</h1>
-            </div>
-            <div className="info">
-                {!edit ?
-                    <>
-                        <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
-                        <p><strong>Тема:</strong><br/>{lesson.theme}</p>
-                        {(userInfo?.perm === 'teacher' || 'admin') && 
                             <>
-                                <p className="links"><strong>Презентація</strong>{lesson.presentation !== '' ?
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="check">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                        </svg>
-                                    :
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="cross">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                }</p>
-                                <p className="links"><strong>Посилання на заняття</strong>{lesson.link !== '' ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="check">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                        </svg>
-                                    :
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="cross">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                }</p>
+                                <button className='btn edit' onClick={()=>{updateLessonInfo()}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                </button>
+                                <button className='btn close desktop' onClick={()=>{handleEdit(false)}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </>
                         }
-                    </>
-                :
-                    <>
-                        <p><strong>Тема:</strong></p>
-                        <input type="text" 
-                            name='theme'
-                            value={lesson.theme}
-                            onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
-                        />
-                        <p><strong>Презентація:</strong></p>
-                        <input type="text" 
-                            name='presentation'
-                            value={lesson.presentation}
-                            onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
-                        />
-                        <p><strong>Посилання на заняття:</strong></p>
-                        <input type="text" 
-                            name='link'
-                            value={lesson.link}
-                            onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
-                        />
-                        <p><strong>Домашне завдання:</strong></p>
-                        <input type="text" 
-                            name='homework'
-                            value={lesson.homework}
-                            onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
-                        />
-                    </>
-                }
-            </div>
-            <div className="buttons">
-                <button className={`btn colored ${!(lesson.presentation) && 'inactive'}`} 
-                        onClick={()=>{
-                            openLink(lesson.presentation); 
-                        }}>
-                    Презентація
-                </button>
-                <button className={`btn colored ${status === 'soon' || status === 'ongoing' && status !== 'finished' ? '' : 'inactive'}`} 
-                        onClick={()=>{
-                            window.open((lesson.link),'_blank');
-                            postHomework();
-                        }}>
-                    Перейти
-                </button>
-            </div>
+                        <button className='btn close' onClick={()=>{handleOpen(false)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className='image'>
+                        <h1>{lesson.subject}</h1>
+                    </div>
+                    <div className="info">
+                        {!edit ?
+                            <>
+                                <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
+                                <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                            </>
+                        :
+                            <>
+                                <p><strong>Тема:</strong></p>
+                                <input type="text" 
+                                    name='theme'
+                                    value={lesson.theme}
+                                    onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
+                                />
+                                <p><strong>Презентація:</strong></p>
+                                <input type="text" 
+                                    name='presentation'
+                                    value={lesson.presentation}
+                                    onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
+                                />
+                                <p><strong>Посилання на заняття:</strong></p>
+                                <input type="text" 
+                                    name='link'
+                                    value={lesson.link}
+                                    onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
+                                />
+                                <p><strong>Домашне завдання:</strong></p>
+                                <input type="text" 
+                                    name='homework'
+                                    value={lesson.homework}
+                                    onChange={ev => setLesson({...lesson,[ev.target.name]:ev.target.value})}
+                                />
+                            </>
+                        }
+                    </div>
+                    <div className="buttons">
+                        <button className={`btn colored ${!lesson.presentation && 'inactive'}`} 
+                                onClick={()=>{
+                                    openLink(lesson.presentation); 
+                                }}>
+                            Презентація
+                        </button>
+                        <button className={`btn colored ${!lesson.link && 'inactive'}`} 
+                                onClick={()=>{
+                                    window.open(lesson.link,'_blank');
+                                }}>
+                            Перейти
+                        </button>
+                    </div>
+                </> 
+                : 
+                <>
+                    <div className="absolute__buttons">
+                        <button className='btn close' onClick={()=>{handleOpen(false)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className='image'>
+                        <h1>{lesson.subject}</h1>
+                    </div>
+                    <div className="info">
+                        <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
+                        <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                    </div>
+                    <div className="buttons">
+                        <button className={`btn colored ${!lesson.presentation && 'inactive'}`} 
+                                onClick={()=>{
+                                    openLink(lesson.presentation); 
+                                }}>
+                            Презентація
+                        </button>
+                        <button className={`btn colored ${status === 'soon' || status === 'ongoing' && lesson.link !== '' ? '' : 'inactive'}`} 
+                                onClick={()=>{
+                                    window.open(lesson.link,'_blank');
+                                    postHomework();
+                                }}>
+                            Перейти
+                        </button>
+                    </div>
+                </>
+            }
         </div>
     )
 }

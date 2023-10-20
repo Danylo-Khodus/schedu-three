@@ -315,14 +315,16 @@ main.welcome {
   gap: var(--size-base);
 }
 
-.lesson__info p.links svg.check {
-  color: var(--clr-green);
-  width: 25px;
+.lesson__info .buttons .btn .dot{
+  background-color: var(--clr-grey);
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  margin-right: var(--size-xxs);
 }
 
-.lesson__info p.links svg.cross {
-  color: red;
-  width: 25px;
+.lesson__info .buttons .btn .dot.green {
+  background-color: var(--clr-green);
 }
 
 .lesson__info .buttons {
@@ -341,6 +343,10 @@ main.welcome {
   color: var(--clr-border);
   font-weight: 700;
   text-align: center;
+}
+
+.lesson__info button.btn.close.desktop {
+  display: none;
 }
 
 
@@ -449,6 +455,9 @@ main.welcome {
   }
   .lesson__info button.btn.close {
     display: none;
+  }
+  .lesson__info button.btn.close.desktop {
+    display: flex;
   }
   .lesson__info .image {
     border-top-left-radius: 5px;

@@ -41,7 +41,9 @@ export default function HomePage() {
         }
     });
 
-    const [one, two, three, four, five, six] = lessons;
+    const [one, ...rest] = lessons;
+
+    const lastLesson = lessons.pop();
 
     // DISPLAYING LESSON INFO
 
@@ -68,56 +70,8 @@ export default function HomePage() {
                                 ? 
                                     <div className='lessons__wrapper'>
                                         <div className='lessons'>
-                                                <Lesson key={one._id} 
-                                                        last={!two ? true : false}
-                                                        lesson={one} 
-                                                        handleCallback={({lesson, status})=>{
-                                                            setEdit(false);
-                                                            setLesson(lesson); 
-                                                            setStatus(status); 
-                                                            setOpened(true);
-                                                        }}
-                                                />
-                                            {two && (
-                                                <Lesson key={two._id} 
-                                                        last={!three ? true : false}
-                                                        lesson={two} 
-                                                        handleCallback={({lesson, status})=>{
-                                                            setEdit(false);
-                                                            setLesson(lesson); 
-                                                            setStatus(status); 
-                                                            setOpened(true);
-                                                        }}
-                                                />
-                                            )}                                    
-                                            {three && (
-                                                <Lesson key={three._id} 
-                                                        last={!four ? true : false}
-                                                        lesson={three} 
-                                                        handleCallback={({lesson, status})=>{
-                                                            setEdit(false);
-                                                            setLesson(lesson); 
-                                                            setStatus(status); 
-                                                            setOpened(true);
-                                                        }}
-                                                />
-                                            )}                                    
-                                            {four && (
-                                                <Lesson key={four._id} 
-                                                        last={!five ? true : false}
-                                                        lesson={four} 
-                                                        handleCallback={({lesson, status})=>{
-                                                            setEdit(false);
-                                                            setLesson(lesson); 
-                                                            setStatus(status); 
-                                                            setOpened(true);
-                                                        }}
-                                                />
-                                            )}                                    
-                                            {five && (
-                                                <Lesson key={five._id} 
-                                                        last={!six ? true : false}
-                                                        lesson={five} 
+                                            {lessons.map((info)=>
+                                                <Lesson key={info._id} lesson={info} last={false}
                                                         handleCallback={({lesson, status})=>{
                                                             setEdit(false);
                                                             setLesson(lesson); 
@@ -126,18 +80,14 @@ export default function HomePage() {
                                                         }}
                                                 />
                                             )}
-                                            {six && (
-                                                <Lesson key={six._id} 
-                                                        last={true}
-                                                        lesson={six} 
+                                            <Lesson key={lastLesson._id} lesson={lastLesson} last={true}
                                                         handleCallback={({lesson, status})=>{
                                                             setEdit(false);
                                                             setLesson(lesson); 
                                                             setStatus(status); 
                                                             setOpened(true);
                                                         }}
-                                                />
-                                            )}
+                                            />
                                         </div>
                                         <LessonInfo opened={opened} 
                                                     status={status} 
