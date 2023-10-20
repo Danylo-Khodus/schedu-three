@@ -12,6 +12,8 @@ import CreateArticlePage from './pages/CreateSchedulePage';
 import {Route, Routes} from "react-router-dom";
 import { UserContextProvider} from './UserContext';
 
+export const URL  = import.meta.env.VITE_API_BASE_URL;
+
 function App() {
 
   return (

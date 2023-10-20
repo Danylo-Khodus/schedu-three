@@ -1,4 +1,4 @@
-import URL from '../URL';
+import { URL } from '../App';
 import { useState, useContext} from "react";
 import { UserContext } from "../UserContext";
 import { Link, Navigate } from "react-router-dom";

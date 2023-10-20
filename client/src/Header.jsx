@@ -1,6 +1,6 @@
 import './stylesheets/Header.css';
 
-import URL from './URL';
+import { URL } from './App';
 import Notifications from './Notification';
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";

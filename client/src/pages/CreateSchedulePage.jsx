@@ -1,6 +1,6 @@
 import '../stylesheets/CreateSchedulePage.css';
 
-import URL from '../URL';
+import { URL } from '../App';
 import React, { useEffect } from 'react';
 import { useState, useContext } from "react";
 import {Navigate} from "react-router-dom";

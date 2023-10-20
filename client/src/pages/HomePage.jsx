@@ -1,6 +1,5 @@
 import '../stylesheets/HomePage.css';
 
-import URL from '../URL';
 import {format} from 'date-fns';
 import Lesson from "../Lesson";
 import Filter from '../Filter';
@@ -8,6 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from '../UserContext';
 import { useContext, useEffect, useState } from "react";
 import LessonInfo from '../LessonInfo';
+import { URL } from '../App';
 
 export default function HomePage() {
 

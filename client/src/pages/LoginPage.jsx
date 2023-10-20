@@ -1,6 +1,6 @@
 import '../stylesheets/LoginPage.css';
 
-import URL from '../URL';
+import { URL } from '../App';
 import { useState, useContext } from "react";
 import {Navigate, Link} from "react-router-dom";
 import { UserContext } from "../UserContext";

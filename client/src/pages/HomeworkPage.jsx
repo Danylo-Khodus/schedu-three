@@ -1,6 +1,6 @@
 import '../stylesheets/HomeworkPage.css'; 
 
-import URL from '../URL';
+import { URL } from '../App';
 import { Link, Navigate} from "react-router-dom";
 import { UserContext } from '../UserContext';
 import {useState, useEffect, useContext} from 'react';

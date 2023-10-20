@@ -1,7 +1,7 @@
 import '../stylesheets/ProfilePage.css';
 
-import URL from '../URL';
-import { useState, useContext, useEffect } from "react";
+import { URL } from '../App';
+import { useState, useContext } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate } from 'react-router-dom';
 
