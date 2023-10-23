@@ -43,7 +43,7 @@ export default function HomePage() {
 
     const [first] = lessons;
 
-    const lastLesson = lessons.pop();
+    const lastLesson = lessons.length > 1 && lessons.pop();
 
     // DISPLAYING LESSON INFO
 
@@ -80,16 +80,14 @@ export default function HomePage() {
                                                         }}
                                                 />
                                             )}
-                                            {lessons.length > 1 &&
-                                                <Lesson key={lastLesson._id} lesson={lastLesson} last={true}
-                                                            handleCallback={({lesson, status})=>{
-                                                                setEdit(false);
-                                                                setLesson(lesson);
-                                                                setStatus(status);
-                                                                setOpened(true);
-                                                            }}
-                                                />
-                                            }
+                                            <Lesson key={lastLesson._id} lesson={lastLesson} last={true}
+                                                        handleCallback={({lesson, status})=>{
+                                                            setEdit(false);
+                                                            setLesson(lesson);
+                                                            setStatus(status);
+                                                            setOpened(true);
+                                                        }}
+                                            />
                                         </div>
                                         <LessonInfo opened={opened} 
                                                     status={status} 
