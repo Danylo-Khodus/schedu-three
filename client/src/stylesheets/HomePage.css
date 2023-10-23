@@ -216,7 +216,7 @@ main.welcome {
   padding-left: 4px;
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 5px;
   background-color: var(--clr-third);
 }
 
@@ -471,11 +471,14 @@ main.welcome {
     top: 0;
     left: 0;
     border-radius: 5px;
+    opacity: 1;
   
     position: relative;
+    animation: none;
   }
   .lesson__info.shown {
     left: 0;
+    animation: none;
   }
   .lesson__info button.btn.close {
     display: none;

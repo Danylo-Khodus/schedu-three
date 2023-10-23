@@ -43,7 +43,7 @@ export default function HomePage() {
 
     const [first] = lessons;
 
-    const lastLesson = () => {if (lessons.length > 1) {lessons.pop()}};
+    const lastLesson = lessons.pop();
 
     // DISPLAYING LESSON INFO
 
