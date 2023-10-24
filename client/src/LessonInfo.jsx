@@ -147,7 +147,7 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
                     <div className="buttons">
                         <button className={`btn colored ${!lesson.presentation && 'inactive'}`} 
                                 onClick={()=>{
-                                    window.open(lesson.presentation,'_blank'); 
+                                    window.open(lesson.presentation); 
                                 }}>
                             Презентація
                         </button>
