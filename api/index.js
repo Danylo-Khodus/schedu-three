@@ -514,7 +514,7 @@ app.delete('/api/notifications', async (req, res) => {
 });
 
 app.get('/api/schedule_test', async (req, res) => {
-    const lessons = await Lesson.find({date:'2023-10-25'});
+    const lessons = await Lesson.find({date:'2023-10-26'});
     res.json(lessons);
 });
 
