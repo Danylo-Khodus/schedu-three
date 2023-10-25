@@ -513,4 +513,9 @@ app.delete('/api/notifications', async (req, res) => {
 
 });
 
+app.get('/api/schedule_test', async (req, res) => {
+    const lessons = await Lesson.find({});
+    res.json(lessons);
+});
+
 app.listen(4000);
