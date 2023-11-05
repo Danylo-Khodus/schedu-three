@@ -174,10 +174,6 @@ main.welcome {
   background-color: var(--clr-green);
 }
 
-.status__dot.last::after {
-  display: none;
-}
-
 .status__dot.soon {
   border: 4px solid var(--clr-yellow);
 }
@@ -190,6 +186,10 @@ main.welcome {
 .status__dot.finished {
   background-color: var(--clr-green);
   border: 4px solid var(--clr-green);
+}
+
+.lesson__wrapper:last-child .status__dot::after {
+  display: none;
 }
 
 .lesson {

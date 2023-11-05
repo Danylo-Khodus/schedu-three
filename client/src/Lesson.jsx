@@ -2,7 +2,7 @@ import {format} from 'date-fns';
 import { UserContext } from './UserContext';
 import { useContext, useState } from "react";
 
-export default function Lesson ({lesson, last, handleCallback}) {
+export default function Lesson ({lesson, handleCallback}) {
 
     const {userInfo} = useContext(UserContext);
 
@@ -27,7 +27,7 @@ export default function Lesson ({lesson, last, handleCallback}) {
         <>
             {lesson.subject ? 
                 <div className='lesson__wrapper' onClick={()=>{handleCallback({lesson, status})}}>
-                    <div className={`status__dot ${status} ${last && 'last'}`}></div>
+                    <div className={`status__dot ${status}`}></div>
                     <div className='lesson'>
                         <div className="lesson__preview">
                             <div className="name">

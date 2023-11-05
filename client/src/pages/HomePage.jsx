@@ -17,8 +17,6 @@ export default function HomePage() {
 
     // GETTING SCHEDULE
 
-    const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
@@ -35,17 +33,17 @@ export default function HomePage() {
 
     // FILTERING THE DATA
 
+    const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+
     const lessons = schedule.filter((ev)=>{
         if (ev.date.includes(selectedDate)) {
             return (ev);
         }
     });
 
-    const [first] = lessons;
-
-    const lastLesson = lessons.length > 1 && lessons.pop();
-
     // DISPLAYING LESSON INFO
+
+    const [first] = lessons;
 
     const [opened, setOpened] = useState(false);
 
@@ -71,7 +69,7 @@ export default function HomePage() {
                                     <div className='lessons__wrapper'>
                                         <div className='lessons'>
                                             {lessons.map((info)=>
-                                                <Lesson key={info._id} lesson={info} last={lessons.length > 1 ? false : true}
+                                                <Lesson key={info._id} lesson={info}
                                                         handleCallback={({lesson, status})=>{
                                                             setEdit(false);
                                                             setLesson(lesson); 
@@ -80,14 +78,6 @@ export default function HomePage() {
                                                         }}
                                                 />
                                             )}
-                                            <Lesson key={lastLesson._id} lesson={lastLesson} last={true}
-                                                        handleCallback={({lesson, status})=>{
-                                                            setEdit(false);
-                                                            setLesson(lesson);
-                                                            setStatus(status);
-                                                            setOpened(true);
-                                                        }}
-                                            />
                                         </div>
                                         <LessonInfo opened={opened} 
                                                     status={status} 
