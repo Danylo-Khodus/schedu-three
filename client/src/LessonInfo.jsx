@@ -111,9 +111,13 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
                     </div>
                     <div className="info">
                         {!edit ?
-                            <>
+                            <>  
                                 <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
-                                <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                                { !lesson.theme ? 
+                                    <></>
+                                    :
+                                    <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                                }
                             </>
                         :
                             <>
