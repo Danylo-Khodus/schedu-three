@@ -113,7 +113,7 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
                         {!edit ?
                             <>  
                                 <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
-                                { !lesson.theme === '' ? 
+                                { lesson.theme === '' ? 
                                     <></>
                                     :
                                     <p><strong>Тема:</strong><br/>{lesson.theme}</p>
