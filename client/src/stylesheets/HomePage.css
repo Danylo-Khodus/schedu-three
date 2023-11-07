@@ -241,7 +241,7 @@ main.welcome {
 }
 
 .lesson__info {
-  height: calc(100vh - 130px);
+  height: calc(100vh - 128px);
   width: 100%;
   top: -59px;
   left: 425px;
