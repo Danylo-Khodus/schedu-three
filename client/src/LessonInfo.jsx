@@ -77,7 +77,7 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
 
     return (
         <div className={`lesson__info ${opened && 'shown'}`}>
-            {(userInfo?.perm === 'teacher' && userInfo?.id === lesson.teacher_id) ? 
+            {(userInfo?.perm === 'teacher' && userInfo?.id === lesson.teacher_id) || userInfo?.perm === 'admin' ? 
                 <>
                     <div className="absolute__buttons">
                         {!edit ?
@@ -111,9 +111,13 @@ export default function LessonInfo ({opened, status, edit, data, handleEdit, han
                     </div>
                     <div className="info">
                         {!edit ?
-                            <>
+                            <>  
                                 <p><strong>Викладач:</strong><br/>{lesson.teacher}</p>
-                                <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                                { lesson.theme === '' ? 
+                                    <></>
+                                    :
+                                    <p><strong>Тема:</strong><br/>{lesson.theme}</p>
+                                }
                             </>
                         :
                             <>
