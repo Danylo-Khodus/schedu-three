@@ -351,14 +351,14 @@ app.put('/api/schedule', async (req,res) => {
 
                 const presentation = 
                     lesson.presentation !== '' ? 
-                        (lesson.presentation.includes('https://') ? lesson.presentation : 'https://' + lesson.presentation) 
+                        ((lesson.presentation.includes('https://') || lesson.presentation.includes('http://')) ? lesson.presentation : 'https://' + lesson.presentation) 
                         : 
                         lesson.presentation
                 ;
 
                 const link = 
                     lesson.link !== '' ? 
-                        (lesson.link.includes('https://') ? lesson.link : 'https://' + lesson.link) 
+                        ((lesson.link.includes('https://') || lesson.link.includes('http://')) ? lesson.link : 'https://' + lesson.link) 
                         : 
                         lesson.link
                 ;
